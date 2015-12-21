@@ -1,3 +1,3 @@
-# hvzsite
+# Humans vs Zombies
 
-a [Sails](http://sailsjs.org) application
+A work in progress
