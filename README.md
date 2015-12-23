@@ -1,5 +1,9 @@
 # Humans vs Zombies
 
+__This version of the website is unfinished! If you want to see working code,
+checkout the [old version](https://github.com/redxdev/hvzsite) written in
+PHP.__
+
 This is the next-generation version of the website used by the Rochester
 Institute of Technology's Humans vs Zombies club.
 
