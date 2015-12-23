@@ -31,14 +31,8 @@ module.exports = {
 
     access: {
       type: 'string',
+      enum: ['player', 'mod', 'admin', 'superadmin'],
       defaultsTo: 'player'
-    },
-
-    signupDate: {
-      type: 'datetime',
-      defaultsTo: function() {
-        return new Date();
-      }
     },
 
     team: {
@@ -53,7 +47,12 @@ module.exports = {
       unique: true
     },
 
-    humanIds: {
+    activeHumanIds: {
+      type: 'array',
+      defaultsTo: []
+    },
+
+    inactiveHumanIds: {
       type: 'array',
       defaultsTo: []
     },
