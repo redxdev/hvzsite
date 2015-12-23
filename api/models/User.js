@@ -35,6 +35,13 @@ module.exports = {
       defaultsTo: 'player'
     },
 
+    signupDate: {
+      type: 'datetime',
+      defaultsTo: function () {
+        return new Date();
+      }
+    },
+
     team: {
       type: 'string',
       enum: ['human', 'zombie'],

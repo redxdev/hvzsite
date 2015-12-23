@@ -80,8 +80,14 @@ module.exports = {
    * 'development' environment.                                              *
    ***************************************************************************/
 
-   // environment: process.env.NODE_ENV || 'development',
+   // environment: process.env.NODE_ENV || 'development'
 
-   connection: 'localDiskDb'
+  models: {
+    connection: 'localDiskDb'
+  },
+
+  session: {
+    secret: 'CHANGE-ME'
+  }
 
 };

@@ -21,7 +21,7 @@ module.exports.session = {
   * of your users, forcing them to log in again.                             *
   *                                                                          *
   ***************************************************************************/
-  secret: 'bd25d623d8d25b2a52d03ee1688b10ab',
+  secret: 'CHANGE-ME-IN-local.js',
 
 
   /***************************************************************************
