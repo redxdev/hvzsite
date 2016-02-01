@@ -1,26 +1,26 @@
 module.exports = {
 
-  attributes: {
-    title: {
-      type: 'string'
-    },
+    attributes: {
+        title: {
+            type: 'string'
+        },
 
-    body: {
-      type: 'text'
-    },
+        body: {
+            type: 'text'
+        },
 
-    postDate: {
-      type: 'datetime',
-      defaultsTo: function () {
-        return new Date();
-      }
-    },
+        postDate: {
+            type: 'datetime',
+            defaultsTo: function () {
+                return new Date();
+            }
+        },
 
-    team: {
-      type: 'string',
-      enum: ['all', 'human', 'zombie'],
-      defaultsTo: 'all'
+        team: {
+            type: 'string',
+            enum: ['all', 'human', 'zombie'],
+            defaultsTo: 'all'
+        }
     }
-  }
 };
 
