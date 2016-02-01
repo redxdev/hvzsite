@@ -22,7 +22,7 @@ Once global packages are installed, run the following to install dependencies:
     npm install
     bower install
 
-To configure the website, copy `config/local.js.dist` to `config/local/js`.
+To configure the website, copy `config/local.js.dist` to `config/local.js`.
 Edit this file, and add any additional settings you may need to it. You can
 also edit other files in the config directory, but note that all options
 are overridden by entries in `local.js`.
