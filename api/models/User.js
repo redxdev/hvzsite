@@ -13,8 +13,7 @@ module.exports = {
 
         authMethod: {
             type: 'string',
-            enum: ['saml', 'google'],
-            defaultsTo: 'saml'
+            defaultsTo: 'google'
         },
 
         apiKey: {
