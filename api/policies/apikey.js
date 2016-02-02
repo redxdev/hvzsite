@@ -1,14 +1,10 @@
 module.exports = function (req, res, next) {
     if (req.isAuthenticated()) {
-        if (!req.user.active) {
-            return res.forbidden("Your account is not active.")
-        }
-
         return next();
     }
 
     if (req.query.apikey == undefined) {
-        return res.unauthorized("No authentication");
+        return next();
     }
 
     AuthService.getUser(req.query.apikey)
@@ -19,16 +15,12 @@ module.exports = function (req, res, next) {
                         return res.badRequest(err);
                     }
 
-                    if (!user.active) {
-                        return res.forbidden("Your account is not active.");
-                    }
-
                     return next();
                 });
             }
             else
-                return res.unauthorized("Invalid API key");
+                return next();
         }, function (err) {
-            return res.unauthorized(err);
+            return next();
         });
 }

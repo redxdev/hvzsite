@@ -36,9 +36,13 @@ module.exports.routes = {
         view: 'homepage'
     },
 
-    // AuthController
-    'get /auth/apikey': 'AuthController.apiKey',
-
+    // AuthController Login
     'get /auth/l/google': 'AuthController.loginGoogle',
-    'get /auth/c/google': 'AuthController.callbackGoogle'
+    'get /auth/c/google': 'AuthController.callbackGoogle',
+
+    // AuthController
+    'get /api/v2/auth/apikey': 'AuthController.apiKey',
+
+    // ProfileController
+    'get /api/v2/profile': 'ProfileController.index'
 };

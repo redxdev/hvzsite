@@ -23,14 +23,9 @@ module.exports = {
             index: true
         },
 
-        active: {
-            type: 'boolean',
-            defaultsTo: false
-        },
-
         access: {
             type: 'string',
-            enum: ['player', 'mod', 'admin', 'superadmin'],
+            enum: ['inactive', 'player', 'mod', 'admin', 'superadmin'],
             defaultsTo: 'player'
         },
 

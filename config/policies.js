@@ -19,7 +19,11 @@
 
 module.exports.policies = {
     AuthController: {
-        apiKey: 'activeAccount'
+        apiKey: ['isActive']
+    },
+
+    ProfileController: {
+        index: ['apikey', 'isActive']
     }
 
     /***************************************************************************

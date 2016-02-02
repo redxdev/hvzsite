@@ -91,6 +91,19 @@ passport.use('google', new GoogleStrategy({
     }
 ));
 
+function getPermissionLevel(role) {
+    if (typeof role == 'object')
+        role = role.access;
+
+    if (typeof role == 'string')
+        role = sails.config.permissions[role];
+
+    if (role == undefined)
+        return sails.config.permissions.unknown;
+
+    return role;
+}
+
 //
 // Exports
 //
@@ -111,5 +124,11 @@ module.exports = {
                 }
             })
         });
+    },
+    getPermissionLevel: getPermissionLevel,
+    hasPermission: function (role, minRole) {
+        role = getPermissionLevel(role);
+        minRole = getPermissionLevel(minRole);
+        return role >= minRole && minRole > sails.config.permissions.unknown;
     }
 };
