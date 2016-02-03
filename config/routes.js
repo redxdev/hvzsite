@@ -39,6 +39,7 @@ module.exports.routes = {
     // AuthController Login
     'get /auth/l/google': 'AuthController.loginGoogle',
     'get /auth/c/google': 'AuthController.callbackGoogle',
+    'get /auth/logout': 'AuthController.logout',
 
     // AuthController
     'get /api/v2/auth/apikey': 'AuthController.apiKey',

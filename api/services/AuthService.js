@@ -74,12 +74,30 @@ passport.use('google', new GoogleStrategy({
                 done(err);
             }
             else if (user == undefined) {
-                createUser(name, email, 'google')
-                    .then(function (user) {
-                        done(null, user);
-                    }, function (err) {
-                        done(err);
-                    });
+                var ok = false;
+                if (sails.config.auth.signupDomains.length == 0)
+                    ok = true;
+                else {
+                    for (var i = 0; i < sails.config.auth.signupDomains.length; ++i) {
+                        var domain = sails.config.auth.signupDomains[i];
+                        if (StringUtil.endsWith(email, domain)) {
+                            ok = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (ok) {
+                    createUser(name, email, 'google')
+                        .then(function (user) {
+                            done(null, user);
+                        }, function (err) {
+                            done(err);
+                        });
+                }
+                else {
+                    done(new Error("You cannot sign up using " + email + " as your email. Contact an administrator!"));
+                }
             }
             else if (user.authMethod !== 'google') {
                 done(new Error("Cannot authenticate using method 'google'"));

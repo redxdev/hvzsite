@@ -93,6 +93,7 @@ module.exports = {
     url: "http://localhost:1337/",
 
     auth: {
+        signupDomains: ['g.rit.edu', 'rit.edu'], // leave empty if you don't want to restrict signup
         google: {
             clientId: "CHANGE-ME",
             clientSecret: "CHANGE-ME"

@@ -1,6 +1,11 @@
 var passport = require('passport');
 
 module.exports = {
+    logout: function (req, res) {
+        req.logout();
+        res.redirect('/');
+    },
+
     apiKey: function (req, res) {
         var user = req.user;
         if (!user) {
@@ -19,7 +24,7 @@ module.exports = {
     callbackGoogle: function (req, res) {
         passport.authenticate('google', {failureRedirect: '/error'}, function (err, user) {
             if (err || !user) {
-                return res.badRequest(err);
+                return res.badRequest("There was a problem logging you in.");
             }
 
             req.logIn(user, function (err) {
@@ -27,7 +32,7 @@ module.exports = {
                     return res.badRequest(err);
                 }
 
-                res.redirect('/ok');
+                res.redirect('/');
             });
         })(req, res);
     }
