@@ -9,10 +9,10 @@ module.exports = {
     apiKey: function (req, res) {
         var user = req.user;
         if (!user) {
-            return res.unauthorized("You are not logged in!");
+            return res.unauthorized({message: "You are not logged in!"});
         }
         else if (!user.active) {
-            return res.forbidden("Your account must be activated by a moderator.");
+            return res.forbidden({message: "Your account must be activated by a moderator."});
         }
         else {
             return res.ok({key: user.apiKey});
@@ -24,7 +24,7 @@ module.exports = {
     callbackGoogle: function (req, res) {
         passport.authenticate('google', {failureRedirect: '/error'}, function (err, user) {
             if (err || !user) {
-                return res.badRequest("There was a problem logging you in.");
+                return res.badRequest({message: "There was a problem logging you in."});
             }
 
             req.logIn(user, function (err) {

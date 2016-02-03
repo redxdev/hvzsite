@@ -26,7 +26,7 @@ module.exports = {
         access: {
             type: 'string',
             enum: ['inactive', 'player', 'mod', 'admin', 'superadmin'],
-            defaultsTo: 'player'
+            defaultsTo: 'inactive'
         },
 
         signupDate: {
@@ -71,6 +71,12 @@ module.exports = {
         printed: {
             type: 'boolean',
             defaultsTo: false
+        },
+
+        clan: {
+            type: 'string',
+            size: 32,
+            defaultsTo: ''
         }
     }
 };

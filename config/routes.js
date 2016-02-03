@@ -45,5 +45,7 @@ module.exports.routes = {
     'get /api/v2/auth/apikey': 'AuthController.apiKey',
 
     // ProfileController
-    'get /api/v2/profile': 'ProfileController.index'
+    'get /api/v2/profile': 'ProfileController.mine',
+    'get /api/v2/profile/:id': 'ProfileController.other',
+    'post /api/v2/profile/clan': 'ProfileController.setClan'
 };

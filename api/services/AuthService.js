@@ -17,6 +17,8 @@ passport.deserializeUser(function (id, done) {
 });
 
 function createUser(name, email, authMethod) {
+    sails.log.info('Creating user "' + name + '" with email "' + email + '", using auth method ' + authMethod);
+
     return new Promise(function (resolve, reject) {
         Promise.join(
             TagGenerator.apiKey(),

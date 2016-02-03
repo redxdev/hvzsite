@@ -3,11 +3,11 @@ module.exports = function (req, res, next) {
         return next();
     }
 
-    if (req.query.apikey == undefined) {
+    if (req.param('apikey') == undefined) {
         return next();
     }
 
-    AuthService.getUser(req.query.apikey)
+    AuthService.getUser(req.param('apikey'))
         .then(function (user) {
             if (user) {
                 req.logIn(user, function (err) {
@@ -19,7 +19,7 @@ module.exports = function (req, res, next) {
                 });
             }
             else
-                return next();
+                return res.unauthorized("Invalid API key");
         }, function (err) {
             return next();
         });
