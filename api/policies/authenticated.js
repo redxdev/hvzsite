@@ -3,5 +3,5 @@ module.exports = function (req, res, next) {
         return next();
     }
 
-    return res.unauthorized("You are not logged in!");
+    return res.unauthorized({message: "You are not logged in!"});
 }

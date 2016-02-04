@@ -24,7 +24,7 @@ module.exports = {
             }
 
             if (found == null || !AuthService.hasPermission(found, 'player')) {
-                return res.notFound("Unknown user id " + id);
+                return res.notFound({message: "Unknown user id " + id});
             }
 
             res.ok({
@@ -41,12 +41,12 @@ module.exports = {
 
     setClan: function (req, res) {
         if (req.param('name') === undefined) {
-            return res.badRequest("'name' parameter not specified");
+            return res.badRequest({message: "'name' parameter not specified"});
         }
 
         var name = req.param('name');
         if (name.length > 32) {
-            return res.badRequest("Clan name must be 32 characters or less.");
+            return res.badRequest({message: "Clan name must be 32 characters or less."});
         }
 
         req.user.clan = name;
@@ -55,7 +55,7 @@ module.exports = {
                 return res.serverError(err);
             }
 
-            res.ok('Clan name set to "' + name + '"');
+            res.ok({message: 'Clan name set to "' + name + '"'});
         });
     }
 }

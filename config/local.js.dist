@@ -98,6 +98,10 @@ module.exports = {
             clientId: "CHANGE-ME",
             clientSecret: "CHANGE-ME"
         }
-    }
+    },
 
+    hvz: {
+        startDate: new Date(2016, 2, 1, 21, 0, 0, 0),
+        endDate: new Date(2016, 2, 5, 21, 0, 0, 0)
+    }
 };

@@ -77,6 +77,15 @@ module.exports = {
             type: 'string',
             size: 32,
             defaultsTo: ''
+        },
+
+        failures: {
+            type: 'integer',
+            defaultsTo: 0
+        },
+
+        maxFailures: {
+            type: 'integer'
         }
     }
 };

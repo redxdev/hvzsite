@@ -19,7 +19,7 @@ module.exports = function (req, res, next) {
                 });
             }
             else
-                return res.unauthorized("Invalid API key");
+                return res.unauthorized({message: "Invalid API key"});
         }, function (err) {
             return next();
         });

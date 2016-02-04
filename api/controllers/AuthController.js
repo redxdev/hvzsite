@@ -1,5 +1,7 @@
 var passport = require('passport');
 
+// TODO: Redirect to error pages
+
 module.exports = {
     logout: function (req, res) {
         req.logout();
@@ -23,8 +25,12 @@ module.exports = {
     loginGoogle: passport.authenticate('google', {scope: ['profile', 'email']}),
     callbackGoogle: function (req, res) {
         passport.authenticate('google', {failureRedirect: '/error'}, function (err, user) {
-            if (err || !user) {
-                return res.badRequest({message: "There was a problem logging you in."});
+            if (err) {
+                return res.badRequest({message: err.message});
+            }
+
+            if (!user) {
+                return res.serverError({message: "There was a problem logging you in."})
             }
 
             req.logIn(user, function (err) {
@@ -32,8 +38,23 @@ module.exports = {
                     return res.badRequest(err);
                 }
 
-                res.redirect('/');
+                res.redirect('/'); // TODO: Flash message
             });
+        })(req, res);
+    },
+
+    registerGoogle: passport.authenticate('google-register', {scope: ['profile', 'email']}),
+    callbackRegisterGoogle: function (req, res) {
+        passport.authenticate('google-register', {failureRedirect: '/error'}, function (err, user) {
+            if (err) {
+                return res.badRequest({message: err.message});
+            }
+
+            if (!user) {
+                return res.serverError({message: "There was a problem creating your account."})
+            }
+
+            res.redirect('/'); // TODO: Flash message
         })(req, res);
     }
 }

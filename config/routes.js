@@ -36,12 +36,18 @@ module.exports.routes = {
         view: 'homepage'
     },
 
-    // AuthController Login
-    'get /auth/l/google': 'AuthController.loginGoogle',
-    'get /auth/c/google': 'AuthController.callbackGoogle',
-    'get /auth/logout': 'AuthController.logout',
+    // StatusController
+    'get /api/v2/status/dates': 'StatusController.dates',
+    'get /api/v2/status/score': 'StatusController.score',
 
     // AuthController
+    'get /auth/l/google': 'AuthController.loginGoogle',
+    'get /auth/c/google': 'AuthController.callbackGoogle',
+    'get /auth/r/google': 'AuthController.registerGoogle',
+    'get /auth/rc/google': 'AuthController.callbackRegisterGoogle',
+
+    'get /auth/logout': 'AuthController.logout',
+
     'get /api/v2/auth/apikey': 'AuthController.apiKey',
 
     // ProfileController
