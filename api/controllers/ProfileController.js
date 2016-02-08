@@ -34,7 +34,8 @@ module.exports = {
                 team: found.team,
                 humansTagged: found.humansTagged,
                 badges: found.badges,
-                clan: found.clan
+                clan: found.clan,
+                access: found.access
             });
         });
     },

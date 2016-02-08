@@ -56,10 +56,12 @@ module.exports = {
             q.where({clan: {'!': ['']}});
 
         if (search !== undefined) {
-            q.where({ or: [
-                {name: {'contains': search}},
-                {clan: {'contains': search}}
-            ]});
+            q.where({
+                or: [
+                    {name: {'contains': search}},
+                    {clan: {'contains': search}}
+                ]
+            });
         }
 
         q.exec(function (err, users) {
@@ -68,26 +70,43 @@ module.exports = {
             }
             else {
                 var result = [];
-                for (var i = 0; i < users.length; ++i) {
-                    var user = users[i];
-                    result.push({
+                res.ok(users.map(function (user) {
+                    return {
                         id: user.id,
                         name: user.name,
                         signupDate: user.signupDate,
                         team: user.team,
                         humansTagged: user.humansTagged,
                         badges: user.badges,
-                        clan: user.clan
-                    });
-                }
-
-                res.ok(result);
+                        clan: user.clan,
+                        access: user.access
+                    }
+                }));
             }
         });
     },
 
     moderators: function (req, res) {
-        // TODO
-        res.serverError("TODO");
+        User.find({
+            access: ['mod', 'admin', 'superadmin']
+        }).exec(function (err, users) {
+            if (err) {
+                res.serverError(err);
+            }
+            else {
+                res.ok(users.map(function (user) {
+                    return {
+                        id: user.id,
+                        name: user.name,
+                        signupDate: user.signupDate,
+                        team: user.team,
+                        humansTagged: user.humansTagged,
+                        badges: user.badges,
+                        clan: user.clan,
+                        access: user.access
+                    }
+                }));
+            }
+        });
     }
 };
