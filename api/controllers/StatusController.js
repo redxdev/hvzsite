@@ -65,25 +65,28 @@ module.exports = {
         }
 
         q.exec(function (err, users) {
-            if (err) {
-                res.serverError(err);
+                if (err) {
+                    res.serverError(err);
+                }
+                else {
+                    var result = [];
+                    res.ok({
+                        players: users.map(function (user) {
+                            return {
+                                id: user.id,
+                                name: user.name,
+                                signupDate: user.signupDate,
+                                team: user.team,
+                                humansTagged: user.humansTagged,
+                                badges: user.badges,
+                                clan: user.clan,
+                                access: user.access
+                            }
+                        })
+                    });
+                }
             }
-            else {
-                var result = [];
-                res.ok(users.map(function (user) {
-                    return {
-                        id: user.id,
-                        name: user.name,
-                        signupDate: user.signupDate,
-                        team: user.team,
-                        humansTagged: user.humansTagged,
-                        badges: user.badges,
-                        clan: user.clan,
-                        access: user.access
-                    }
-                }));
-            }
-        });
+        );
     },
 
     moderators: function (req, res) {
@@ -94,18 +97,20 @@ module.exports = {
                 res.serverError(err);
             }
             else {
-                res.ok(users.map(function (user) {
-                    return {
-                        id: user.id,
-                        name: user.name,
-                        signupDate: user.signupDate,
-                        team: user.team,
-                        humansTagged: user.humansTagged,
-                        badges: user.badges,
-                        clan: user.clan,
-                        access: user.access
-                    };
-                }));
+                res.ok({
+                    players: users.map(function (user) {
+                        return {
+                            id: user.id,
+                            name: user.name,
+                            signupDate: user.signupDate,
+                            team: user.team,
+                            humansTagged: user.humansTagged,
+                            badges: user.badges,
+                            clan: user.clan,
+                            access: user.access
+                        };
+                    })
+                });
             }
         });
     },
@@ -118,23 +123,24 @@ module.exports = {
                 res.serverError(err);
             }
             else {
-                res.ok(infections.map(function (infection) {
-                    console.log(infection);
-                    return {
-                        time: infection.time,
-                        hasLocation: infection.hasLocation,
-                        latitude: infection.latitude,
-                        longitude: infection.longitude,
-                        zombie: {
-                            id: infection.zombie.id,
-                            name: infection.zombie.name
-                        },
-                        human: {
-                            id: infection.human.id,
-                            name: infection.human.name
-                        }
-                    };
-                }));
+                res.ok({
+                    infections: infections.map(function (infection) {
+                        return {
+                            time: infection.time,
+                            hasLocation: infection.hasLocation,
+                            latitude: infection.latitude,
+                            longitude: infection.longitude,
+                            zombie: {
+                                id: infection.zombie.id,
+                                name: infection.zombie.name
+                            },
+                            human: {
+                                id: infection.human.id,
+                                name: infection.human.name
+                            }
+                        };
+                    })
+                });
             }
         });
     }

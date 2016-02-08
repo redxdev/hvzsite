@@ -2,7 +2,8 @@ module.exports = {
 
     attributes: {
         position: {
-            type: 'integer'
+            type: 'integer',
+            defaultsTo: 0
         },
 
         title: {

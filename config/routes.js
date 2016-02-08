@@ -43,6 +43,9 @@ module.exports.routes = {
     'get /api/v2/status/moderators': 'StatusController.moderators',
     'get /api/v2/status/infections': 'StatusController.infections',
 
+    // ContentController
+    'get /api/v2/content/rules': 'ContentController.rules',
+
     // AuthController
     'get /auth/l/google': 'AuthController.loginGoogle',
     'get /auth/c/google': 'AuthController.callbackGoogle',

@@ -56,6 +56,7 @@ module.exports = {
                 return res.serverError(err);
             }
 
+            sails.log.info("Set " + req.user.email + " clan to " + name);
             res.ok({message: 'Clan name set to "' + name + '"'});
         });
     }
