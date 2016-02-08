@@ -41,6 +41,7 @@ module.exports.routes = {
     'get /api/v2/status/score': 'StatusController.score',
     'get /api/v2/status/players': 'StatusController.players',
     'get /api/v2/status/moderators': 'StatusController.moderators',
+    'get /api/v2/status/infections': 'StatusController.infections',
 
     // AuthController
     'get /auth/l/google': 'AuthController.loginGoogle',

@@ -104,7 +104,36 @@ module.exports = {
                         badges: user.badges,
                         clan: user.clan,
                         access: user.access
-                    }
+                    };
+                }));
+            }
+        });
+    },
+
+    infections: function (req, res) {
+        InfectionSpread.find({
+            sort: {time: 1}
+        }).populate('zombie').populate('human').exec(function (err, infections) {
+            if (err) {
+                res.serverError(err);
+            }
+            else {
+                res.ok(infections.map(function (infection) {
+                    console.log(infection);
+                    return {
+                        time: infection.time,
+                        hasLocation: infection.hasLocation,
+                        latitude: infection.latitude,
+                        longitude: infection.longitude,
+                        zombie: {
+                            id: infection.zombie.id,
+                            name: infection.zombie.name
+                        },
+                        human: {
+                            id: infection.human.id,
+                            name: infection.human.name
+                        }
+                    };
                 }));
             }
         });
