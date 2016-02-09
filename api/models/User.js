@@ -92,6 +92,13 @@ module.exports = {
                 clan: this.clan,
                 access: this.access
             };
+        },
+
+        addBadge: function (id) {
+            if (sails.config.badges.registry[id] === undefined)
+                sails.log.warn("Applying unknown badge " + id + " to " + this.email);
+
+            this.badges.push(id);
         }
     }
 };
