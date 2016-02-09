@@ -72,16 +72,7 @@ module.exports = {
                     var result = [];
                     res.ok({
                         players: users.map(function (user) {
-                            return {
-                                id: user.id,
-                                name: user.name,
-                                signupDate: user.signupDate,
-                                team: user.team,
-                                humansTagged: user.humansTagged,
-                                badges: user.badges,
-                                clan: user.clan,
-                                access: user.access
-                            }
+                            return user.getPublicData();
                         })
                     });
                 }
@@ -99,16 +90,7 @@ module.exports = {
             else {
                 res.ok({
                     players: users.map(function (user) {
-                        return {
-                            id: user.id,
-                            name: user.name,
-                            signupDate: user.signupDate,
-                            team: user.team,
-                            humansTagged: user.humansTagged,
-                            badges: user.badges,
-                            clan: user.clan,
-                            access: user.access
-                        };
+                        return user.getPublicData();
                     })
                 });
             }
@@ -126,7 +108,7 @@ module.exports = {
                 res.ok({
                     infections: infections.map(function (infection) {
                         return {
-                            time: infection.time,
+                            time: infection.createdAt,
                             hasLocation: infection.hasLocation,
                             latitude: infection.latitude,
                             longitude: infection.longitude,

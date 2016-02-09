@@ -29,13 +29,6 @@ module.exports = {
             defaultsTo: 'inactive'
         },
 
-        signupDate: {
-            type: 'datetime',
-            defaultsTo: function () {
-                return new Date();
-            }
-        },
-
         team: {
             type: 'string',
             enum: ['human', 'zombie'],
@@ -86,6 +79,19 @@ module.exports = {
 
         maxFailures: {
             type: 'integer'
+        },
+
+        getPublicData: function() {
+            return {
+                id: this.id,
+                name: this.name,
+                signupDate: this.createdAt,
+                team: this.team,
+                humansTagged: this.humansTagged,
+                badges: this.badges,
+                clan: this.clan,
+                access: this.access
+            };
         }
     }
 };

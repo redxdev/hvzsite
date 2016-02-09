@@ -45,6 +45,9 @@ module.exports.routes = {
 
     // ContentController
     'get /api/v2/content/rules': 'ContentController.rules',
+    'get /api/v2/content/news': 'ContentController.news',
+    'get /api/v2/content/announcements': 'ContentController.announcements',
+    'get /api/v2/content/missions': 'ContentController.missions',
 
     // AuthController
     'get /auth/l/google': 'AuthController.loginGoogle',

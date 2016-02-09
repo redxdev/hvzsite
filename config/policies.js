@@ -25,8 +25,11 @@ module.exports.policies = {
 
     ProfileController: {
         mine: ['apikey', 'isActive'],
-        other: [],
         setClan: ['apikey', 'isActive']
+    },
+
+    ContentController: {
+        missions: ['apikey', 'isActive']
     }
 
     /***************************************************************************

@@ -1,13 +1,6 @@
 module.exports = {
 
     attributes: {
-        time: {
-            type: 'datetime',
-            defaultsTo: function () {
-                return new Date()
-            }
-        },
-
         hasLocation: {
             type: 'boolean',
             defaultsTo: false
