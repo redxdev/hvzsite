@@ -41,14 +41,9 @@ module.exports = {
             unique: true
         },
 
-        activeHumanIds: {
-            type: 'array',
-            defaultsTo: []
-        },
-
-        inactiveHumanIds: {
-            type: 'array',
-            defaultsTo: []
+        humanIds: {
+            collection: 'humanid',
+            via: 'user'
         },
 
         humansTagged: {
@@ -78,7 +73,8 @@ module.exports = {
         },
 
         maxFailures: {
-            type: 'integer'
+            type: 'integer',
+            defaultsTo: 100
         },
 
         getPublicData: function() {

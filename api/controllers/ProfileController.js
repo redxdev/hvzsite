@@ -1,5 +1,11 @@
 module.exports = {
     mine: function (req, res) {
+        var humanIds = [];
+        for (var i = 0; i < req.user.humanIds.length; ++i) {
+            var id = req.user.humanIds[i];
+            humanIds.push({id: id.idString, active: id.active});
+        }
+
         res.ok({
             id: req.user.id,
             name: req.user.name,
@@ -8,8 +14,7 @@ module.exports = {
             signupDate: req.user.signupDate,
             team: req.user.team,
             zombieId: req.user.zombieId,
-            activeHumanIds: req.user.activeHumanIds,
-            inactiveHumanIds: req.user.inactiveHumanIds,
+            humanIds: humanIds,
             humansTagged: req.user.humansTagged,
             badges: req.user.badges,
             clan: req.user.clan
@@ -27,16 +32,7 @@ module.exports = {
                 return res.notFound({message: "Unknown user id " + id});
             }
 
-            res.ok({
-                id: found.id,
-                name: found.name,
-                signupDate: found.signupDate,
-                team: found.team,
-                humansTagged: found.humansTagged,
-                badges: found.badges,
-                clan: found.clan,
-                access: found.access
-            });
+            res.ok(found.getPublicData());
         });
     },
 

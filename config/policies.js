@@ -30,6 +30,10 @@ module.exports.policies = {
 
     ContentController: {
         missions: ['apikey', 'isActive']
+    },
+
+    GameController: {
+        infect: ['apikey', 'isActive', 'preventFailed']
     }
 
     /***************************************************************************

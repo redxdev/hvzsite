@@ -4,7 +4,7 @@ var Promise = require('bluebird');
 module.exports = {
     apiKey: function () {
         return new Promise(function (resolve, reject) {
-            var result = randomstring.generate(32, "alphanumeric");
+            var result = randomstring.generate({length: 32, charset: "alphanumeric"});
             User.findOne({apiKey: result}, function (err, found) {
                 if (err) {
                     reject(err);
@@ -23,7 +23,7 @@ module.exports = {
 
     tag: function () {
         return new Promise(function (resolve, reject) {
-            var result = randomstring.generate(8, "abcdefghjkmnpqrstuvwxyz234567890");
+            var result = randomstring.generate({length: 8, charset: "abcdefghjkmnpqrstuvwxyz234567890"});
             User.findOne({zombieId: result}, function (err, found) {
                 if (err) {
                     reject(err);

@@ -32,7 +32,7 @@ for (var id in registry) {
 function applyKillstreak(recent, streak, badge, zombie) {
     var available = [];
     recent.forEach(function (infection) {
-        if (infection.killstreaks.indexOf(streak) === -1) {
+        if (!(infection.killstreaks.length > streak && infection.killstreaks[streak] === true)) {
             available.push(infection);
         }
     });
@@ -72,10 +72,10 @@ module.exports = {
 
             InfectionSpread.findOne({
                 createdAt: {
-                    '<=': now,
-                    '>=': moment().subtract(1, 'hours').toDate()
+                    '<': now,
+                    '>': moment().subtract(1, 'hours').toDate()
                 },
-                human: zombie
+                human: zombie.id
             }).exec(function (err, found) {
                 if (err) {
                     return reject(err);
@@ -87,25 +87,23 @@ module.exports = {
                 InfectionSpread.find({
                     createdAt: {
                         '<=': now,
-                        '>=': moment().subtract(1, 'hours').toDate()
+                        '>=': moment().subtract(10, 'hours').toDate()
                     },
-                    zombie: zombie
+                    zombie: zombie.id
                 }).exec(function (err, infections) {
                     if (err) {
                         return reject(err);
                     }
 
-                    infections.push(newInfection);
-
-                    applyKillstreak(infections, 2, 'streak-2', zombie);
-                    applyKillstreak(infections, 3, 'streak-3', zombie);
-                    applyKillstreak(infections, 4, 'streak-4', zombie);
-                    applyKillstreak(infections, 5, 'streak-5', zombie);
-                    applyKillstreak(infections, 6, 'streak-6', zombie);
-                    applyKillstreak(infections, 7, 'streak-7', zombie);
-                    applyKillstreak(infections, 8, 'streak-8', zombie);
-                    applyKillstreak(infections, 9, 'streak-9', zombie);
-                    applyKillstreak(infections, 10, 'streak-10', zombie);
+                    applyKillstreak(infections, 2, 'streak2', zombie);
+                    applyKillstreak(infections, 3, 'streak3', zombie);
+                    applyKillstreak(infections, 4, 'streak4', zombie);
+                    applyKillstreak(infections, 5, 'streak5', zombie);
+                    applyKillstreak(infections, 6, 'streak6', zombie);
+                    applyKillstreak(infections, 7, 'streak7', zombie);
+                    applyKillstreak(infections, 8, 'streak8', zombie);
+                    applyKillstreak(infections, 9, 'streak9', zombie);
+                    applyKillstreak(infections, 10, 'streak10', zombie);
 
                     infections.forEach(function (infection) {
                         infection.save({populate: false});

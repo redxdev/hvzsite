@@ -1,5 +1,119 @@
-module.exports = {
-    infect: function (res, req) {
+var Promise = require('bluebird');
 
+module.exports = {
+    infect: function (req, res) {
+        var errors = [];
+
+        var humanId = req.param('human');
+        var zombieId = req.param('zombie');
+
+        var hasLocation = req.param('location') || false;
+        var latitude = req.param('latitude');
+        var longitude = req.param('longitude');
+
+        if (!humanId) {
+            errors.push("Missing parameter 'human'");
+        }
+
+        if (!zombieId) {
+            errors.push("Missing parameter 'zombie'");
+        }
+
+        if (hasLocation && (!latitude || !longitude)) {
+            errors.push("Missing latitude or longitude when specifying location");
+        }
+
+        if (errors.length > 0) {
+            return res.badRequest({
+                message: "There was an error with your request",
+                errors: errors
+            });
+        }
+
+        HumanId.findOne({
+            active: true,
+            idString: humanId
+        }).populate('user').exec(function (err, humanIdObj) {
+            if (err) {
+                res.serverError(err);
+            }
+            else {
+                User.findOne({
+                    team: 'zombie',
+                    zombieId: zombieId
+                }).exec(function (err, zombie) {
+                    if (err) {
+                        res.serverError(err);
+                    }
+                    else {
+                        var shouldCauseFailure = false;
+
+                        if (humanIdObj === undefined || !AuthService.hasPermission(humanIdObj.user, 'player')) {
+                            errors.push("Invalid human id");
+                            shouldCauseFailure = true;
+                        }
+
+                        if (humanIdObj !== undefined && humanIdObj.user.team !== 'human') {
+                            errors.push("The human id entered belongs to a zombie");
+                        }
+
+                        if (zombie == undefined || !AuthService.hasPermission(zombie, 'player')) {
+                            errors.push("Invalid zombie id");
+                            shouldCauseFailure = true;
+                        }
+
+                        if (shouldCauseFailure) {
+                            req.user.failures++;
+                            req.user.save();
+                        }
+
+                        if (errors.length > 0) {
+                            return res.badRequest({
+                                message: "There was an error with your request",
+                                errors: errors
+                            });
+                        }
+
+                        var human = humanIdObj.user;
+
+                        InfectionSpread.create({
+                            hasLocation: hasLocation,
+                            latitude: latitude,
+                            longitude: longitude,
+                            zombie: zombie,
+                            human: human
+                        }, function (err, infection) {
+                            if (err) {
+                                res.serverError(err);
+                            }
+                            else {
+                                BadgeRegistry.processInfectionBadges(human, zombie, infection)
+                                    .then(function () {
+                                        human.team = 'zombie';
+                                        human.save();
+
+                                        humanIdObj.active = false;
+                                        humanIdObj.save();
+
+                                        zombie.humansTagged++;
+                                        zombie.save();
+
+                                        sails.log.info(zombie.email + " infected " + human.email);
+
+                                        res.ok({
+                                            human: human.getPublicData(),
+                                            zombie: zombie.getPublicData()
+                                        });
+                                    }, function (err) {
+                                        InfectionSpread.destroy({id: infection.id}).exec(function(){
+                                            res.serverError(err);
+                                        });
+                                    });
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 };

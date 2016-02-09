@@ -6,7 +6,7 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (id, done) {
-    User.findOne(id).exec(function (err, user) {
+    User.findOne(id).populate('humanIds').exec(function (err, user) {
         if (err) {
             done(err);
         }
@@ -31,14 +31,22 @@ function createUser(name, email, authMethod) {
                     email: email,
                     authMethod: authMethod,
                     apiKey: apiKey,
-                    zombieId: zombieTag,
-                    activeHumanIds: [humanTag1, humanTag2]
+                    zombieId: zombieTag
                 }, function (err, user) {
                     if (err) {
                         reject(err);
                     }
                     else {
-                        resolve(user);
+                        HumanId.create([
+                            {idString: humanTag1, user: user},
+                            {idString: humanTag2, user: user}
+                        ]).exec(function(err, tag1, tag2) {
+                            if (err)
+                                reject(err);
+                            else {
+                                resolve(user);
+                            }
+                        });
                     }
                 });
             }
@@ -71,7 +79,7 @@ passport.use('google', new GoogleStrategy({
             return done(new Error("No email retrieved from google"));
         }
 
-        User.findOne({email: email}, function (err, user) {
+        User.findOne({email: email}).populate('humanIds').exec(function (err, user) {
             if (err) {
                 done(err);
             }
@@ -174,7 +182,7 @@ module.exports = {
     createUser: createUser,
     getUser: function (apiKey) {
         return new Promise(function (resolve, reject) {
-            User.findOne({apiKey: apiKey}).exec(function (err, user) {
+            User.findOne({apiKey: apiKey}).populate('humanIds').exec(function (err, user) {
                 if (err) {
                     reject(err);
                 }

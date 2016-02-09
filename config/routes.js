@@ -49,6 +49,9 @@ module.exports.routes = {
     'get /api/v2/content/announcements': 'ContentController.announcements',
     'get /api/v2/content/missions': 'ContentController.missions',
 
+    // GameController
+    'post /api/v2/game/infect': 'GameController.infect',
+
     // AuthController
     'get /auth/l/google': 'AuthController.loginGoogle',
     'get /auth/c/google': 'AuthController.callbackGoogle',
