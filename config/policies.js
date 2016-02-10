@@ -33,7 +33,8 @@ module.exports.policies = {
     },
 
     GameController: {
-        infect: ['apikey', 'isActive', 'preventFailed']
+        infect: ['apikey', 'isActive', 'preventFailed'],
+        antivirus: ['apikey', 'isActive', 'preventFailed']
     }
 
     /***************************************************************************

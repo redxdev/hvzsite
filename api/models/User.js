@@ -77,6 +77,11 @@ module.exports = {
             defaultsTo: 100
         },
 
+        usedAV: {
+            type: 'boolean',
+            defaultsTo: false
+        },
+
         getPublicData: function() {
             return {
                 id: this.id,

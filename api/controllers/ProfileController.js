@@ -41,6 +41,10 @@ module.exports = {
             return res.badRequest({message: "'name' parameter not specified"});
         }
 
+        if (sails.config.hvz.endDate < new Date()) {
+            return res.badRequest({message: "You cannot change your clan after the game has ended"});
+        }
+
         var name = req.param('name');
         if (name.length > 32) {
             return res.badRequest({message: "Clan name must be 32 characters or less."});

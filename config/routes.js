@@ -51,6 +51,7 @@ module.exports.routes = {
 
     // GameController
     'post /api/v2/game/infect': 'GameController.infect',
+    'post /api/v2/game/antivirus': 'GameController.antivirus',
 
     // AuthController
     'get /auth/l/google': 'AuthController.loginGoogle',

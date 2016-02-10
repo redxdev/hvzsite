@@ -9,25 +9,6 @@ module.exports.badges = {
             image: 'twinkie.png',
             access: 'mod'
         },
-        moderator: {
-            name: 'Mod Squad',
-            description: 'I am a MODERATOR!',
-            image: 'mod.png',
-            access: 'admin'
-        },
-        eboard: {
-            name: 'Yellow',
-            description: 'I am an ADMIN!',
-            image: 'yellow.png',
-            access: 'admin'
-        },
-        chair: {
-            id: 'chair',
-            name: 'Chair',
-            description: 'I am a CHAIR!',
-            image: 'chair.png',
-            access: 'admin'
-        },
         heliExtract: {
             name: 'Extraction',
             description: 'Survived the week and made it to extraction',
@@ -42,7 +23,7 @@ module.exports.badges = {
             image: 'infected.png',
             access: 'internal'
         },
-        av: {
+        antivirus: {
             name: 'Used AV',
             description: 'Used an antivirus to become human again',
             image: 'antivirus.png',

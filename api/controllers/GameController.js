@@ -11,6 +11,10 @@ module.exports = {
         var latitude = req.param('latitude');
         var longitude = req.param('longitude');
 
+        if (sails.config.hvz.endDate < new Date()) {
+            errors.push("You cannot infect a player after the game has ended");
+        }
+
         if (!humanId) {
             errors.push("Missing parameter 'human'");
         }
@@ -59,7 +63,6 @@ module.exports = {
 
                         if (zombie == undefined || !AuthService.hasPermission(zombie, 'player')) {
                             errors.push("Invalid zombie id");
-                            shouldCauseFailure = true;
                         }
 
                         if (shouldCauseFailure) {
@@ -110,6 +113,99 @@ module.exports = {
                                         });
                                     });
                             }
+                        });
+                    }
+                });
+            }
+        });
+    },
+
+    antivirus: function (req, res) {
+        var errors = [];
+
+        var zombieId = req.param('zombie');
+        var avId = req.param('antivirus');
+
+        if (sails.config.hvz.endDate < new Date()) {
+            errors.push("You cannot infect a player after the game has ended");
+        }
+
+        if (!zombieId) {
+            errors.push("Missing parameter 'zombie'");
+        }
+
+        if (!avId) {
+            errors.push("Missing parameter 'antivirus'");
+        }
+
+        if (errors.length > 0) {
+            return res.badRequest({
+                message: "There was an error with your request",
+                errors: errors
+            });
+        }
+
+        AntivirusId.findOne({
+            idString: avId
+        }).exec(function (err, av) {
+            if (err) {
+                res.serverError(err);
+            }
+            else {
+                if (av === undefined) {
+                    req.user.failures++;
+                    req.user.save();
+
+                    return res.badRequest({
+                        message: "Invalid antivirus"
+                    });
+                }
+
+                if (!av.active) {
+                    return res.badRequest({
+                        message: "That antivirus has already been used"
+                    });
+                }
+
+                if (av.expirationTime < new Date()) {
+                    return res.badRequest({
+                        message: "That antivirus has expired"
+                    });
+                }
+
+                User.findOne({
+                    team: 'zombie',
+                    zombieId: zombieId
+                }).exec(function (err, zombie) {
+                    if (err) {
+                        res.serverError(err);
+                    }
+                    else {
+                        if (zombie == undefined || !AuthService.hasPermission(zombie, 'player')) {
+                            return res.badRequest({
+                                message: "Invalid zombie id"
+                            });
+                        }
+
+                        if (zombie.usedAV) {
+                            return res.badRequest({
+                                message: "Zombie has already used an antivirus"
+                            });
+                        }
+
+                        av.active = false;
+                        av.user = zombie.id;
+                        av.save();
+
+                        zombie.team = 'human';
+                        zombie.usedAV = true;
+                        zombie.addBadge('antivirus');
+                        zombie.save();
+
+                        sails.log.info(zombie.email + " has used an antivirus");
+
+                        res.ok({
+                            zombie: zombie.getPublicData()
                         });
                     }
                 });

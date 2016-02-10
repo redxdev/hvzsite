@@ -11,7 +11,7 @@ module.exports = {
 
         active: {
             type: 'boolean',
-            default: true
+            defaultsTo: true
         },
 
         description: {
