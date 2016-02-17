@@ -35,5 +35,12 @@ module.exports.policies = {
     GameController: {
         infect: ['apikey', 'isActive', 'preventFailed'],
         antivirus: ['apikey', 'isActive', 'preventFailed']
+    },
+
+    UserController: {
+        list: ['apikey', 'isModerator'],
+        get: ['apikey', 'isModerator'],
+        update: ['apikey', 'isModerator'],
+        uploadAvatar: ['apikey', 'isModerator']
     }
 };

@@ -3,7 +3,7 @@ module.exports = {
         Ruleset.find({sort: {position: 1}})
             .exec(function (err, rules) {
                 if (err) {
-                    res.serverError(err);
+                    res.negotiate(err);
                 }
                 else {
                     res.ok({
@@ -28,7 +28,7 @@ module.exports = {
         })
             .exec(function (err, posts) {
                 if (err) {
-                    res.serverError(err)
+                    res.negotiate(err)
                 }
                 else {
                     res.ok({
@@ -57,7 +57,7 @@ module.exports = {
         })
             .exec(function (err, posts) {
                 if (err) {
-                    res.serverError(err)
+                    res.negotiate(err)
                 }
                 else {
                     res.ok({
@@ -86,7 +86,7 @@ module.exports = {
         })
             .exec(function (err, missions) {
                 if (err) {
-                    res.serverError(err);
+                    res.negotiate(err);
                 }
                 else {
                     res.ok({

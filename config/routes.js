@@ -66,5 +66,12 @@ module.exports.routes = {
     // ProfileController
     'get /api/v2/profile': 'ProfileController.mine',
     'get /api/v2/profile/:id': 'ProfileController.other',
-    'post /api/v2/profile/clan': 'ProfileController.setClan'
+    'post /api/v2/profile/clan': 'ProfileController.setClan',
+    'get /api/v2/avatar/:id': 'ProfileController.avatar',
+
+    // UserController
+    'get /api/v2/users': 'UserController.list',
+    'get /api/v2/users/:id': 'UserController.get',
+    'put /api/v2/users/:id': 'UserController.update',
+    'post /api/v2/users/:id/avatar': 'UserController.uploadAvatar'
 };

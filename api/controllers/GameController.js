@@ -39,7 +39,7 @@ module.exports = {
             idString: humanId
         }).populate('user').exec(function (err, humanIdObj) {
             if (err) {
-                res.serverError(err);
+                res.negotiate(err);
             }
             else {
                 User.findOne({
@@ -47,7 +47,7 @@ module.exports = {
                     zombieId: zombieId
                 }).exec(function (err, zombie) {
                     if (err) {
-                        res.serverError(err);
+                        res.negotiate(err);
                     }
                     else {
                         var shouldCauseFailure = false;
@@ -87,7 +87,7 @@ module.exports = {
                             human: human
                         }, function (err, infection) {
                             if (err) {
-                                res.serverError(err);
+                                res.negotiate(err);
                             }
                             else {
                                 BadgeRegistry.processInfectionBadges(human, zombie, infection)
@@ -109,7 +109,7 @@ module.exports = {
                                         });
                                     }, function (err) {
                                         InfectionSpread.destroy({id: infection.id}).exec(function(){
-                                            res.serverError(err);
+                                            res.negotiate(err);
                                         });
                                     });
                             }
@@ -149,7 +149,7 @@ module.exports = {
             idString: avId
         }).exec(function (err, av) {
             if (err) {
-                res.serverError(err);
+                res.negotiate(err);
             }
             else {
                 if (av === undefined) {
@@ -178,7 +178,7 @@ module.exports = {
                     zombieId: zombieId
                 }).exec(function (err, zombie) {
                     if (err) {
-                        res.serverError(err);
+                        res.negotiate(err);
                     }
                     else {
                         if (zombie == undefined || !AuthService.hasPermission(zombie, 'player')) {

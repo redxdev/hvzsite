@@ -1,3 +1,5 @@
+var SkipperDisk = require('skipper-disk');
+
 module.exports = {
     mine: function (req, res) {
         var humanIds = [];
@@ -17,7 +19,8 @@ module.exports = {
             humanIds: humanIds,
             humansTagged: req.user.humansTagged,
             badges: req.user.badges,
-            clan: req.user.clan
+            clan: req.user.clan,
+            apiKey: req.user.apiKey
         });
     },
 
@@ -25,7 +28,7 @@ module.exports = {
         var id = req.param("id");
         User.findOne({id: id}).exec(function (err, found) {
             if (err) {
-                return res.serverError(err);
+                return res.negotiate(err);
             }
 
             if (found == null || !AuthService.hasPermission(found, 'player')) {
@@ -53,11 +56,36 @@ module.exports = {
         req.user.clan = name;
         req.user.save(function (err) {
             if (err) {
-                return res.serverError(err);
+                return res.negotiate(err);
             }
 
             sails.log.info("Set " + req.user.email + " clan to " + name);
             res.ok({message: 'Clan name set to "' + name + '"'});
         });
+    },
+
+    avatar: function (req, res) {
+        var id = req.param('id');
+        User.findOne({id: id})
+            .exec(function (err, user) {
+                if (err) {
+                    return res.negotiate(err);
+                }
+
+                if (user === undefined) {
+                    return res.notFound()
+                }
+
+                if (user.avatarPath === null) {
+                    return res.notFound();
+                }
+
+                var fileAdapter = SkipperDisk();
+                fileAdapter.read(user.avatarPath)
+                    .on('error', function (err) {
+                        return res.negotiate(err);
+                    })
+                    .pipe(res);
+            });
     }
 }

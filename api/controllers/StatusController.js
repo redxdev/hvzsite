@@ -16,7 +16,7 @@ module.exports = {
                 res.ok({humans: humans, zombies: zombies});
             }
         ).catch(function (err) {
-            res.serverError(err);
+            res.negotiate(err);
         });
     },
 
@@ -66,7 +66,7 @@ module.exports = {
 
         q.exec(function (err, users) {
                 if (err) {
-                    res.serverError(err);
+                    res.negotiate(err);
                 }
                 else {
                     var result = [];
@@ -85,7 +85,7 @@ module.exports = {
             access: ['mod', 'admin', 'superadmin']
         }).exec(function (err, users) {
             if (err) {
-                res.serverError(err);
+                res.negotiate(err);
             }
             else {
                 res.ok({
@@ -102,7 +102,7 @@ module.exports = {
             sort: {time: 1}
         }).populate('zombie').populate('human').exec(function (err, infections) {
             if (err) {
-                res.serverError(err);
+                res.negotiate(err);
             }
             else {
                 res.ok({

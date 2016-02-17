@@ -82,6 +82,11 @@ module.exports = {
             defaultsTo: false
         },
 
+        avatarPath: {
+            type: 'string',
+            defaultsTo: null
+        },
+
         getPublicData: function() {
             return {
                 id: this.id,
