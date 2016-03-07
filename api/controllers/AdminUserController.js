@@ -156,7 +156,7 @@ module.exports = {
 
                     sails.log.info("User " + user.email + " was modified by " + req.user.email);
 
-                    return res.ok({message: 'Modified user ' + user.email});
+                    return res.ok({user: user.getPublicData()});
                 });
             });
     },
@@ -192,7 +192,7 @@ module.exports = {
                         }
 
                         sails.log.info('Avatar for ' + user.email + ' modified by ' + req.user.email);
-                        res.ok({message: 'Avatar successfully changed'});
+                        res.ok({user: user.getPublicData()});
                     });
                 });
             });
@@ -208,7 +208,7 @@ module.exports = {
 
         AuthService.createUser(name, email).then(function (user) {
             sails.log.info('User ' + user.email + ' was created by ' + req.user.email);
-            res.ok({message: 'Created user ' + email, id: user.id});
+            res.ok({user: user.getPublicData()});
         }).catch(function (err) {
             res.negotiate(err);
         });
@@ -231,7 +231,7 @@ module.exports = {
                     HumanId.create({idString: tag, user: user})
                 ]
             }).spread(function (user, tag) {
-                res.ok({message: 'Generated new human id for ' + user.email, tag: tag.idString});
+                res.ok({user: user.getPublicData(), tag: tag.idString});
             }).catch(function (err) {
                 res.negotiate(err);
             });
