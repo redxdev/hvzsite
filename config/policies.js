@@ -37,11 +37,13 @@ module.exports.policies = {
         antivirus: ['apikey', 'isActive', 'preventFailed']
     },
 
-    UserController: {
+    AdminUserController: {
         list: ['apikey', 'isModerator'],
         get: ['apikey', 'isModerator'],
         update: ['apikey', 'isModerator'],
         uploadAvatar: ['apikey', 'isModerator'],
-        create: ['apikey', 'isAdmin']
+        create: ['apikey', 'isAdmin'],
+        generateId: ['apikey', 'isModerator'],
+        infect: ['apikey', 'isModerator']
     }
 };

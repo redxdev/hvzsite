@@ -69,10 +69,12 @@ module.exports.routes = {
     'post /api/v2/profile/clan': 'ProfileController.setClan',
     'get /api/v2/avatar/:id': 'ProfileController.avatar',
 
-    // UserController
-    'get /api/v2/users': 'UserController.list',
-    'get /api/v2/users/:id': 'UserController.get',
-    'put /api/v2/users/:id': 'UserController.update',
-    'post /api/v2/users/:id/avatar': 'UserController.uploadAvatar',
-    'post /api/v2/users': 'UserController.create'
+    // AdminUserController
+    'get /api/v2/admin/users': 'AdminUserController.list',
+    'get /api/v2/admin/users/:id': 'AdminUserController.get',
+    'put /api/v2/admin/users/:id': 'AdminUserController.update',
+    'post /api/v2/admin/users/:id/avatar': 'AdminUserController.uploadAvatar',
+    'post /api/v2/admin/users': 'AdminUserController.create',
+    'post /api/v2/admin/users/:id/generateId': 'AdminUserController.generateId',
+    'post /api/v2/admin/users/:id/infect': 'AdminUserController.infect'
 };

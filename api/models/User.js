@@ -100,6 +100,25 @@ module.exports = {
             };
         },
 
+        getAllData: function() {
+            return {
+                name: this.name,
+                email: this.email,
+                authMethod: this.authMethod,
+                apiKey: this.apiKey,
+                access: this.access,
+                team: this.team,
+                zombieId: this.zombieId,
+                humansTagged: this.humansTagged,
+                badges: this.badges,
+                printed: this.printed,
+                clan: this.clan,
+                failures: this.failures,
+                maxFailures: this.maxFailures,
+                usedAV: this.usedAV
+            }
+        },
+
         addBadge: function (id) {
             if (sails.config.badges.registry[id] === undefined)
                 sails.log.warn("Applying unknown badge " + id + " to " + this.email);

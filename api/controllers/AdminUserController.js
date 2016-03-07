@@ -20,23 +20,10 @@ module.exports = {
                 humanIds.push({id: id.idString, active: id.active});
             }
 
-            res.ok({
-                name: user.name,
-                email: user.email,
-                authMethod: user.authMethod,
-                apiKey: user.apiKey,
-                access: user.access,
-                team: user.team,
-                zombieId: user.zombieId,
-                humanIds: humanIds,
-                humansTagged: user.humansTagged,
-                badges: user.badges,
-                printed: user.printed,
-                clan: user.clan,
-                failures: user.failures,
-                maxFailures: user.maxFailures,
-                usedAV: user.usedAV
-            });
+            var data = user.getAllData();
+            data.humanIds = humanIds;
+
+            res.ok(data);
         });
     },
 
@@ -111,7 +98,7 @@ module.exports = {
                     if (AuthService.getPermissionLevel(access) === sails.config.permissions.unknown) {
                         errors.push('Unknown access level ' + access);
                     }
-                    else if(!AuthService.hasPermission(req.user, access)) {
+                    else if (!AuthService.hasPermission(req.user, access)) {
                         errors.push('Cannot set a user\'s access level to one higher than your own');
                     }
                     else {
@@ -219,12 +206,63 @@ module.exports = {
             return res.badRequest({message: 'Missing name or email parameter'});
         }
 
-        AuthService.createUser(name, email)
-            .then(function (user) {
-                sails.log.info('User ' + user.email + ' was created by ' + req.user.email);
-                res.ok({message: 'Created user ' + email, id: user.id});
-            }, function (err) {
+        AuthService.createUser(name, email).then(function (user) {
+            sails.log.info('User ' + user.email + ' was created by ' + req.user.email);
+            res.ok({message: 'Created user ' + email, id: user.id});
+        }).catch(function (err) {
+            res.negotiate(err);
+        });
+    },
+
+    generateId: function (req, res) {
+        var id = req.param('id');
+        User.findOne({id: id}).exec(function (err, user) {
+            if (err) {
+                return res.negotiate(err);
+            }
+
+            if (user === undefined) {
+                return res.notFound({message: 'Unknown user id ' + id});
+            }
+
+            TagGenerator.tag().then(function (tag) {
+                return [
+                    user,
+                    HumanId.create({idString: tag, user: user})
+                ]
+            }).spread(function (user, tag) {
+                res.ok({message: 'Generated new human id for ' + user.email, tag: tag.idString});
+            }).catch(function (err) {
                 res.negotiate(err);
             });
+        });
+    },
+
+    // this will not create an InfectionSpread entry, and will OZ the player
+    infect: function(req, res) {
+        var id = req.param('id');
+        User.findOne({id: id}).exec(function (err, user) {
+            if (err) {
+                return res.negotiate(err);
+            }
+
+            if (user === undefined) {
+                return res.notFound({message: 'Unknown user id ' + id});
+            }
+
+            if (user.team === 'zombie') {
+                return res.badRequest({message: 'User is already a zombie'});
+            }
+
+            user.team = 'zombie';
+            user.addBadge('oz');
+            user.save(function (err) {
+                if (err) {
+                    return res.negotiate(err);
+                }
+
+                res.ok({user: user.getPublicData()});
+            });
+        });
     }
 };
