@@ -209,5 +209,22 @@ module.exports = {
                     });
                 });
             });
+    },
+
+    create: function (req, res) {
+        var name = req.param('name');
+        var email = req.param('email');
+
+        if (name === undefined || email === undefined) {
+            return res.badRequest({message: 'Missing name or email parameter'});
+        }
+
+        AuthService.createUser(name, email)
+            .then(function (user) {
+                sails.log.info('User ' + user.email + ' was created by ' + req.user.email);
+                res.ok({message: 'Created user ' + email, id: user.id});
+            }, function (err) {
+                res.negotiate(err);
+            });
     }
 };

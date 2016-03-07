@@ -17,41 +17,44 @@ passport.deserializeUser(function (id, done) {
 });
 
 function createUser(name, email, authMethod) {
+    authMethod = authMethod || 'google';
+
     sails.log.info('Creating user "' + name + '" with email "' + email + '", using auth method ' + authMethod);
 
-    return new Promise(function (resolve, reject) {
-        Promise.join(
-            TagGenerator.apiKey(),
+    return Promise.join(
+        TagGenerator.apiKey(),
+        TagGenerator.tag(),
+        function (apiKey, zombieTag) {
+            return [apiKey, zombieTag];
+        }
+    ).spread(function (apiKey, zombieTag) {
+        return [
+            User.create({
+                name: name,
+                email: email,
+                authMethod: authMethod,
+                apiKey: apiKey,
+                zombieId: zombieTag
+            }),
             TagGenerator.tag(),
-            TagGenerator.tag(),
-            TagGenerator.tag(),
-            function (apiKey, humanTag1, humanTag2, zombieTag) {
-                User.create({
-                    name: name,
-                    email: email,
-                    authMethod: authMethod,
-                    apiKey: apiKey,
-                    zombieId: zombieTag
-                }, function (err, user) {
-                    if (err) {
-                        reject(err);
-                    }
-                    else {
-                        HumanId.create([
-                            {idString: humanTag1, user: user},
-                            {idString: humanTag2, user: user}
-                        ]).exec(function(err, tag1, tag2) {
-                            if (err)
-                                reject(err);
-                            else {
-                                resolve(user);
-                            }
+            TagGenerator.tag()
+        ];
+    }).spread(function (user, tag1, tag2) {
+        return new Promise(function (resolve, reject) {
+            return HumanId.create([
+                {idString: tag1, user: user},
+                {idString: tag2, user: user}
+            ]).exec(function (err, tag1, tag2) {
+                if (err) {
+                    User.destroy({id: user.id})
+                        .exec(function() {
+                            reject(err);
                         });
-                    }
-                });
-            }
-        ).error(function (err) {
-            reject(err);
+                }
+                else {
+                    resolve(user);
+                }
+            });
         });
     });
 }

@@ -73,5 +73,6 @@ module.exports.routes = {
     'get /api/v2/users': 'UserController.list',
     'get /api/v2/users/:id': 'UserController.get',
     'put /api/v2/users/:id': 'UserController.update',
-    'post /api/v2/users/:id/avatar': 'UserController.uploadAvatar'
+    'post /api/v2/users/:id/avatar': 'UserController.uploadAvatar',
+    'post /api/v2/users': 'UserController.create'
 };

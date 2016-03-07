@@ -41,6 +41,7 @@ module.exports.policies = {
         list: ['apikey', 'isModerator'],
         get: ['apikey', 'isModerator'],
         update: ['apikey', 'isModerator'],
-        uploadAvatar: ['apikey', 'isModerator']
+        uploadAvatar: ['apikey', 'isModerator'],
+        create: ['apikey', 'isAdmin']
     }
 };
