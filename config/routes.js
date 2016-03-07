@@ -76,5 +76,9 @@ module.exports.routes = {
     'post /api/v2/admin/users/:id/avatar': 'AdminUserController.uploadAvatar',
     'post /api/v2/admin/users': 'AdminUserController.create',
     'post /api/v2/admin/users/:id/generateId': 'AdminUserController.generateId',
-    'post /api/v2/admin/users/:id/infect': 'AdminUserController.infect'
+    'post /api/v2/admin/users/:id/infect': 'AdminUserController.infect',
+    'delete /api/v2/admin/users/:id': 'AdminUserController.destroy',
+
+    // AdminContentController
+    'get /api/v2/admin/rules': 'AdminContentController.rules'
 };

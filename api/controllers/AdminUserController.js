@@ -239,7 +239,7 @@ module.exports = {
     },
 
     // this will not create an InfectionSpread entry, and will OZ the player
-    infect: function(req, res) {
+    infect: function (req, res) {
         var id = req.param('id');
         User.findOne({id: id}).exec(function (err, user) {
             if (err) {
@@ -262,6 +262,27 @@ module.exports = {
                 }
 
                 res.ok({user: user.getPublicData()});
+            });
+        });
+    },
+
+    destroy: function (req, res) {
+        var id = req.param('id');
+        User.findOne({id: id}).exec(function (err, user) {
+            if (err) {
+                return res.negotiate(err);
+            }
+
+            if (user === undefined) {
+                return res.notFound({message: 'Unknown user id ' + id});
+            }
+
+            User.destroy({id: user.id}).exec(function (err) {
+                if (err) {
+                    return res.negotiate(err);
+                }
+
+                return res.ok({user: user.getPublicData()});
             });
         });
     }

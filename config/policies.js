@@ -44,6 +44,11 @@ module.exports.policies = {
         uploadAvatar: ['apikey', 'isModerator'],
         create: ['apikey', 'isAdmin'],
         generateId: ['apikey', 'isModerator'],
-        infect: ['apikey', 'isModerator']
+        infect: ['apikey', 'isModerator'],
+        destroy: ['apikey', 'isModerator']
+    },
+
+    AdminContentController: {
+        rules: ['apikey', 'isAdmin']
     }
 };
