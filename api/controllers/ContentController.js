@@ -9,6 +9,7 @@ module.exports = {
                     res.ok({
                         rules: rules.map(function (rule) {
                             return {
+                                id: rule.id,
                                 title: rule.title,
                                 body: rule.body
                             };
@@ -34,6 +35,7 @@ module.exports = {
                     res.ok({
                         posts: posts.map(function (post) {
                             return {
+                                id: post.id,
                                 title: post.title,
                                 summary: post.summary,
                                 body: post.body,
@@ -63,6 +65,7 @@ module.exports = {
                     res.ok({
                         posts: posts.map(function (post) {
                             return {
+                                id: post.id,
                                 title: post.title,
                                 summary: post.summary,
                                 body: post.body,
@@ -92,6 +95,7 @@ module.exports = {
                     res.ok({
                         missions: missions.map(function (mission) {
                             return {
+                                id: mission.id,
                                 title: mission.title,
                                 body: mission.body,
                                 postDate: mission.postDate,

@@ -80,5 +80,6 @@ module.exports.routes = {
     'delete /api/v2/admin/users/:id': 'AdminUserController.destroy',
 
     // AdminContentController
-    'get /api/v2/admin/rules': 'AdminContentController.rules'
+    'get /api/v2/admin/rules': 'AdminContentController.rules',
+    'put /api/v2/admin/rules/:id': 'AdminContentController.updateRule'
 };

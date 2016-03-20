@@ -49,6 +49,7 @@ module.exports.policies = {
     },
 
     AdminContentController: {
-        rules: ['apikey', 'isAdmin']
+        rules: ['apikey', 'isAdmin'],
+        updateRule: ['apikey', 'isAdmin']
     }
 };

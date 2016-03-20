@@ -151,7 +151,7 @@ module.exports = {
 
                 user.save(function (err, user) {
                     if (err) {
-                        return res.serverError(err);
+                        return res.negotiate(err);
                     }
 
                     sails.log.info("User " + user.email + " was modified by " + req.user.email);
