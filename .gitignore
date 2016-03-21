@@ -1,15 +1,13 @@
-config/local.js
-node_modules
-bower_components
-assets/bower_components
-.tmp
-dump.rdb
-lib-cov
-*.seed
-*.log
-*.out
-*.pid
-npm-debug.log
+/server/config/local.js
+/server/node_modules
+/server/.tmp
+/server/dump.rdb
+/server/lib-cov
+/server/*.seed
+/server/*.log
+/server/*.out
+/server/*.pid
+/server/npm-debug.log
 *~
 *#
 .DS_STORE
@@ -17,4 +15,20 @@ npm-debug.log
 nbproject
 .idea
 .node_history
-config/cert
+/server/config/cert
+
+# compiled output
+/client/dist
+/client/tmp
+
+# dependencies
+/client/node_modules
+/client/bower_components
+
+# misc
+/client/.sass-cache
+/client/connect.lock
+/client/coverage/*
+/client/libpeerconnection.log
+/client/npm-debug.log
+/client/testem.log

@@ -90,17 +90,16 @@ module.exports = {
         secret: 'CHANGE-ME'
     },
 
-    url: "http://localhost:1337/",
-
     auth: {
         signupDomains: ['g.rit.edu', 'rit.edu'], // leave empty if you don't want to restrict signup
         google: {
-            clientId: "CHANGE-ME",
+            clientID: "CHANGE-ME",
             clientSecret: "CHANGE-ME"
         }
     },
 
     hvz: {
+        url: "http://127.0.0.1:1337/",
         startDate: new Date(2016, 2, 1, 21, 0, 0, 0),
         endDate: new Date(2016, 2, 5, 21, 0, 0, 0)
     }
