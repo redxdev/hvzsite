@@ -53,7 +53,7 @@ module.exports = {
                 return res.badRequest({message: 'You didn\'t change anything!'});
             }
 
-            rule.save(function (err, rule) {
+            rule.save(function (err) {
                 if (err) {
                     return res.negotiate(err);
                 }

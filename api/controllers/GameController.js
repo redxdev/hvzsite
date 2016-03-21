@@ -70,7 +70,7 @@ module.exports = {
                             req.user.save();
                         }
 
-                        if (errors.length > 0) {
+                        if (shouldCauseFailure || errors.length > 0) {
                             return res.badRequest({
                                 message: "There was an error with your request",
                                 errors: errors

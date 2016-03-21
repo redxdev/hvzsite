@@ -149,7 +149,7 @@ module.exports = {
                     return res.badRequest({message: 'You didn\'t change anything!'});
                 }
 
-                user.save(function (err, user) {
+                user.save(function (err) {
                     if (err) {
                         return res.negotiate(err);
                     }
@@ -186,7 +186,7 @@ module.exports = {
                     }
 
                     user.avatarPath = uploadedFiles[0].fd;
-                    user.save(function (err, user) {
+                    user.save(function (err) {
                         if (err) {
                             return res.negotiate(err);
                         }

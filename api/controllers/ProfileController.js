@@ -54,13 +54,13 @@ module.exports = {
         }
 
         req.user.clan = name;
-        req.user.save(function (err, user) {
+        req.user.save(function (err) {
             if (err) {
                 return res.negotiate(err);
             }
 
             sails.log.info("Set " + req.user.email + " clan to " + name);
-            res.ok({user: user.getPublicData()});
+            res.ok({user: req.user.getPublicData()});
         });
     },
 
