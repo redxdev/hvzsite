@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'client',
+    modulePrefix: 'hvzsite-client',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',

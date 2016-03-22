@@ -1,7 +1,7 @@
 {
-  "name": "client",
+  "name": "hvzsite-client",
   "version": "0.0.0",
-  "description": "Client for hvzsite",
+  "description": "Web client for hvzsite",
   "private": true,
   "directories": {
     "doc": "doc",
