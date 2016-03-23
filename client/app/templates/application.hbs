@@ -7,12 +7,12 @@
                 <span class="icon-bar"></span>
             </button>
             <div class="visible-lg visible-md navbar-brand navbar-brand-centered">
-                {{#link-to "status"}}
+              {{#link-to "status"}}
                   <img class="logo" src="images/hvzlogo_small.png" alt="{{t 'hvz.shortLoc'}}">
-                {{/link-to}}
+              {{/link-to}}
             </div>
             <div class="visible-xs visible-sm navbar-brand">
-                {{t 'hvz.shortLoc'}}
+              {{t 'hvz.shortLoc'}}
             </div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -20,7 +20,17 @@
                 <li>{{#link-to "status"}}Status{{/link-to}}</li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>Foo Bar</li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      {{#if model.user.loggedIn}}
+                          <li><a href="#" {{action 'logout'}}>Logout</a></li>
+                      {{else}}
+                          <li><a href="#" {{action 'login'}}>Login</a></li>
+                      {{/if}}
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

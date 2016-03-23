@@ -32,10 +32,6 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  },
-
   // StatusController
   'get /api/v2/status/dates': 'StatusController.dates',
   'get /api/v2/status/score': 'StatusController.score',

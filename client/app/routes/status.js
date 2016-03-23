@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
+  errorHandler: Ember.inject.service(),
 
   setupController(controller, model) {
     this._super(controller, model);
@@ -26,16 +27,42 @@ export default Ember.Route.extend({
           value: val,
           inPast: val < new Date()
         };
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to retrieve game dates.');
+        return {value: new Date(), inPast: true};
       }),
-      score: this.get('ajax').request('/status/score'),
+
+      score: this.get('ajax').request('/status/score').catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to retrieve team scores.');
+        return {humans: 0, zombies: 0};
+      }),
+
       infections: this.get('ajax').request('/status/infections', {
         data: {
           limit: 5
         }
       }).then(function (infections) {
-        return {values: infections.infections.map(function (inf) {
+        return infections.infections.map(function (inf) {
           return {human: inf.human.name, zombie: inf.zombie.name, time: new Date(inf.time)};
-        })};
+        });
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to retrieve list of infections.');
+        return [];
+      }),
+
+      topPlayers: this.get('ajax').request('/status/players', {
+        data: {
+          limit: 5,
+          team: 'zombie',
+          sort: 'team'
+        }
+      }).then(function (players) {
+        return players.players.map(function (player) {
+          return {id: player.id, name: player.name, humansTagged: player.humansTagged};
+        });
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to retrieve list of players.');
+        return [];
       })
     });
   }

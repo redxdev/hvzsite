@@ -4,8 +4,12 @@ var passport = require('passport');
 
 module.exports = {
   logout: function (req, res) {
+    if (!req.isAuthenticated()) {
+      return res.view('result', {result: "{success: false, message: 'You aren\\'t logged in!.'}"});
+    }
+
     req.logout();
-    res.redirect('/');
+    return res.view('result', {result: "{success: true, message: 'You have been logged out.'}"});
   },
 
   apiKey: function (req, res) {
@@ -19,23 +23,31 @@ module.exports = {
   },
 
   // Passport Methods
-  loginGoogle: passport.authenticate('google', {scope: ['profile', 'email']}),
+  loginGoogle: function (req, res) {
+    if (req.isAuthenticated()) {
+      return res.view('result', {result: "{success: true, message: 'You are already logged in.', key: '" + req.user.apiKey + "'}"});
+    }
+
+    passport.authenticate('google', {scope: ['profile', 'email']})(req, res);
+  },
   callbackGoogle: function (req, res) {
     passport.authenticate('google', {failureRedirect: '/error'}, function (err, user) {
       if (err) {
-        return res.badRequest({message: err.message});
+        sails.log.error(err);
+        return res.view('result', {result: "{success: false, message: 'There was a problem logging you in.'}"});
       }
 
       if (!user) {
-        return res.serverError({message: "There was a problem logging you in."})
+        return res.view('result', {result: "{success: false, message: 'There was a problem logging you in. Did you register?'}"});
       }
 
       req.logIn(user, function (err) {
         if (err) {
-          return res.badRequest(err);
+          sails.log.error(err);
+          return res.view('result', {result: "{success: false, message: 'There was a problem logging you in. Did you register?'}"});
         }
 
-        return res.ok({message: "You have been logged in."});
+        return res.view('result', {result: "{success: true, message: 'You have been logged in.', key: '" + req.user.apiKey + "'}"});
       });
     })(req, res);
   },
@@ -44,14 +56,15 @@ module.exports = {
   callbackRegisterGoogle: function (req, res) {
     passport.authenticate('google-register', {failureRedirect: '/error'}, function (err, user) {
       if (err) {
-        return res.badRequest({message: err.message});
+        sails.log.error(err);
+        return res.view('result', {result: "{success: false, message: 'There was a problem creating your account.'}"});
       }
 
       if (!user) {
-        return res.serverError({message: "There was a problem creating your account."})
+        return res.view('result', {result: "{success: false, message: 'There was a problem creating your account.'}"});
       }
 
-      return res.ok({message: "You have been registered, but your account must be activated by a moderator."});
+      return res.view('result', {result: "{success: true, message: 'You have been registered. Go see a moderator to activate your account!'}"});
     })(req, res);
   }
 }

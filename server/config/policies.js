@@ -19,8 +19,7 @@
 
 module.exports.policies = {
   AuthController: {
-    apiKey: ['isActive'],
-    logout: ['authenticated']
+    apiKey: ['isActive']
   },
 
   ProfileController: {

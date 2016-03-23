@@ -14,32 +14,48 @@
     <div class="row">
         <div class="well col-sm-5 text-center bg-human large-text">
             <h1><strong>{{model.score.humans}}</strong></h1>
-            {{t 'hvz.humans'
-              numHumans=model.score.humans}}
+          {{t 'hvz.humans' numHumans=model.score.humans}}
         </div>
-      <div class="col-sm-2 text-center large-text">
-          <h1>VS</h1>
-      </div>
+        <div class="col-sm-2 text-center large-text">
+            <h1>VS</h1>
+        </div>
         <div class="well col-sm-5 text-center bg-zombie large-text">
             <h1><strong>{{model.score.zombies}}</strong></h1>
-            {{t 'hvz.zombies'
-              numZombies=model.score.zombies}}
+          {{t 'hvz.zombies' numZombies=model.score.zombies}}
         </div>
     </div>
     <div class="row">
-        {{! TODO: Infection Chart }}
+      {{! TODO: Infection Chart }}
     </div>
     <div class="row">
-        <div class="col-sm-6 text-center">
-            <h1>Recent Infections</h1>
-            {{#each model.infections.values}}
-              <p>
-                  <strong>{{this.human}}</strong>
-                  was tagged by
-                  <strong>{{this.zombie}}</strong>
-                  <em>{{format-relative this.time interval=1000}}</em>
-              </p>
+      {{#if model.infections.length}}
+          <div class="col-sm-6 text-center">
+              <h1>Recent Infections</h1>
+            {{#each model.infections}}
+                <p>
+                    <strong>{{this.human}}</strong>
+                    was tagged by
+                    <strong>{{this.zombie}}</strong>
+                    <em>{{format-relative this.time interval=1000}}</em>
+                </p>
             {{/each}}
-        </div>
+          </div>
+      {{else}}
+          <div class="col-sm-6"></div>
+      {{/if}}
+
+      {{#if model.topPlayers.length}}
+          <div class="col-sm-6 text-center">
+              <h1>Top Zombies</h1>
+              {{#each model.topPlayers}}
+                <p>
+                    <strong>{{this.name}}</strong>
+                    with
+                    <strong>{{this.humansTagged}}</strong>
+                    tags
+                </p>
+              {{/each}}
+          </div>
+      {{/if}}
     </div>
 </div>

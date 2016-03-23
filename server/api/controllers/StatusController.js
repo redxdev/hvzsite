@@ -69,6 +69,10 @@ module.exports = {
     if (limit !== undefined)
       q.limit(limit);
 
+    var team = req.param('team');
+    if (team != undefined)
+      q.where({team: team});
+
     q.exec(function (err, users) {
         if (err) {
           res.negotiate(err);
@@ -103,9 +107,15 @@ module.exports = {
   },
 
   infections: function (req, res) {
-    InfectionSpread.find({
+    var q = InfectionSpread.find({
       sort: {time: 1}
-    }).populate('zombie').populate('human').exec(function (err, infections) {
+    });
+
+    var limit = req.param('limit');
+    if (limit !== undefined)
+      q.limit(limit);
+
+    q.populate('zombie').populate('human').exec(function (err, infections) {
       if (err) {
         res.negotiate(err);
       }

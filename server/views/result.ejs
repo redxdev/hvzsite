@@ -1,0 +1,7 @@
+<div id="error">Please wait...</div>
+<script type="text/javascript">
+  window.onload = function () {
+    window.opener.postMessage(<%- result %>, '*');
+    window.close();
+  }
+</script>

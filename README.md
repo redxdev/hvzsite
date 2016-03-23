@@ -35,7 +35,7 @@ setup a connection to a database such as MySQL, MongoDB, etc...
 
 Run the following command to build the client:
 
-    ember build --environment=production --output-path=../server/assets/client
+    ember build --environment=production --output-path=../server/assets
 
 ### User Accounts
 
