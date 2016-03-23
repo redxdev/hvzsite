@@ -77,5 +77,12 @@ module.exports.routes = {
 
   // AdminContentController
   'get /api/v2/admin/rules': 'AdminContentController.rules',
-  'put /api/v2/admin/rules/:id': 'AdminContentController.updateRule'
+  'put /api/v2/admin/rules/:id': 'AdminContentController.updateRule',
+
+  // Assets
+  '/*': {
+    controller: 'AppController',
+    action: 'serve',
+    skipAssets: true
+  }
 };
