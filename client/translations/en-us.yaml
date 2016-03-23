@@ -11,3 +11,7 @@ hvz:
     {numZombies, plural,
       =1 {Zombie}
       other {Zombies}}
+  tags: >
+    {numTags, plural,
+      =1 {tag}
+      other {tags}}

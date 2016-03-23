@@ -1,7 +1,5 @@
 var passport = require('passport');
 
-// TODO: Redirect to error pages
-
 module.exports = {
   logout: function (req, res) {
     if (!req.isAuthenticated()) {

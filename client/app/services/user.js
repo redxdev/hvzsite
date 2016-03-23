@@ -12,8 +12,12 @@ export default Ember.Service.extend({
     return window.localStorage.getItem("apikey") !== null;
   },
 
+  getApiKey() {
+    return window.localStorage.getItem("apikey");
+  },
+
   login() {
-    return new Promise((resolve, reject) => {
+    return new Ember.RSVP.Promise((resolve, reject) => {
       var loginWindow = this.get('loginWindow');
       if (loginWindow) {
         loginWindow.close();
@@ -48,7 +52,7 @@ export default Ember.Service.extend({
   },
 
   logout() {
-    return new Promise((resolve, reject) => {
+    return new Ember.RSVP.Promise((resolve, reject) => {
       window.localStorage.removeItem("apikey");
 
       var loginWindow = this.get('loginWindow');
@@ -68,6 +72,7 @@ export default Ember.Service.extend({
           return;
         }
 
+        this.get('routing').transitionTo('status');
         if (event.data.success === true) {
           this.get('toast').success(event.data.message);
           resolve();
@@ -78,6 +83,14 @@ export default Ember.Service.extend({
         }
       };
       this.set('loginWindow', loginWindow);
+    });
+  },
+
+  getUserProfile() {
+    return this.get('ajax').request("/profile", {
+      data: {
+        apikey: this.getApiKey()
+      }
     });
   }
 });

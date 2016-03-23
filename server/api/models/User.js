@@ -94,7 +94,7 @@ module.exports = {
         signupDate: this.createdAt,
         team: this.team,
         humansTagged: this.humansTagged,
-        badges: this.badges,
+        badges: BadgeRegistry.getBadges(this.badges),
         clan: this.clan,
         access: this.access
       };
@@ -110,7 +110,7 @@ module.exports = {
         team: this.team,
         zombieId: this.zombieId,
         humansTagged: this.humansTagged,
-        badges: this.badges,
+        badges: BadgeRegistry.getBadges(this.badges),
         printed: this.printed,
         clan: this.clan,
         failures: this.failures,

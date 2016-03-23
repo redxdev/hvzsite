@@ -52,6 +52,12 @@ function applyKillstreak(recent, streak, badge, zombie) {
 }
 
 module.exports = {
+  getBadges: function(badges) {
+    return badges.map(function (badge) {
+      return registry[badge];
+    });
+  },
+
   processInfectionBadges: function (human, zombie, newInfection) {
     return new Promise(function (resolve, reject) {
       human.addBadge('infected');

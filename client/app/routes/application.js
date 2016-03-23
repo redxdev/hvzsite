@@ -19,16 +19,18 @@ export default Ember.Route.extend({
   actions: {
     login() {
       this.get('user').login().then(() => {
-        this.refresh();
+        location.reload();
       }).catch(() => {
-        this.refresh();
+        location.reload();
       });
     },
 
     logout() {
       this.get('user').logout().then(() => {
+        this.transitionTo('status');
         this.refresh();
       }).catch(() => {
+        this.transitionTo('status');
         this.refresh();
       });
     }

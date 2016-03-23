@@ -2,25 +2,17 @@ var SkipperDisk = require('skipper-disk');
 
 module.exports = {
   mine: function (req, res) {
+    var profile = req.user.getAllData();
     var humanIds = [];
     for (var i = 0; i < req.user.humanIds.length; ++i) {
       var id = req.user.humanIds[i];
-      humanIds.push({id: id.idString, active: id.active});
+      humanIds.push({idString: id.idString, active: id.active});
     }
 
+    profile.humanIds = humanIds;
+
     res.ok({
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email,
-      access: req.user.access,
-      signupDate: req.user.signupDate,
-      team: req.user.team,
-      zombieId: req.user.zombieId,
-      humanIds: humanIds,
-      humansTagged: req.user.humansTagged,
-      badges: req.user.badges,
-      clan: req.user.clan,
-      apiKey: req.user.apiKey
+      profile: profile
     });
   },
 
@@ -35,7 +27,7 @@ module.exports = {
         return res.notFound({message: "Unknown user id " + id});
       }
 
-      res.ok(found.getPublicData());
+      res.ok({profile: found.getPublicData()});
     });
   },
 
