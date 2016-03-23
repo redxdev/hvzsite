@@ -31,6 +31,12 @@ For development purposes, the "localDiskDb" connection is probably good
 enough (it saves to a json file in .tmp). For production purposes, you should
 setup a connection to a database such as MySQL, MongoDB, etc...
 
+### Building the Client
+
+Run the following command to build the client:
+
+    ember build --environment=production --output-path=../server/assets/client
+
 ### User Accounts
 
 TODO: How to setup an admin user.

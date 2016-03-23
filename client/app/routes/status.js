@@ -27,7 +27,16 @@ export default Ember.Route.extend({
           inPast: val < new Date()
         };
       }),
-      score: this.get('ajax').request('/status/score')
+      score: this.get('ajax').request('/status/score'),
+      infections: this.get('ajax').request('/status/infections', {
+        data: {
+          limit: 5
+        }
+      }).then(function (infections) {
+        return {values: infections.infections.map(function (inf) {
+          return {human: inf.human.name, zombie: inf.zombie.name, time: new Date(inf.time)};
+        })};
+      })
     });
   }
 });

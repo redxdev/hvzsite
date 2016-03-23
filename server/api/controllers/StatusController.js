@@ -65,6 +65,10 @@ module.exports = {
       });
     }
 
+    var limit = req.param('limit');
+    if (limit !== undefined)
+      q.limit(limit);
+
     q.exec(function (err, users) {
         if (err) {
           res.negotiate(err);

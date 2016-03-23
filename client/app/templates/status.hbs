@@ -9,3 +9,37 @@
         </h1>
     </div>
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="well col-sm-5 text-center bg-human large-text">
+            <h1><strong>{{model.score.humans}}</strong></h1>
+            {{t 'hvz.humans'
+              numHumans=model.score.humans}}
+        </div>
+      <div class="col-sm-2 text-center large-text">
+          <h1>VS</h1>
+      </div>
+        <div class="well col-sm-5 text-center bg-zombie large-text">
+            <h1><strong>{{model.score.zombies}}</strong></h1>
+            {{t 'hvz.zombies'
+              numZombies=model.score.zombies}}
+        </div>
+    </div>
+    <div class="row">
+        {{! TODO: Infection Chart }}
+    </div>
+    <div class="row">
+        <div class="col-sm-6 text-center">
+            <h1>Recent Infections</h1>
+            {{#each model.infections.values}}
+              <p>
+                  <strong>{{this.human}}</strong>
+                  was tagged by
+                  <strong>{{this.zombie}}</strong>
+                  <em>{{format-relative this.time interval=1000}}</em>
+              </p>
+            {{/each}}
+        </div>
+    </div>
+</div>

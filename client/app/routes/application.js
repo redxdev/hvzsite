@@ -5,4 +5,4 @@ export default Ember.Route.extend({
   beforeModel() {
     return this.get('intl').setLocale('en-us');
   }
-})
+});

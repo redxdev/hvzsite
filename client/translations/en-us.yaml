@@ -3,3 +3,11 @@ hvz:
   longLoc: 'Humans vs Zombies @ RIT'
   short: 'HvZ'
   shortLoc: 'HvZ @ RIT'
+  humans: >
+    {numHumans, plural,
+      =1 {Human}
+      other {Humans}}
+  zombies: >
+    {numZombies, plural,
+      =1 {Zombie}
+      other {Zombies}}
