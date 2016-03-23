@@ -1,33 +1,33 @@
 module.exports = {
 
-    attributes: {
-        hasLocation: {
-            type: 'boolean',
-            defaultsTo: false
-        },
+  attributes: {
+    hasLocation: {
+      type: 'boolean',
+      defaultsTo: false
+    },
 
-        latitude: {
-            type: 'float',
-            defaultsTo: 0
-        },
+    latitude: {
+      type: 'float',
+      defaultsTo: 0
+    },
 
-        longitude: {
-            type: 'float',
-            defaultsTo: 0
-        },
+    longitude: {
+      type: 'float',
+      defaultsTo: 0
+    },
 
-        zombie: {
-            model: 'User'
-        },
+    zombie: {
+      model: 'User'
+    },
 
-        human: {
-            model: 'User'
-        },
+    human: {
+      model: 'User'
+    },
 
-        killstreaks: {
-            type: 'array',
-            defaultsTo: []
-        }
+    killstreaks: {
+      type: 'array',
+      defaultsTo: []
     }
+  }
 };
 

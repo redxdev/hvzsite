@@ -1,18 +1,18 @@
 module.exports = {
-    attributes: {
-        idString: {
-            type: 'string',
-            index: true,
-            unique: true
-        },
+  attributes: {
+    idString: {
+      type: 'string',
+      index: true,
+      unique: true
+    },
 
-        active: {
-            type: 'boolean',
-            defaultsTo: true
-        },
+    active: {
+      type: 'boolean',
+      defaultsTo: true
+    },
 
-        user: {
-            model: 'User'
-        }
+    user: {
+      model: 'User'
     }
+  }
 }

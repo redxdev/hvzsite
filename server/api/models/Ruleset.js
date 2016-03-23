@@ -1,18 +1,18 @@
 module.exports = {
 
-    attributes: {
-        position: {
-            type: 'integer',
-            defaultsTo: 0
-        },
+  attributes: {
+    position: {
+      type: 'integer',
+      defaultsTo: 0
+    },
 
-        title: {
-            type: 'string'
-        },
+    title: {
+      type: 'string'
+    },
 
-        body: {
-            type: 'text'
-        }
+    body: {
+      type: 'text'
     }
+  }
 };
 

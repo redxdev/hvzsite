@@ -1,130 +1,130 @@
 module.exports = {
 
-    attributes: {
-        name: {
-            type: 'string'
-        },
+  attributes: {
+    name: {
+      type: 'string'
+    },
 
-        email: {
-            type: 'string',
-            unique: true,
-            index: true
-        },
+    email: {
+      type: 'string',
+      unique: true,
+      index: true
+    },
 
-        authMethod: {
-            type: 'string',
-            defaultsTo: 'google'
-        },
+    authMethod: {
+      type: 'string',
+      defaultsTo: 'google'
+    },
 
-        apiKey: {
-            type: 'string',
-            size: 32,
-            unique: true,
-            index: true
-        },
+    apiKey: {
+      type: 'string',
+      size: 32,
+      unique: true,
+      index: true
+    },
 
-        access: {
-            type: 'string',
-            enum: ['inactive', 'player', 'mod', 'admin', 'superadmin'],
-            defaultsTo: 'inactive'
-        },
+    access: {
+      type: 'string',
+      enum: ['inactive', 'player', 'mod', 'admin', 'superadmin'],
+      defaultsTo: 'inactive'
+    },
 
-        team: {
-            type: 'string',
-            enum: ['human', 'zombie'],
-            defaultsTo: 'human'
-        },
+    team: {
+      type: 'string',
+      enum: ['human', 'zombie'],
+      defaultsTo: 'human'
+    },
 
-        zombieId: {
-            type: 'string',
-            index: true,
-            unique: true
-        },
+    zombieId: {
+      type: 'string',
+      index: true,
+      unique: true
+    },
 
-        humanIds: {
-            collection: 'humanid',
-            via: 'user'
-        },
+    humanIds: {
+      collection: 'humanid',
+      via: 'user'
+    },
 
-        humansTagged: {
-            type: 'integer',
-            defaultsTo: 0
-        },
+    humansTagged: {
+      type: 'integer',
+      defaultsTo: 0
+    },
 
-        badges: {
-            type: 'array',
-            defaultsTo: []
-        },
+    badges: {
+      type: 'array',
+      defaultsTo: []
+    },
 
-        printed: {
-            type: 'boolean',
-            defaultsTo: false
-        },
+    printed: {
+      type: 'boolean',
+      defaultsTo: false
+    },
 
-        clan: {
-            type: 'string',
-            size: 32,
-            defaultsTo: ''
-        },
+    clan: {
+      type: 'string',
+      size: 32,
+      defaultsTo: ''
+    },
 
-        failures: {
-            type: 'integer',
-            defaultsTo: 0
-        },
+    failures: {
+      type: 'integer',
+      defaultsTo: 0
+    },
 
-        maxFailures: {
-            type: 'integer',
-            defaultsTo: 100
-        },
+    maxFailures: {
+      type: 'integer',
+      defaultsTo: 100
+    },
 
-        usedAV: {
-            type: 'boolean',
-            defaultsTo: false
-        },
+    usedAV: {
+      type: 'boolean',
+      defaultsTo: false
+    },
 
-        avatarPath: {
-            type: 'string',
-            defaultsTo: null
-        },
+    avatarPath: {
+      type: 'string',
+      defaultsTo: null
+    },
 
-        getPublicData: function() {
-            return {
-                id: this.id,
-                name: this.name,
-                signupDate: this.createdAt,
-                team: this.team,
-                humansTagged: this.humansTagged,
-                badges: this.badges,
-                clan: this.clan,
-                access: this.access
-            };
-        },
+    getPublicData: function () {
+      return {
+        id: this.id,
+        name: this.name,
+        signupDate: this.createdAt,
+        team: this.team,
+        humansTagged: this.humansTagged,
+        badges: this.badges,
+        clan: this.clan,
+        access: this.access
+      };
+    },
 
-        getAllData: function() {
-            return {
-                name: this.name,
-                email: this.email,
-                authMethod: this.authMethod,
-                apiKey: this.apiKey,
-                access: this.access,
-                team: this.team,
-                zombieId: this.zombieId,
-                humansTagged: this.humansTagged,
-                badges: this.badges,
-                printed: this.printed,
-                clan: this.clan,
-                failures: this.failures,
-                maxFailures: this.maxFailures,
-                usedAV: this.usedAV
-            }
-        },
+    getAllData: function () {
+      return {
+        name: this.name,
+        email: this.email,
+        authMethod: this.authMethod,
+        apiKey: this.apiKey,
+        access: this.access,
+        team: this.team,
+        zombieId: this.zombieId,
+        humansTagged: this.humansTagged,
+        badges: this.badges,
+        printed: this.printed,
+        clan: this.clan,
+        failures: this.failures,
+        maxFailures: this.maxFailures,
+        usedAV: this.usedAV
+      }
+    },
 
-        addBadge: function (id) {
-            if (sails.config.badges.registry[id] === undefined)
-                sails.log.warn("Applying unknown badge " + id + " to " + this.email);
+    addBadge: function (id) {
+      if (sails.config.badges.registry[id] === undefined)
+        sails.log.warn("Applying unknown badge " + id + " to " + this.email);
 
-            this.badges.push(id);
-        }
+      this.badges.push(id);
     }
+  }
 };
 
