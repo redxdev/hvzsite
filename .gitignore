@@ -17,6 +17,9 @@ nbproject
 .node_history
 /server/config/cert
 
+# All assets should be in client/public
+/server/assets
+
 # compiled output
 /client/dist
 /client/tmp
