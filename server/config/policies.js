@@ -18,38 +18,38 @@
 
 
 module.exports.policies = {
-    AuthController: {
-        apiKey: ['isActive'],
-        logout: ['authenticated']
-    },
+  AuthController: {
+    apiKey: ['isActive'],
+    logout: ['authenticated']
+  },
 
-    ProfileController: {
-        mine: ['apikey', 'isActive'],
-        setClan: ['apikey', 'isActive']
-    },
+  ProfileController: {
+    mine: ['apikey', 'isActive'],
+    setClan: ['apikey', 'isActive']
+  },
 
-    ContentController: {
-        missions: ['apikey', 'isActive']
-    },
+  ContentController: {
+    missions: ['apikey', 'isActive']
+  },
 
-    GameController: {
-        infect: ['apikey', 'isActive', 'preventFailed'],
-        antivirus: ['apikey', 'isActive', 'preventFailed']
-    },
+  GameController: {
+    infect: ['apikey', 'isActive', 'preventFailed'],
+    antivirus: ['apikey', 'isActive', 'preventFailed']
+  },
 
-    AdminUserController: {
-        list: ['apikey', 'isModerator'],
-        get: ['apikey', 'isModerator'],
-        update: ['apikey', 'isModerator'],
-        uploadAvatar: ['apikey', 'isModerator'],
-        create: ['apikey', 'isAdmin'],
-        generateId: ['apikey', 'isModerator'],
-        infect: ['apikey', 'isModerator'],
-        destroy: ['apikey', 'isModerator']
-    },
+  AdminUserController: {
+    list: ['apikey', 'isModerator'],
+    get: ['apikey', 'isModerator'],
+    update: ['apikey', 'isModerator'],
+    uploadAvatar: ['apikey', 'isModerator'],
+    create: ['apikey', 'isAdmin'],
+    generateId: ['apikey', 'isModerator'],
+    infect: ['apikey', 'isModerator'],
+    destroy: ['apikey', 'isModerator']
+  },
 
-    AdminContentController: {
-        rules: ['apikey', 'isAdmin'],
-        updateRule: ['apikey', 'isAdmin']
-    }
+  AdminContentController: {
+    rules: ['apikey', 'isAdmin'],
+    updateRule: ['apikey', 'isAdmin']
+  }
 };

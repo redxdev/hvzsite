@@ -13,9 +13,6 @@ module.exports = {
         if (!user) {
             return res.unauthorized({message: "You are not logged in!"});
         }
-        else if (!user.active) {
-            return res.forbidden({message: "Your account must be activated by a moderator."});
-        }
         else {
             return res.ok({key: user.apiKey});
         }
@@ -38,7 +35,7 @@ module.exports = {
                     return res.badRequest(err);
                 }
 
-                res.redirect('/'); // TODO: Flash message
+                return res.ok({message: "You have been logged in."});
             });
         })(req, res);
     },
@@ -54,7 +51,7 @@ module.exports = {
                 return res.serverError({message: "There was a problem creating your account."})
             }
 
-            res.redirect('/'); // TODO: Flash message
+            return res.ok({message: "You have been registered, but your account must be activated by a moderator."});
         })(req, res);
     }
 }

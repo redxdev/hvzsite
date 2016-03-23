@@ -22,64 +22,64 @@
 
 module.exports.routes = {
 
-    /***************************************************************************
-     *                                                                          *
-     * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-     * etc. depending on your default view engine) your home page.              *
-     *                                                                          *
-     * (Alternatively, remove this and add an `index.html` file in your         *
-     * `assets` directory)                                                      *
-     *                                                                          *
-     ***************************************************************************/
+  /***************************************************************************
+   *                                                                          *
+   * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
+   * etc. depending on your default view engine) your home page.              *
+   *                                                                          *
+   * (Alternatively, remove this and add an `index.html` file in your         *
+   * `assets` directory)                                                      *
+   *                                                                          *
+   ***************************************************************************/
 
-    '/': {
-        view: 'homepage'
-    },
+  '/': {
+    view: 'homepage'
+  },
 
-    // StatusController
-    'get /api/v2/status/dates': 'StatusController.dates',
-    'get /api/v2/status/score': 'StatusController.score',
-    'get /api/v2/status/players': 'StatusController.players',
-    'get /api/v2/status/moderators': 'StatusController.moderators',
-    'get /api/v2/status/infections': 'StatusController.infections',
+  // StatusController
+  'get /api/v2/status/dates': 'StatusController.dates',
+  'get /api/v2/status/score': 'StatusController.score',
+  'get /api/v2/status/players': 'StatusController.players',
+  'get /api/v2/status/moderators': 'StatusController.moderators',
+  'get /api/v2/status/infections': 'StatusController.infections',
 
-    // ContentController
-    'get /api/v2/content/rules': 'ContentController.rules',
-    'get /api/v2/content/news': 'ContentController.news',
-    'get /api/v2/content/announcements': 'ContentController.announcements',
-    'get /api/v2/content/missions': 'ContentController.missions',
+  // ContentController
+  'get /api/v2/content/rules': 'ContentController.rules',
+  'get /api/v2/content/news': 'ContentController.news',
+  'get /api/v2/content/announcements': 'ContentController.announcements',
+  'get /api/v2/content/missions': 'ContentController.missions',
 
-    // GameController
-    'post /api/v2/game/infect': 'GameController.infect',
-    'post /api/v2/game/antivirus': 'GameController.antivirus',
+  // GameController
+  'post /api/v2/game/infect': 'GameController.infect',
+  'post /api/v2/game/antivirus': 'GameController.antivirus',
 
-    // AuthController
-    'get /auth/l/google': 'AuthController.loginGoogle',
-    'get /auth/c/google': 'AuthController.callbackGoogle',
-    'get /auth/r/google': 'AuthController.registerGoogle',
-    'get /auth/rc/google': 'AuthController.callbackRegisterGoogle',
+  // AuthController
+  'get /auth/l/google': 'AuthController.loginGoogle',
+  'get /auth/c/google': 'AuthController.callbackGoogle',
+  'get /auth/r/google': 'AuthController.registerGoogle',
+  'get /auth/rc/google': 'AuthController.callbackRegisterGoogle',
 
-    'get /auth/logout': 'AuthController.logout',
+  'get /auth/logout': 'AuthController.logout',
 
-    'get /api/v2/auth/apikey': 'AuthController.apiKey',
+  'get /api/v2/auth/apikey': 'AuthController.apiKey',
 
-    // ProfileController
-    'get /api/v2/profile': 'ProfileController.mine',
-    'get /api/v2/profile/:id': 'ProfileController.other',
-    'post /api/v2/profile/clan': 'ProfileController.setClan',
-    'get /api/v2/avatar/:id': 'ProfileController.avatar',
+  // ProfileController
+  'get /api/v2/profile': 'ProfileController.mine',
+  'get /api/v2/profile/:id': 'ProfileController.other',
+  'post /api/v2/profile/clan': 'ProfileController.setClan',
+  'get /api/v2/avatar/:id': 'ProfileController.avatar',
 
-    // AdminUserController
-    'get /api/v2/admin/users': 'AdminUserController.list',
-    'get /api/v2/admin/users/:id': 'AdminUserController.get',
-    'put /api/v2/admin/users/:id': 'AdminUserController.update',
-    'post /api/v2/admin/users/:id/avatar': 'AdminUserController.uploadAvatar',
-    'post /api/v2/admin/users': 'AdminUserController.create',
-    'post /api/v2/admin/users/:id/generateId': 'AdminUserController.generateId',
-    'post /api/v2/admin/users/:id/infect': 'AdminUserController.infect',
-    'delete /api/v2/admin/users/:id': 'AdminUserController.destroy',
+  // AdminUserController
+  'get /api/v2/admin/users': 'AdminUserController.list',
+  'get /api/v2/admin/users/:id': 'AdminUserController.get',
+  'put /api/v2/admin/users/:id': 'AdminUserController.update',
+  'post /api/v2/admin/users/:id/avatar': 'AdminUserController.uploadAvatar',
+  'post /api/v2/admin/users': 'AdminUserController.create',
+  'post /api/v2/admin/users/:id/generateId': 'AdminUserController.generateId',
+  'post /api/v2/admin/users/:id/infect': 'AdminUserController.infect',
+  'delete /api/v2/admin/users/:id': 'AdminUserController.destroy',
 
-    // AdminContentController
-    'get /api/v2/admin/rules': 'AdminContentController.rules',
-    'put /api/v2/admin/rules/:id': 'AdminContentController.updateRule'
+  // AdminContentController
+  'get /api/v2/admin/rules': 'AdminContentController.rules',
+  'put /api/v2/admin/rules/:id': 'AdminContentController.updateRule'
 };

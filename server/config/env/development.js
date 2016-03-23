@@ -21,4 +21,11 @@ module.exports = {
   //   connection: 'someMongodbServer'
   // }
 
+  cors: {
+    allRoutes: true,
+    //origin: '*',
+    //methods: 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
+    //headers: 'content-type, accept, auth-key'
+  }
+
 };

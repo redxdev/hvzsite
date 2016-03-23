@@ -1,3 +1,40 @@
-<h2 id="title">Welcome to Ember</h2>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="visible-lg visible-md navbar-brand navbar-brand-centered">
+                {{#link-to "status"}}
+                  <img class="logo" src="images/hvzlogo_small.png" alt="{{t 'hvz.shortLoc'}}">
+                {{/link-to}}
+            </div>
+            <div class="visible-xs visible-sm navbar-brand">
+                {{t 'hvz.shortLoc'}}
+            </div>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>{{#link-to "status"}}Status{{/link-to}}</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>Foo Bar</li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 {{outlet}}
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+                <p class="text-muted pull-right">Copyright &copy; 2016</p>
+            </div>
+        </div>
+    </div>
+</footer>

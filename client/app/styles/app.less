@@ -1,0 +1,83 @@
+// Variables
+
+@human-color: #ff7519;
+@zombie-color: #31e636;
+
+
+// Styles
+
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.jumbotron.header {
+  background: transparent;
+  position: relative;
+}
+
+.header-text {
+  background-color: rgba(255, 255, 255, 0.57);
+}
+
+@media screen and (min-width:769px) {
+  .navbar-brand-centered {
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 300px;
+    text-align: center;
+  }
+
+  .navbar>.container .navbar-brand-centered,
+  .navbar>.container-fluid .navbar-brand-centered {
+    margin-left: -150px;
+  }
+
+  .navbar-fixed-top .navbar-brand-centered .logo {
+    position: relative;
+    top: -10px;
+    width: 59px;
+    height: 45px;
+  }
+
+  .vertical-space {
+    height: 25px;
+  }
+
+  .vertical-space-sm {
+    height: 10px;
+  }
+}
+
+.bg-human {
+  background-color: @human-color;
+}
+
+.bg-zombie {
+  background-color: @zombie-color;
+}
+
+.large-text {
+  font-size: 200%
+}
+
+.large-text h1 {
+  font-size: 325%;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+}
+
+a.offset {
+  display: block;
+  position: relative;
+  top: -80px;
+  visibility: hidden;
+}
+
+span.hover-text {
+  border-bottom: thin dotted;
+}
