@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {{#each model.infections as |infection|}}
+              <p>
+                  <strong>{{infection.human}}</strong>
+                  was tagged by
+                  <strong>{{infection.zombie}}</strong>
+                  <span title="{{format-time infection.time}}" class="hover-text">
+                      <em>{{format-relative infection.time}}</em>
+                  </span>
+              </p>
+            {{else}}
+              <div class="row">
+                  <div class="col-md-12 text-center">
+                      <h1>There were no infections found.</h1>
+                  </div>
+              </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

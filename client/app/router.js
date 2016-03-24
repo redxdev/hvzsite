@@ -9,6 +9,7 @@ Router.map(function() {
   this.route('status', {path: '/'});
   this.route('profile');
   this.route('players');
+  this.route('infections');
 });
 
 export default Router;
