@@ -21,4 +21,18 @@
             {{/each}}
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <ul class="pager">
+              {{#if model.previousPage}}
+                  <li>{{#link-to 'infections' (query-params page=model.previousPage)}}&larr; Previous{{/link-to}}</li>
+              {{/if}}
+
+              {{#if model.nextPage}}
+                  <li>{{#link-to 'infections' (query-params page=model.nextPage)}}Next &rarr;{{/link-to}}</li>
+              {{/if}}
+            </ul>
+        </div>
+    </div>
 </div>

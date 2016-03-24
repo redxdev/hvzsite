@@ -53,8 +53,14 @@ module.exports = {
       sort: sort
     });
 
-    if (requireClan)
+    var c = {
+        access: 'player'
+      };
+
+    if (requireClan) {
       q.where({clan: {'!': ['']}});
+      c.clan = {'!': ['']};
+    }
 
     if (search !== undefined) {
       q.where({
@@ -63,26 +69,44 @@ module.exports = {
           {clan: {'contains': search}}
         ]
       });
+
+      c.or = [
+        {name: {'contains': search}},
+        {clan: {'contains': search}}
+      ];
     }
 
     var limit = req.param('limit');
     if (limit !== undefined)
       q.limit(limit);
 
+    var skip = req.param('skip');
+    if (skip !== undefined)
+      q.skip(skip);
+
     var team = req.param('team');
-    if (team != undefined)
+    if (team != undefined) {
       q.where({team: team});
+      c.team = team;
+    }
 
     q.exec(function (err, users) {
         if (err) {
           res.negotiate(err);
         }
         else {
-          var result = [];
-          res.ok({
-            players: users.map(function (user) {
-              return user.getPublicData();
-            })
+          User.count(c).exec(function (err, count) {
+            if (err) {
+              res.negotiate(err);
+            }
+            else {
+              res.ok({
+                players: users.map(function (user) {
+                  return user.getPublicData();
+                }),
+                total: count
+              });
+            }
           });
         }
       }
@@ -115,28 +139,42 @@ module.exports = {
     if (limit !== undefined)
       q.limit(limit);
 
+    var skip = req.param('skip');
+    if (skip !== undefined)
+      q.skip(skip);
+
     q.populate('zombie').populate('human').exec(function (err, infections) {
       if (err) {
         res.negotiate(err);
       }
       else {
-        res.ok({
-          infections: infections.map(function (infection) {
-            return {
-              time: infection.createdAt,
-              hasLocation: infection.hasLocation,
-              latitude: infection.latitude,
-              longitude: infection.longitude,
-              zombie: {
-                id: infection.zombie.id,
-                name: infection.zombie.name
-              },
-              human: {
-                id: infection.human.id,
-                name: infection.human.name
-              }
-            };
-          })
+        InfectionSpread.count().exec(function (err, count) {
+          if (err) {
+            res.negotiate(err);
+          }
+          else {
+            res.ok({
+              infections: infections.map(function (infection) {
+                return {
+                  time: infection.createdAt,
+                  hasLocation: infection.hasLocation,
+                  latitude: infection.latitude,
+                  longitude: infection.longitude,
+                  zombie: {
+                    id: infection.zombie.id,
+                    name: infection.zombie.name
+                  },
+                  human: {
+                    id: infection.human.id,
+                    name: infection.human.name
+                  }
+                };
+              }),
+              
+              total: count
+            });
+
+          }
         });
       }
     });

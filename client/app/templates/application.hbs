@@ -18,8 +18,8 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>{{#link-to 'status'}}Status{{/link-to}}</li>
-                <li>{{#link-to 'players'}}Players{{/link-to}}</li>
-                <li>{{#link-to 'infections'}}Infections{{/link-to}}</li>
+                <li>{{#link-to 'players' (query-params page='' sort='' searchTerm='')}}Players{{/link-to}}</li>
+                <li>{{#link-to 'infections' (query-params page='')}}Infections{{/link-to}}</li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
 

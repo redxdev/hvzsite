@@ -11,46 +11,48 @@
                     <ul class="nav nav-pills">
                       {{#if (eq model.sort 'team')}}
                           <li class="active">
-                            {{#link-to 'players' (query-params sort='team')}}Team{{/link-to}}
+                            {{#link-to 'players' (query-params sort='team' page=1)}}Team{{/link-to}}
                           </li>
                       {{else}}
                           <li>
-                            {{#link-to 'players' (query-params sort='team')}}Team{{/link-to}}
+                            {{#link-to 'players' (query-params sort='team' page=1)}}Team{{/link-to}}
                           </li>
                       {{/if}}
 
                       {{#if (eq model.sort 'clan')}}
                           <li class="active">
-                            {{#link-to 'players' (query-params sort='clan')}}Clan{{/link-to}}
+                            {{#link-to 'players' (query-params sort='clan' page=1)}}Clan{{/link-to}}
                           </li>
                       {{else}}
                           <li>
-                            {{#link-to 'players' (query-params sort='clan')}}Clan{{/link-to}}
+                            {{#link-to 'players' (query-params sort='clan' page=1)}}Clan{{/link-to}}
                           </li>
                       {{/if}}
 
                       {{#if (eq model.sort 'mods')}}
-                        <li class="active">
-                            {{#link-to 'players' (query-params sort='mods')}}Mods{{/link-to}}
-                        </li>
+                          <li class="active">
+                            {{#link-to 'players' (query-params sort='mods' page=1)}}Mods{{/link-to}}
+                          </li>
                       {{else}}
-                        <li>
-                            {{#link-to 'players' (query-params sort='mods')}}Mods{{/link-to}}
-                        </li>
+                          <li>
+                            {{#link-to 'players' (query-params sort='mods' page=1)}}Mods{{/link-to}}
+                          </li>
                       {{/if}}
                     </ul>
                 </div>
             </div>
         </div>
         <div class="col-md-5 col-md-offset-2 col-sm-8">
-            <div class="input-group">
-                <input id="searchTerm" type="text" class="form-control" placeholder="Search" value="{{searchTerm}}">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" {{action 'search'}}>
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
+            <form>
+                <div class="input-group">
+                    <input id="searchTerm" type="text" class="form-control" placeholder="Search" value="{{searchTerm}}">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" {{action 'search'}}>
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -66,5 +68,19 @@
               </div>
           </div>
       {{/each}}
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <ul class="pager">
+              {{#if model.previousPage}}
+                  <li>{{#link-to 'players' (query-params page=model.previousPage)}}&larr; Previous{{/link-to}}</li>
+              {{/if}}
+
+              {{#if model.nextPage}}
+                  <li>{{#link-to 'players' (query-params page=model.nextPage)}}Next &rarr;{{/link-to}}</li>
+              {{/if}}
+            </ul>
+        </div>
     </div>
 </div>
