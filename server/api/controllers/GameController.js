@@ -30,7 +30,7 @@ module.exports = {
     if (errors.length > 0) {
       return res.badRequest({
         message: "There was an error with your request",
-        errors: errors
+        problems: errors
       });
     }
 
@@ -73,7 +73,7 @@ module.exports = {
             if (shouldCauseFailure || errors.length > 0) {
               return res.badRequest({
                 message: "There was an error with your request",
-                errors: errors
+                problems: errors
               });
             }
 
@@ -93,19 +93,25 @@ module.exports = {
                 BadgeRegistry.processInfectionBadges(human, zombie, infection)
                   .then(function () {
                     human.team = 'zombie';
-                    human.save();
 
                     humanIdObj.active = false;
-                    humanIdObj.save();
 
                     zombie.humansTagged++;
-                    zombie.save();
 
-                    sails.log.info(zombie.email + " infected " + human.email);
+                    Promise.join(
+                      human.save(),
+                      humanIdObj.save(),
+                      zombie.save(),
+                      function() {
+                        sails.log.info(zombie.email + " infected " + human.email);
 
-                    res.ok({
-                      human: human.getPublicData(),
-                      zombie: zombie.getPublicData()
+                        res.ok({
+                          human: human.getPublicData(),
+                          zombie: zombie.getPublicData()
+                        });
+                      }
+                    ).catch(function (err) {
+                      res.negotiate(err);
                     });
                   }, function (err) {
                     InfectionSpread.destroy({id: infection.id}).exec(function () {
@@ -195,17 +201,23 @@ module.exports = {
 
             av.active = false;
             av.user = zombie.id;
-            av.save();
 
             zombie.team = 'human';
             zombie.usedAV = true;
             zombie.addBadge('antivirus');
-            zombie.save();
 
-            sails.log.info(zombie.email + " has used an antivirus");
+            Promise.join(
+              av.save(),
+              zombie.save(),
+              function () {
+                sails.log.info(zombie.email + " has used an antivirus");
 
-            res.ok({
-              zombie: zombie.getPublicData()
+                res.ok({
+                  zombie: zombie.getPublicData()
+                });
+              }
+            ).catch(function (err) {
+              res.negotiate(err);
             });
           }
         });

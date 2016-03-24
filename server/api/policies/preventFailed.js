@@ -3,7 +3,7 @@ module.exports = function (req, res, next) {
     return res.unauthorized();
 
   if (req.user.failures >= req.user.maxFailures) {
-    return res.forbidden({message: "You've hit the limit for using the API with bad data. Please contact an administrator with this message."});
+    return res.badRequest({message: "You've hit the limit for using the API with bad data. Please contact an administrator with this message."});
   }
 
   next();

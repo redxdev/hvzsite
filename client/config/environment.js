@@ -20,7 +20,7 @@ module.exports = function(environment) {
 
     'ember-toastr': {
       toastrOptions: {
-        showDuration: '1000',
+        showDuration: '2000',
         positionClass: 'toast-bottom-right'
       }
     },

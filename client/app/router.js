@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('infections');
   this.route('missions');
   this.route('rules');
+  this.route('infect');
 });
 
 export default Router;

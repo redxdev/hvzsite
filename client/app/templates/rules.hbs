@@ -1,1 +1,35 @@
-{{outlet}}
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row visible-xs">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs side-nav">
+                {{#each model.rules as |rule|}}
+                  <li><a href="#" {{action 'goToRule' rule.id}}>{{rule.title}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="hidden-xs col-sm-3">
+            <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix" style="overflow: auto; height: 100%">
+                {{#each model.rules as |rule|}}
+                  <li><a href="#" {{action 'goToRule' rule.id}}>{{rule.title}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            {{#each model.rules as |rule|}}
+              <section>
+                  <a id="rule-{{rule.id}}" class="offset"></a>
+                  <h2>{{rule.title}}</h2>
+                  <div>
+                      {{{rule.body}}}
+                  </div>
+              </section>
+            {{else}}
+              <h1>There were no rules found.</h1>
+            {{/each}}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+  {{#if model.notLoggedIn}}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>Whoops!</h2>
+            <p>You need to be logged in to register infections.</p>
+        </div>
+    </div>
+  {{else}}
+      <div class="row">
+          <div class="col-md-12 text-center">
+              <h2>Register Infection</h2>
+              <p>Have an antivirus? <a href="#">Click here!</a></p>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+              <form>
+                  <div class="form-group">
+                      <label for="humanId">Human Id</label>
+                      <input type="text" class="form-control" id="humanId" placeholder="human id"
+                             value="{{model.humanId}}" maxlength="8">
+                  </div>
+                  <div class="form-group">
+                      <label for="zombieId">Zombie Id</label>
+                      <input type="text" class="form-control" id="zombieId" placeholder="zombie id"
+                             value="{{model.zombieId}}" maxlength="8">
+                  </div>
+                  <button type="submit" class="btn btn-default" {{action 'submitInfection'}} id="infectButton">Submit
+                  </button>
+              </form>
+              <p class="text-muted">Location: <span id="location-status">NOT SENDING</span></p>
+          </div>
+      </div>
+  {{/if}}
+</div>

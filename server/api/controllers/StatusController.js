@@ -132,7 +132,7 @@ module.exports = {
 
   infections: function (req, res) {
     var q = InfectionSpread.find({
-      sort: {time: 1}
+      sort: {createdAt: -1}
     });
 
     var limit = req.param('limit');
@@ -170,7 +170,7 @@ module.exports = {
                   }
                 };
               }),
-              
+
               total: count
             });
 

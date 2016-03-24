@@ -43,5 +43,6 @@
     "ember-toastr": "1.4.0",
     "ember-truth-helpers": "1.2.0",
     "loader.js": "^4.0.0"
-  }
+  },
+  "dependencies": {}
 }
