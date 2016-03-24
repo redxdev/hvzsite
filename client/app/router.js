@@ -8,6 +8,7 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('status', {path: '/'});
   this.route('profile');
+  this.route('players');
 });
 
 export default Router;

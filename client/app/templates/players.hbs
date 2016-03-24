@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="vertical-space-sm"></div>
+
+    <div class="row">
+        <div class="col-md-5 col-sm-4">
+            <div class="row">
+                <div class="col-md-1 col-md-offset-2">
+                    Sort:
+                </div>
+                <div class="col-md-6">
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="#">Team</a></li>
+                        <li><a href="#">Clan</a></li>
+                        <li><a href="#">Mods</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-md-offset-2 col-sm-8">
+            <div class="input-group">
+                <input id="searchTerm" type="text" class="form-control" placeholder="Search">
+                <div class="input-group-btn">
+                    <button class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="vertical-space"></div>
+
+    <div id="player-list">
+      {{#each model.players as |player|}}
+        {{hvz-player player=player}}
+      {{else}}
+          <div class="row">
+              <div class="col-md-12 text-center">
+                  <h1>There were no players found.</h1>
+              </div>
+          </div>
+      {{/each}}
+    </div>
+</div>
