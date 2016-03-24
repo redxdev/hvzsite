@@ -53,16 +53,16 @@ module.exports = {
             var shouldCauseFailure = false;
 
             if (humanIdObj === undefined || !AuthService.hasPermission(humanIdObj.user, 'player')) {
-              errors.push("Invalid human id");
+              errors.push("Invalid human id.");
               shouldCauseFailure = true;
             }
 
             if (humanIdObj !== undefined && humanIdObj.user.team !== 'human') {
-              errors.push("The human id entered belongs to a zombie");
+              errors.push("The human id entered belongs to a zombie.");
             }
 
             if (zombie == undefined || !AuthService.hasPermission(zombie, 'player')) {
-              errors.push("Invalid zombie id");
+              errors.push("Invalid zombie id.");
             }
 
             if (shouldCauseFailure) {
@@ -147,7 +147,7 @@ module.exports = {
     if (errors.length > 0) {
       return res.badRequest({
         message: "There was an error with your request",
-        errors: errors
+        problems: errors
       });
     }
 
@@ -163,19 +163,22 @@ module.exports = {
           req.user.save();
 
           return res.badRequest({
-            message: "Invalid antivirus"
+            message: "There was a problem using the antivirus.",
+            problems: ['Invalid antivirus']
           });
         }
 
         if (!av.active) {
           return res.badRequest({
-            message: "That antivirus has already been used"
+            message: "There was a problem using the antivirus.",
+            problems: ['That antivirus has already been used.']
           });
         }
 
         if (av.expirationTime < new Date()) {
           return res.badRequest({
-            message: "That antivirus has expired"
+            message: "There was a problem using the antivirus.",
+            problems: ['That antivirus has expired.']
           });
         }
 
@@ -189,13 +192,15 @@ module.exports = {
           else {
             if (zombie == undefined || !AuthService.hasPermission(zombie, 'player')) {
               return res.badRequest({
-                message: "Invalid zombie id"
+                message: "There was a problem using the antivirus.",
+                problems: ['Invalid zombie id.']
               });
             }
 
             if (zombie.usedAV) {
               return res.badRequest({
-                message: "Zombie has already used an antivirus"
+                message: "There was a problem using the antivirus.",
+                problems: ['The zombie has already used an antivirus.']
               });
             }
 

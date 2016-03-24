@@ -31,12 +31,12 @@
       {{#if model.infections.length}}
           <div class="col-sm-6 text-center">
               <h1>Recent Infections</h1>
-            {{#each model.infections}}
+            {{#each model.infections as |infection|}}
                 <p>
-                    <strong>{{this.human}}</strong>
+                    <strong>{{infection.human}}</strong>
                     was tagged by
-                    <strong>{{this.zombie}}</strong>
-                    <em>{{format-relative this.time interval=1000}}</em>
+                    <strong>{{infection.zombie}}</strong>
+                    <em>{{format-relative infection.time interval=1000}}</em>
                 </p>
             {{/each}}
           </div>
@@ -47,11 +47,11 @@
       {{#if model.topPlayers.length}}
           <div class="col-sm-6 text-center">
               <h1>Top Zombies</h1>
-              {{#each model.topPlayers}}
+              {{#each model.topPlayers as |player|}}
                 <p>
-                    <strong>{{this.name}}</strong>
+                    <strong>{{player.name}}</strong>
                     with
-                    <strong>{{this.humansTagged}}</strong>
+                    <strong>{{player.humansTagged}}</strong>
                     tags
                 </p>
               {{/each}}

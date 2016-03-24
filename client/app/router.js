@@ -13,6 +13,7 @@ Router.map(function() {
   this.route('missions');
   this.route('rules');
   this.route('infect');
+  this.route('antivirus');
 });
 
 export default Router;
