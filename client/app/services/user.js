@@ -73,14 +73,10 @@ export default Ember.Service.extend({
         }
 
         this.get('routing').transitionTo('status');
-        if (event.data.success === true) {
-          this.get('toast').success(event.data.message);
-          resolve();
-        }
-        else {
-          this.get('toast').error(event.data.message);
-          reject();
-        }
+        console.log(event.data);
+
+        this.get('toast').success('You have been logged out.');
+        resolve();
       };
       this.set('loginWindow', loginWindow);
     });

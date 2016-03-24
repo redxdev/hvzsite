@@ -59,6 +59,35 @@ function createUser(name, email, authMethod) {
   });
 }
 
+function createSuperAdmin(name, email, authMethod) {
+  authMethod = authMethod || 'google';
+  createUser(name, email, authMethod).then(function (user) {
+    user.access = 'superadmin';
+    user.save(function (err) {
+      if (err) {
+        sails.log.error(err);
+        return;
+      }
+      sails.log.info("Created new superadmin " + email);
+    });
+  });
+}
+
+function createActiveUser(name, email, authMethod) {
+  authMethod = authMethod || 'google';
+  createUser(name, email, authMethod).then(function (user) {
+    user.access = 'player';
+    user.save(function (err) {
+      if (err) {
+        sails.log.error(err);
+        return;
+      }
+
+      sails.log.info("Created new active user " + email);
+    });
+  });
+}
+
 //
 // Configure passport strategies here!
 //
@@ -183,6 +212,8 @@ function hasPermission(role, minRole) {
 
 module.exports = {
   createUser: createUser,
+  createSuperAdmin: createSuperAdmin,
+  createActiveUser: createActiveUser,
   getUser: function (apiKey) {
     return new Promise(function (resolve, reject) {
       User.findOne({apiKey: apiKey}).populate('humanIds').exec(function (err, user) {

@@ -39,7 +39,18 @@ Run the following command to build the client:
 
 ### User Accounts
 
-TODO: How to setup an admin user.
+In order to create the initial superadmin account, open up the sails console with
+
+    sails console
+    
+within the server directory. Run the following command:
+
+    AuthService.createSuperAdmin('Your Name', 'Your Email');
+
+You may also create additional accounts with any of the following commands:
+
+    AuthService.createUser('Your Name', 'Your Email'); // creates an inactive user, same as registering a new user account
+    AuthService.createActiveUser('Your Name', 'Your Email'); // creates an active user
 
 ## Running the Website
 

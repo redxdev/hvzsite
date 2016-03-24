@@ -9,18 +9,44 @@
                 </div>
                 <div class="col-md-6">
                     <ul class="nav nav-pills">
-                        <li class="active"><a href="#">Team</a></li>
-                        <li><a href="#">Clan</a></li>
-                        <li><a href="#">Mods</a></li>
+                      {{#if (eq model.sort 'team')}}
+                          <li class="active">
+                            {{#link-to 'players' (query-params sort='team')}}Team{{/link-to}}
+                          </li>
+                      {{else}}
+                          <li>
+                            {{#link-to 'players' (query-params sort='team')}}Team{{/link-to}}
+                          </li>
+                      {{/if}}
+
+                      {{#if (eq model.sort 'clan')}}
+                          <li class="active">
+                            {{#link-to 'players' (query-params sort='clan')}}Clan{{/link-to}}
+                          </li>
+                      {{else}}
+                          <li>
+                            {{#link-to 'players' (query-params sort='clan')}}Clan{{/link-to}}
+                          </li>
+                      {{/if}}
+
+                      {{#if (eq model.sort 'mods')}}
+                        <li class="active">
+                            {{#link-to 'players' (query-params sort='mods')}}Mods{{/link-to}}
+                        </li>
+                      {{else}}
+                        <li>
+                            {{#link-to 'players' (query-params sort='mods')}}Mods{{/link-to}}
+                        </li>
+                      {{/if}}
                     </ul>
                 </div>
             </div>
         </div>
         <div class="col-md-5 col-md-offset-2 col-sm-8">
             <div class="input-group">
-                <input id="searchTerm" type="text" class="form-control" placeholder="Search">
+                <input id="searchTerm" type="text" class="form-control" placeholder="Search" value="{{searchTerm}}">
                 <div class="input-group-btn">
-                    <button class="btn btn-default">
+                    <button class="btn btn-default" {{action 'search'}}>
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
                 </div>
