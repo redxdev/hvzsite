@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import config from '../config/environment';
+import Ember from "ember";
+import config from "../config/environment";
 
 export default Ember.Service.extend({
   ajax: Ember.inject.service(),
@@ -127,5 +127,42 @@ export default Ember.Service.extend({
         apikey: this.getApiKey()
       }
     });
+  },
+
+  getUserInfo() {
+    if (!this.isLoggedIn()) {
+      return new Ember.RSVP.Promise((resolve) => {
+        resolve({
+          profile: null,
+          loggedIn: false,
+          isModerator: false,
+          isAdmin: false,
+          isSuperAdmin: false
+        });
+      });
+    }
+
+    return this.getUserProfile().then((result) => {
+      var profile = result.profile;
+      return {
+        profile: profile,
+        loggedIn: true,
+        isModerator: this.isModerator(profile.access),
+        isAdmin: this.isAdmin(profile.access),
+        isSuperAdmin: this.isSuperAdmin(profile.access)
+      };
+    });
+  },
+
+  isModerator(access) {
+    return access === "mod" || access === "admin" || access === "superadmin";
+  },
+
+  isAdmin(access) {
+    return access === "admin" || access === "superadmin";
+  },
+
+  isSuperAdmin(access) {
+    return access === "superadmin";
   }
 });

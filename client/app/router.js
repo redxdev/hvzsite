@@ -14,6 +14,8 @@ Router.map(function() {
   this.route('rules');
   this.route('infect');
   this.route('antivirus');
+
+  this.route('admin-players', {path: '/admin/players'});
 });
 
 export default Router;

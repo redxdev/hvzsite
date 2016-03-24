@@ -1,19 +1,20 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 export default Ember.Route.extend({
   intl: Ember.inject.service(),
   user: Ember.inject.service(),
+  errorHandler: Ember.inject.service(),
 
   beforeModel() {
     return this.get('intl').setLocale('en-us');
   },
 
   model() {
-    return {
-      user: {
-        loggedIn: this.get('user').isLoggedIn()
-      }
-    };
+    return this.get('user').getUserInfo().then((user) => {
+      return {user: user};
+    }).catch((err) => {
+      this.get('errorHandler').handleError(err);
+    });
   },
 
   actions: {

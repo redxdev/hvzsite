@@ -203,6 +203,7 @@ function getPermissionLevel(role) {
 function hasPermission(role, minRole) {
   role = getPermissionLevel(role);
   minRole = getPermissionLevel(minRole);
+  console.log(role + " vs " + minRole);
   return role >= minRole && minRole > sails.config.permissions.unknown;
 }
 

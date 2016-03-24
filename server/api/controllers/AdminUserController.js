@@ -36,6 +36,8 @@ module.exports = {
       sort: {name: 1}
     });
 
+    var c = {};
+
     if (search !== undefined) {
       q.where({
         or: [
@@ -44,18 +46,39 @@ module.exports = {
           {email: {'contains': search}}
         ]
       });
+
+      c.or = [
+        {name: {'contains': search}},
+        {clan: {'contains': search}},
+        {email: {'contains': search}}
+      ];
     }
+
+    var limit = req.param('limit');
+    if (limit !== undefined)
+      q.limit(limit);
+
+    var skip = req.param('skip');
+    if (skip !== undefined)
+      q.skip(skip);
 
     q.exec(function (err, users) {
         if (err) {
           res.negotiate(err);
         }
         else {
-          var result = [];
-          res.ok({
-            players: users.map(function (user) {
-              return user.getPublicData();
-            })
+          User.count(c).exec(function (err, count) {
+            if (err) {
+              res.negotiate(err);
+            }
+            else {
+              res.ok({
+                players: users.map(function (user) {
+                  return user.getPublicData();
+                }),
+                total: count
+              });
+            }
           });
         }
       }

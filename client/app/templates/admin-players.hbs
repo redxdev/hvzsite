@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="vertical-space-sm"></div>
+
+    <div class="row">
+        <div class="col-md-5 col-sm-8">
+            <form>
+                <div class="input-group">
+                    <input id="searchTerm" type="text" class="form-control" placeholder="Search" value="{{searchTerm}}">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" {{action 'search'}}>
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-5 col-md-offset-2 col-sm-4">
+            <a href="#" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="vertical-space"></div>
+
+    <div id="player-list">
+      {{#each model.players as |player|}}
+        {{hvz-player player=player admin=true}}
+      {{else}}
+          <div class="row">
+              <div class="col-md-12 text-center">
+                  <h1>There were no players found.</h1>
+              </div>
+          </div>
+      {{/each}}
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <ul class="pager">
+              {{#if model.previousPage}}
+                  <li>{{#link-to 'admin-players' (query-params page=model.previousPage)}}&larr; Previous{{/link-to}}</li>
+              {{/if}}
+
+              {{#if model.nextPage}}
+                  <li>{{#link-to 'admin-players' (query-params page=model.nextPage)}}Next &rarr;{{/link-to}}</li>
+              {{/if}}
+            </ul>
+        </div>
+    </div>
+</div>
