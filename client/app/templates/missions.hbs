@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row visible-xs">
+        <div class="col-md-12">
+            <ul class="nav nav-pills nav-stacked side-nav">
+                {{#each model.missions as |mission|}}
+                  <li><a href="#" {{action 'goToMission' mission.id}}>{{mission.title}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="hidden-xs col-sm-3">
+            <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix" style="overflow: auto; height: 100%">
+                {{#each model.missions as |mission|}}
+                  <li><a href="#" {{action 'goToMission' mission.id}}>{{mission.title}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            {{#each model.missions as |mission|}}
+              <section>
+                  <a id="mission-{{mission.id}}" class="offset"></a>
+                  <h2>{{mission.title}}</h2>
+                  <h5 class="text-muted">{{format-relative mission.postDate}}</h5>
+                  <div>
+                      {{{mission.body}}}
+                  </div>
+              </section>
+            {{else}}
+              <h1>There were no missions found.</h1>
+            {{/each}}
+        </div>
+    </div>
+</div>

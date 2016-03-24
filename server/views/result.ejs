@@ -1,7 +1,15 @@
-<div id="error">Please wait...</div>
+<div id="message">Please wait...</div>
+<div id="error"></div>
 <script type="text/javascript">
   window.onload = function () {
-    window.opener.postMessage(<%- result %>, '*');
-    window.close();
+    var result = <%- result %>;
+    if (!window.opener) {
+      document.getElementById("message").innerHTML = result.message;
+      document.getElementById("error").innerHTML = "Woah, you shouldn't be here!";
+    }
+    else {
+      window.opener.postMessage(result, '*');
+      window.close();
+    }
   }
 </script>

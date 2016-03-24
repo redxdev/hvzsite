@@ -17,11 +17,17 @@ export default Ember.Route.extend({
   },
 
   actions: {
+    register() {
+      this.get('user').register();
+    },
+
     login() {
       this.get('user').login().then(() => {
-        location.reload();
+        this.transitionTo('status');
+        this.refresh();
       }).catch(() => {
-        location.reload();
+        this.transitionTo('status');
+        this.refresh();
       });
     },
 

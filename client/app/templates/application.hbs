@@ -20,6 +20,10 @@
                 <li>{{#link-to 'status'}}Status{{/link-to}}</li>
                 <li>{{#link-to 'players' (query-params page='' sort='' searchTerm='')}}Players{{/link-to}}</li>
                 <li>{{#link-to 'infections' (query-params page='')}}Infections{{/link-to}}</li>
+
+              {{#if model.user.loggedIn}}
+                  <li>{{#link-to 'missions'}}Missions{{/link-to}}</li>
+              {{/if}}
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
@@ -31,6 +35,7 @@
                           <li><a href="#" {{action 'logout'}}>Logout</a></li>
                       {{else}}
                           <li><a href="#" {{action 'login'}}>Login</a></li>
+                          <li><a href="#" {{action 'register'}}>Register</a></li>
                       {{/if}}
                     </ul>
                 </li>

@@ -16,6 +16,39 @@ export default Ember.Service.extend({
     return window.localStorage.getItem("apikey");
   },
 
+  register() {
+    return new Ember.RSVP.Promise((resolve, reject) => {
+      var loginWindow = this.get('loginWindow');
+      if (loginWindow) {
+        loginWindow.close();
+      }
+
+      loginWindow = window.open(config.APP.apiURL + "/auth/r/" + config.APP.loginMethod);
+      window.onbeforeunload = () => {
+        reject();
+      };
+
+      window.onmessage = (event) => {
+        if (event.origin !== config.APP.apiURL) {
+          console.error("Bad origin " + event.origin);
+          console.error(event);
+          return;
+        }
+
+        if (event.data.success === true) {
+          this.get('toast').success(event.data.message);
+          resolve();
+        }
+        else {
+          this.get('toast').error(event.data.message);
+          reject();
+        }
+      };
+
+      this.set('loginWindow', loginWindow);
+    });
+  },
+
   login() {
     return new Ember.RSVP.Promise((resolve, reject) => {
       var loginWindow = this.get('loginWindow');
@@ -75,8 +108,14 @@ export default Ember.Service.extend({
         this.get('routing').transitionTo('status');
         console.log(event.data);
 
-        this.get('toast').success('You have been logged out.');
-        resolve();
+        if (event.data.success === true) {
+          this.get('toast').success('You have been logged out.');
+          resolve();
+        }
+        else {
+          this.get('toast').error(event.data.message);
+          reject();
+        }
       };
       this.set('loginWindow', loginWindow);
     });

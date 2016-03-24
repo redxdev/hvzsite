@@ -10,6 +10,8 @@ Router.map(function() {
   this.route('profile');
   this.route('players');
   this.route('infections');
+  this.route('missions');
+  this.route('rules');
 });
 
 export default Router;
