@@ -1,0 +1,6 @@
+{{#each badges as |badge|}}
+    <img data-toggle="tooltip" data-placement="top" data-html="true"
+         title="<p><strong>{{badge.name}}</strong></p><p>{{badge.description}}</p>"
+         src="images/badges/{{badge.image}}"
+         alt="{{badge.name}} badge">
+{{/each}}

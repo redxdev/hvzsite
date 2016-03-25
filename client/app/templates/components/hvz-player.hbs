@@ -14,23 +14,14 @@
       </div>
       <div class="col-sm-3">
           <ul class="nav nav-stacked nav-pills">
-            {{#if (eq player.access "inactive")}}
-                <li class="active"><a href="#">Activate</a></li>
-            {{/if}}
-
-              <li><a href="#">View</a></li>
+              <li>{{#link-to 'admin-players-view' player.id}}View{{/link-to}}</li>
               <li><a href="#">Edit</a></li>
               <li><a href="#">Delete</a></li>
           </ul>
       </div>
   {{else}}
       <div class="col-sm-7">
-        {{#each player.badges as |badge|}}
-            <img data-toggle="tooltip" data-placement="top" data-html="true"
-                 title="<p><strong>{{badge.name}}</strong></p><p>{{badge.description}}</p>"
-                 src="images/badges/{{badge.image}}"
-                 alt="{{badge.name}} badge">
-        {{/each}}
+        {{hvz-badges badges=player.badges}}
       </div>
   {{/if}}
 </div>

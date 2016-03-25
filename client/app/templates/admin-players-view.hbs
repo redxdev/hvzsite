@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="col-sm-offset-4 col-sm-4 text-center">
+            <img src="{{model.player.avatar}}" alt="avatar" class="avatar">
+            <ul class="nav nav-pills">
+                <li><a href="#">Edit</a></li>
+                <li><a href="#">Change Avatar</a></li>
+                <li><a href="#">Delete</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-4 bg-{{model.player.team}}">
+            <h3>{{model.player.name}}</h3>
+            <p><strong>Email:</strong> {{model.player.email}}</p>
+            <p><strong>Team:</strong> {{model.player.team}}</p>
+            <p><strong>Clan:</strong> {{model.player.clan}}</p>
+            <p><strong>Access:</strong> {{model.player.access}}</p>
+
+          {{hvz-badges badges=model.player.badges}}
+        </div>
+        <div class="col-sm-4">
+            <p><strong>API Key:</strong> {{model.player.apiKey}}</p>
+            <p><strong>API Failures:</strong> {{model.player.failures}} / {{model.player.maxFailures}}</p>
+            <p><strong>Zombie Id:</strong> {{model.player.zombieId}}</p>
+            <p>
+                <strong>Human Ids:</strong>
+                <small class="text-muted">(give to zombies as a human)</small>
+            </p>
+            <ul>
+              {{#each model.player.humanIds as |humanId|}}
+                {{#if humanId.active}}
+                  <li>{{humanId.idString}}</li>
+                {{else}}
+                  <li><s>{{humanId.idString}}</s></li>
+                {{/if}}
+              {{/each}}
+            </ul>
+            <a href="#" class="btn btn-default">Generate</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4 text-center">
+            <h1 class="header-text">
+              {{model.player.humansTagged}}
+              {{t 'hvz.tags' numTags=model.player.humansTagged}}
+            </h1>
+        </div>
+    </div>
+</div>

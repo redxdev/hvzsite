@@ -17,13 +17,13 @@ module.exports = {
       var humanIds = [];
       for (var i = 0; i < user.humanIds.length; ++i) {
         var id = user.humanIds[i];
-        humanIds.push({id: id.idString, active: id.active});
+        humanIds.push({idString: id.idString, active: id.active});
       }
 
       var data = user.getAllData();
       data.humanIds = humanIds;
 
-      res.ok(data);
+      res.ok({user: data});
     });
   },
 

@@ -11,12 +11,7 @@
                   <a href="#" class="btn btn-primary btn-sm" {{action 'editClan'}}>Edit</a>
               {{/if}}
             </p>
-          {{#each profile.badges as |badge|}}
-              <img data-toggle="tooltip" data-placement="top" data-html="true"
-                   title="<p><strong>{{badge.name}}</strong></p><p>{{badge.description}}</p>"
-                   src="images/badges/{{badge.image}}"
-                   alt="{{badge.name}} badge">
-          {{/each}}
+          {{hvz-badges badges=profile.badges}}
         </div>
     </div>
     <div class="row">
