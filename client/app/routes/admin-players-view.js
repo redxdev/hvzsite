@@ -19,5 +19,24 @@ export default Ember.Route.extend({
       this.get('errorHandler').handleError(err, 'Unable to retrieve player profile.');
       return {player: {}};
     });
+  },
+
+  actions: {
+    generateId(id) {
+      Ember.$('#generateButton').hide();
+
+      this.get('ajax').post('/admin/users/' + id + '/generateId', {
+        data: {
+          apikey: this.get('user').getApiKey()
+        }
+      }).then(() => {
+        this.get('toast').success('Generated new human id.');
+        this.refresh();
+        Ember.$('#generateButton').show();
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'There was a problem generating a new human id.');
+        Ember.$('#generateButton').show();
+      });
+    }
   }
 });

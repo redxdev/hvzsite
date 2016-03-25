@@ -3,13 +3,23 @@
 <script type="text/javascript">
   window.onload = function () {
     var result = <%- result %>;
-    if (!window.opener) {
-      document.getElementById("message").innerHTML = result.message;
-      document.getElementById("error").innerHTML = "Woah, you shouldn't be here!";
+    var didSendResults = false;
+    if (window.opener) {
+      window.opener.postMessage(result, '*');
+      didSendResults = true;
+    }
+
+    if (window.onAuthResult) {
+      window.onAuthResult(result);
+      didSendResults = true;
+    }
+
+    if (didSendResults) {
+      window.close();
     }
     else {
-      window.opener.postMessage(result, '*');
-      window.close();
+      document.getElementById("message").innerHTML = result.message;
+      document.getElementById("error").innerHTML = "Woah, you shouldn't be here!";
     }
   }
 </script>

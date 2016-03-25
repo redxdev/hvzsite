@@ -79,3 +79,8 @@ If successful, the website should start on port 1337.
 
 For running in production, we use [PM2](http://pm2.keymetrics.io/), configured
 to run `app.js`.
+
+## Some Notes
+
+The frontend is a bit hastily thrown together in Ember, and doesn't really follow all conventions thoroughly. It doesn't
+make use of Ember's model system or components very well, but there are plans to slowly clean it up.

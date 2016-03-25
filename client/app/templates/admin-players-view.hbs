@@ -32,13 +32,15 @@
             <ul>
               {{#each model.player.humanIds as |humanId|}}
                 {{#if humanId.active}}
-                  <li>{{humanId.idString}}</li>
+                    <li>{{humanId.idString}}</li>
                 {{else}}
-                  <li><s>{{humanId.idString}}</s></li>
+                    <li><s>{{humanId.idString}}</s></li>
                 {{/if}}
               {{/each}}
             </ul>
-            <a href="#" class="btn btn-default">Generate</a>
+            <button id="generateButton" type="button" class="btn btn-default" {{action 'generateId' model.player.id}}>
+                Generate
+            </button>
         </div>
     </div>
     <div class="row">
