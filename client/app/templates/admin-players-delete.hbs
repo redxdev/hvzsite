@@ -3,7 +3,8 @@
 
     <div class="row">
         <div class="col-md-12 text-center">
-            <h2>Delete {{model.player.name}}</h2>
+            <h2>Delete Player</h2>
+            <h3>{{model.player.name}} : {{model.player.email}}</h3>
             <p>Are you sure you want to delete the player {{model.player.name}}?</p>
             <div class="btn-group">
                 <button type="button" class="btn btn-default" {{action 'cancel'}}>Cancel</button>

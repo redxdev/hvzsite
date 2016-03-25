@@ -32,5 +32,8 @@ module.exports = function(defaults) {
   // jQuery Countdown
   app.import('bower_components/jquery.countdown/dist/jquery.countdown.js');
 
+  // webcam
+  app.import('bower_components/webcamjs/webcam.js');
+
   return app.toTree();
 };
