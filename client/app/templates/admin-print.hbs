@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <ul class="nav nav-pills">
+        <li>
+            <a href="{{model.printURL}}?preview=true" target="_blank">Preview</a>
+        </li>
+        <li>
+            <a href="{{model.printURL}}" target="_blank">Print</a>
+        </li>
+        <li id="markPrintedButton">
+            <a href="#" {{action 'markPrinted'}}>Mark active users as printed</a>
+        </li>
+    </ul>
+</div>

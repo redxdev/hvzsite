@@ -386,5 +386,48 @@ module.exports = {
         return res.ok({user: user.getPublicData()});
       });
     });
+  },
+
+  print: function (req, res) {
+    var preview = req.param('preview');
+    User.find({
+      where: {
+        access: 'player',
+        printed: false
+      },
+
+      sort: {name: 1}
+    }).populate("humanIds").exec(function (err, users) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      return res.view('print', {
+        preview: (preview) ? true : false,
+        profiles: users.map(function (user) {
+          user.avatar = sails.config.hvz.url + "api/v2/avatar/" + user.id;
+          return user;
+        })
+      });
+    });
+  },
+
+  markPrinted: function (req, res) {
+    User.update({
+      where: {
+        access: 'player',
+        printed: false
+      }
+    }, {
+      printed: true
+    }).exec(function (err) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      sails.log.info("All active users were marked as printed by " + req.user.email);
+
+      return res.ok({message: "All active users were marked as printed."});
+    });
   }
 };

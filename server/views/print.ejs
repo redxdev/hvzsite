@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HvZ Player Id Cards</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+  <style>
+    body {
+      font-family: 'Droid Sans Mono', serif;
+    }
+
+    .card-spacer {
+      height: 10.5em;
+    }
+
+    .card {
+      float: left;
+      width: 8cm;
+      height: 4.5cm;
+      background-color: #FFF;
+      border: 0.10in #00CC00 solid;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .card .info {
+      float: left;
+      font-size: 14px;
+      color: black;
+      margin-top: -5px;
+      margin-left: 0.2cm;
+      width: 3.56cm;
+      height: 2.8cm;
+      line-height: 1.2em;
+      word-wrap: break-word;
+    }
+
+    .card .info .name {
+      font-weight: bold;
+    }
+
+    .card .avatar img {
+      width: 100px;
+      height: 100px;
+      max-height: 100%;
+      max-width: 100%;
+      float: left;
+      background-color: #D4D4D4;
+    }
+
+    .card .qr img {
+      margin-top: 0px;
+      padding-top: 0px;
+      width: 65px;
+      height: 65px;
+      max-height: 100%;
+      max-width: 100%;
+      float: left;
+      background-color: #D4D4D4;
+    }
+
+    .card .top {
+      width: inherit;
+      height: 3.175cm;
+    }
+
+    .card .bottom {
+      width: inherit;
+      text-align: center;
+      color: black;
+      font-size: 0.9em;
+    }
+
+    .card p {
+      line-height: 1.2em;
+    }
+
+    .card hr {
+      margin-top: -0.4cm;
+      margin-bottom: -0.1cm;
+    }
+
+    .card .human-id {
+      margin-top: 0.5em;
+      padding-bottom: 0.3em;
+    }
+  </style>
+</head>
+<body>
+<% for (var i = 0; i < profiles.length; ++i) { %>
+  <% var profile = profiles[i]; %>
+  <div class="card">
+    <div class="top">
+      <div class="avatar">
+        <% if (profile.avatar) { %>
+          <img src="<%= profile.avatar %>" alt="avatar">
+        <% } else { %>
+          <img src="holder.js/100x100" alt="avatar">
+        <% } %>
+      </div>
+      <div class="info">
+        <p class="name"><%= profile.name %></p>
+        <% if (preview) { %>
+          <p>Zombie Id:</p>
+        <% } else { %>
+          <p>Zombie Id: <%= profile.zombieId %></p>
+        <% } %>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="qr">
+        <img src="holder.js/65x65" alt="qr">
+      </div>
+      <div class="ids">
+        <% for (var j = 0; j < profile.humanIds.length && j < 2; ++j) { %>
+          <hr>
+          <% if (preview) { %>
+            <p class="human-id">Human Id:</p>
+          <% } else { %>
+            <p class="human-id">Human Id: <%= profile.humanIds[j].idString %></p>
+          <% } %>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <% if (i % 2 === 0) { %>
+    <br style="clear:both">
+  <% } %>
+
+  <% if (i % 8 === 0) { %>
+    <div class="card-spacer"></div>
+  <% } %>
+<% } %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js"></script>
+</body>
+</html>

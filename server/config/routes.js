@@ -76,6 +76,8 @@ module.exports.routes = {
   'post /api/v2/admin/users/:id/infect': 'AdminUserController.infect',
   'post /api/v2/admin/users/:id/heal': 'AdminUserController.heal',
   'delete /api/v2/admin/users/:id': 'AdminUserController.destroy',
+  'post /api/v2/admin/users/markPrinted': 'AdminUserController.markPrinted',
+  'get /print': 'AdminUserController.print',
 
   // AdminContentController
   'get /api/v2/admin/rules': 'AdminContentController.rules',

@@ -21,6 +21,7 @@ Router.map(function() {
   this.route('admin-players-delete', {path: '/admin/players/:playerId/delete'});
   this.route('admin-players-avatar', {path: '/admin/players/:playerId/avatar'});
   this.route('admin-players-create', {path: '/admin/players/create'});
+  this.route('admin-print', {path: '/admin/print'});
 });
 
 export default Router;
