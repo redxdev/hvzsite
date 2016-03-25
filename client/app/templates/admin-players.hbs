@@ -14,18 +14,20 @@
                 </div>
             </form>
         </div>
+      {{#if model.localUser.isAdmin}}
         <div class="col-md-5 col-md-offset-2 col-sm-4">
             {{#link-to 'admin-players-create' class='btn btn-primary'}}
               <span class="glyphicon glyphicon-plus"></span>
             {{/link-to}}
         </div>
+      {{/if}}
     </div>
 
     <div class="vertical-space"></div>
 
     <div id="player-list">
       {{#each model.players as |player|}}
-        {{hvz-player player=player admin=true}}
+        {{hvz-player player=player admin=true localUser=model.localUser}}
       {{else}}
           <div class="row">
               <div class="col-md-12 text-center">

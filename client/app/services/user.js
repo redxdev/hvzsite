@@ -7,6 +7,7 @@ export default Ember.Service.extend({
   routing: Ember.inject.service('-routing'),
 
   loginWindow: null,
+  userInfoCache: null,
 
   isLoggedIn() {
     return window.localStorage.getItem("apikey") !== null;
@@ -87,6 +88,7 @@ export default Ember.Service.extend({
   logout() {
     return new Ember.RSVP.Promise((resolve, reject) => {
       window.localStorage.removeItem("apikey");
+      this.set('userInfoCache', null);
 
       var loginWindow = this.get('loginWindow');
       if (loginWindow) {
@@ -131,6 +133,7 @@ export default Ember.Service.extend({
 
   getUserInfo() {
     if (!this.isLoggedIn()) {
+      this.set('userInfoCache', null);
       return new Ember.RSVP.Promise((resolve) => {
         resolve({
           profile: null,
@@ -142,15 +145,22 @@ export default Ember.Service.extend({
       });
     }
 
+    if (this.get('userInfoCache') !== null) {
+      return new Ember.RSVP.Promise((resolve) => {
+        resolve(this.get('userInfoCache'));
+      });
+    }
+
     return this.getUserProfile().then((result) => {
       var profile = result.profile;
-      return {
+      this.set('userInfoCache', {
         profile: profile,
         loggedIn: true,
         isModerator: this.isModerator(profile.access),
         isAdmin: this.isAdmin(profile.access),
         isSuperAdmin: this.isSuperAdmin(profile.access)
-      };
+      });
+      return this.get('userInfoCache');
     });
   },
 

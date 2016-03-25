@@ -7,17 +7,24 @@ export default Ember.Route.extend({
   errorHandler: Ember.inject.service(),
 
   model(params) {
-    return this.get('ajax').request('/admin/users/' + params.playerId, {
-      data: {
-        apikey: this.get('user').getApiKey()
-      }
+    return Ember.RSVP.hash({
+      player: this.get('ajax').request('/admin/users/' + params.playerId, {
+        data: {
+          apikey: this.get('user').getApiKey()
+        }
+      }),
+
+      localUser: this.get('user').getUserInfo()
     }).then((result) => {
-      var player = result.user;
+      var player = result.player.user;
       player.avatar = config.APP.apiURL + '/api/v2/avatar/' + params.playerId;
-      return {player: player};
+      return {
+        player: player,
+        localUser: result.localUser
+      };
     }).catch((err) => {
       this.get('errorHandler').handleError(err, 'Unable to retrieve player profile.');
-      return {player: {}};
+      return {};
     });
   },
 

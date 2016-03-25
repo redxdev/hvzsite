@@ -10,7 +10,6 @@ export default Ember.Route.extend({
   errorHandler: Ember.inject.service(),
   toast: Ember.inject.service(),
 
-  playerId: null,
   isActivating: false,
 
   queryParams: {
@@ -20,8 +19,6 @@ export default Ember.Route.extend({
   },
 
   model(params) {
-    this.set('playerId', params.playerId);
-
     if (params.activate) {
       this.set('isActivating', true);
     }
@@ -69,14 +66,14 @@ export default Ember.Route.extend({
       /* jshint ignore:end */
     },
 
-    takePicture() {
+    takePicture(id) {
       /* jshint ignore:start */
       Ember.$('#pictureButton').hide();
 
       Webcam.freeze();
       Webcam.snap((data) => {
         Webcam.upload(data,
-          config.APP.apiURL + '/api/v2/admin/users/' + this.get('playerId') + '/avatar?apikey=' + this.get('user').getApiKey(), (code, text) => {
+          config.APP.apiURL + '/api/v2/admin/users/' + id + '/avatar?apikey=' + this.get('user').getApiKey(), (code, text) => {
             if (code !== 200) {
               this.get('toast').error('There was a problem uploading the new avatar.');
               console.log(text);
@@ -86,10 +83,10 @@ export default Ember.Route.extend({
             else {
               if (!this.get('isActivating')) {
                 this.get('toast').success('Uploaded new avatar.');
-                this.transitionTo('admin-players-view', this.get('playerId'));
+                this.transitionTo('admin-players-view', id);
               }
               else {
-                this.get('ajax').post('/admin/users/' + this.get('playerId') + '/activate', {
+                this.get('ajax').post('/admin/users/' + id + '/activate', {
                   data: {
                     apikey: this.get('user').getApiKey()
                   }

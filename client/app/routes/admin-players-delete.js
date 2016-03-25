@@ -6,11 +6,7 @@ export default Ember.Route.extend({
   errorHandler: Ember.inject.service(),
   toast: Ember.inject.service(),
 
-  playerId: null,
-
   model(params) {
-    this.set('playerId', params.playerId);
-
     return this.get('ajax').request('/admin/users/' + params.playerId, {
       data: {
         apikey: this.get('user').getApiKey()
@@ -29,8 +25,8 @@ export default Ember.Route.extend({
       this.transitionTo('admin-players');
     },
 
-    delete() {
-      this.get('ajax').request('/admin/users/' + this.get('playerId'), {
+    delete(id) {
+      this.get('ajax').request('/admin/users/' + id, {
         data: {
           apikey: this.get('user').getApiKey()
         },

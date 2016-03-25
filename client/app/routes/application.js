@@ -11,7 +11,7 @@ export default Ember.Route.extend({
 
   model() {
     return this.get('user').getUserInfo().then((user) => {
-      return {user: user};
+      return {localUser: user};
     }).catch((err) => {
       this.get('errorHandler').handleError(err);
     });

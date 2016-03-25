@@ -7,11 +7,7 @@ export default Ember.Route.extend({
   errorHandler: Ember.inject.service(),
   toast: Ember.inject.service(),
 
-  playerId: null,
-
   model(params) {
-    this.set('playerId', params.playerId);
-
     return this.get('ajax').request('/admin/users/' + params.playerId, {
       data: {
         apikey: this.get('user').getApiKey()
@@ -26,7 +22,7 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    save() {
+    save(id) {
       var name = Ember.$('#playerName').val();
       var email = Ember.$('#playerEmail').val();
       var clan = Ember.$('#playerClan').val();
@@ -37,7 +33,7 @@ export default Ember.Route.extend({
 
       Ember.$('#saveButton').hide();
 
-      this.get('ajax').put('/admin/users/' + this.get('playerId'), {
+      this.get('ajax').put('/admin/users/' + id, {
         data: {
           name: name,
           email: email,

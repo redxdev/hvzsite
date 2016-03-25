@@ -27,29 +27,37 @@ export default Ember.Route.extend(ResetScrollMixin, {
     page = Number(page);
     if (page < 1) {
       this.get('toast').error(page + ' is not a valid page!');
-      return {players: [], nextPage: null, previousPage: null};
+      return Ember.RSVP.hash({
+        players: [],
+        localUser: this.get('user').getUserInfo()
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to retrieve user information');
+        return {players: []};
+      });
     }
 
-    return this.get('ajax').request('/admin/users', {
-      data: {
-        search: searchTerm,
-        limit: 10,
-        skip: (page - 1) * 10,
-        apikey: this.get('user').getApiKey()
-      }
+    return Ember.RSVP.hash({
+      players: this.get('ajax').request('/admin/users', {
+        data: {
+          search: searchTerm,
+          limit: 10,
+          skip: (page - 1) * 10,
+          apikey: this.get('user').getApiKey()
+        }
+      }),
+
+      localUser: this.get('user').getUserInfo()
     }).then((result) => {
       return {
-        players: result.players.map((player) => {
-          player.avatar = config.APP.apiURL + '/api/v2/avatar/' + player.id;
-          return player;
-        }),
+        players: result.players.players,
+        nextPage: lastCount < result.players.total ? (page + 1) : null,
+        previousPage: page > 1 ? (page - 1) : null,
 
-        nextPage: lastCount < result.total ? (page + 1) : null,
-        previousPage: page > 1 ? (page - 1) : null
+        localUser: result.localUser
       };
     }).catch((err) => {
-      this.get('errorHandler').handleError(err, 'Unable to load player list.');
-      return {players: [], nextPage: null, previousPage: null};
+      this.get('errorHandler').handleError(err, 'Unable to retrieve player list.');
+      return {players: []};
     });
   },
 

@@ -11,9 +11,12 @@
                   </li>
               {{/if}}
 
-                <li>{{#link-to 'admin-players-edit' model.player.id}}Edit{{/link-to}}</li>
                 <li>{{#link-to 'admin-players-avatar' model.player.id}}Avatar{{/link-to}}</li>
-                <li>{{#link-to 'admin-players-delete' model.player.id}}Delete{{/link-to}}</li>
+
+              {{#if model.localUser.isAdmin}}
+                  <li>{{#link-to 'admin-players-edit' model.player.id}}Edit{{/link-to}}</li>
+                  <li>{{#link-to 'admin-players-delete' model.player.id}}Delete{{/link-to}}</li>
+              {{/if}}
             </ul>
         </div>
     </div>
