@@ -102,6 +102,7 @@ module.exports = {
 
     getAllData: function () {
       return {
+        id: this.id,
         name: this.name,
         email: this.email,
         authMethod: this.authMethod,

@@ -110,10 +110,18 @@ module.exports = {
           changed = true;
         }
 
+        if (user.name.trim() === '') {
+          errors.push("You cannot leave the user's name empty.");
+        }
+
         var email = req.param('email');
         if (email !== undefined) {
           user.email = email;
           changed = true;
+        }
+
+        if (user.email.trim() === '') {
+          errors.push("You cannot leave the user's email empty.");
         }
 
         var access = req.param('access');
@@ -178,6 +186,37 @@ module.exports = {
           }
 
           sails.log.info("User " + user.email + " was modified by " + req.user.email);
+
+          return res.ok({user: user.getPublicData()});
+        });
+      });
+  },
+
+  activate: function (req, res) {
+    var id = req.param('id');
+    var id = req.param('id');
+    User.findOne({id: id})
+      .exec(function (err, user) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        if (user === undefined) {
+          return res.notFound({message: 'Unknown user id ' + id});
+        }
+
+        if (user.access !== 'inactive') {
+          return res.badRequest({message: 'User has already been activated.'});
+        }
+
+        user.access = 'player';
+
+        user.save(function (err) {
+          if (err) {
+            return res.negotiate(err);
+          }
+
+          sails.log.info("User " + user.email + " was activated by " + req.user.email);
 
           return res.ok({user: user.getPublicData()});
         });

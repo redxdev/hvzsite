@@ -31,6 +31,21 @@ For development purposes, the "localDiskDb" connection is probably good
 enough (it saves to a json file in .tmp). For production purposes, you should
 setup a connection to a database such as MySQL, MongoDB, etc...
 
+### Development
+
+For the purposes of development, you will need to launch both the api server and also an ember-cli server. To do so,
+run the following in two different terminals:
+
+    cd server
+    sails lift
+    
+and
+
+    cd client
+    ember server
+    
+This will launch the api server on http://127.0.0.1:1337 and the ember development server on http://127.0.0.1:4200.
+
 ### Building the Client
 
 Run the following command to build the client:

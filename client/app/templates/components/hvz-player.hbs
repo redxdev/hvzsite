@@ -15,8 +15,8 @@
       <div class="col-sm-3">
           <ul class="nav nav-stacked nav-pills">
               <li>{{#link-to 'admin-players-view' player.id}}View{{/link-to}}</li>
-              <li><a href="#">Edit</a></li>
-              <li><a href="#">Delete</a></li>
+              <li>{{#link-to 'admin-players-edit' player.id}}Edit{{/link-to}}</li>
+              <li>{{#link-to 'admin-players-delete' player.id}}Delete{{/link-to}}</li>
           </ul>
       </div>
   {{else}}

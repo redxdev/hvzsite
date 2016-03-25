@@ -69,6 +69,7 @@ module.exports.routes = {
   'get /api/v2/admin/users': 'AdminUserController.list',
   'get /api/v2/admin/users/:id': 'AdminUserController.get',
   'put /api/v2/admin/users/:id': 'AdminUserController.update',
+  'post /api/v2/admin/users/:id/activate': 'AdminUserController.activate',
   'post /api/v2/admin/users/:id/avatar': 'AdminUserController.uploadAvatar',
   'post /api/v2/admin/users': 'AdminUserController.create',
   'post /api/v2/admin/users/:id/generateId': 'AdminUserController.generateId',

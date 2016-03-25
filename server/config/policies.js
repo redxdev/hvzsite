@@ -39,12 +39,13 @@ module.exports.policies = {
   AdminUserController: {
     list: ['apikey', 'isModerator'],
     get: ['apikey', 'isModerator'],
-    update: ['apikey', 'isModerator'],
+    update: ['apikey', 'isAdmin'],
+    activate: ['apikey', 'isModerator'],
     uploadAvatar: ['apikey', 'isModerator'],
     create: ['apikey', 'isAdmin'],
     generateId: ['apikey', 'isModerator'],
     infect: ['apikey', 'isModerator'],
-    destroy: ['apikey', 'isModerator']
+    destroy: ['apikey', 'isAdmin']
   },
 
   AdminContentController: {

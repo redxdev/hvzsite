@@ -5,9 +5,9 @@
         <div class="col-sm-offset-4 col-sm-4 text-center">
             <img src="{{model.player.avatar}}" alt="avatar" class="avatar">
             <ul class="nav nav-pills">
-                <li><a href="#">Edit</a></li>
+                <li>{{#link-to 'admin-players-edit' model.player.id}}Edit{{/link-to}}</li>
                 <li><a href="#">Change Avatar</a></li>
-                <li><a href="#">Delete</a></li>
+                <li>{{#link-to 'admin-players-delete' model.player.id}}Delete{{/link-to}}</li>
             </ul>
         </div>
     </div>
