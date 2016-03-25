@@ -11,9 +11,23 @@ export default Ember.Route.extend({
   toast: Ember.inject.service(),
 
   playerId: null,
+  isActivating: false,
+
+  queryParams: {
+    activate: {
+      refreshModel: true
+    }
+  },
 
   model(params) {
     this.set('playerId', params.playerId);
+
+    if (params.activate) {
+      this.set('isActivating', true);
+    }
+    else {
+      this.set('isActivating', false);
+    }
 
     return this.get('ajax').request('/admin/users/' + params.playerId, {
       data: {
@@ -36,9 +50,12 @@ export default Ember.Route.extend({
         Webcam.set({
           width: 300,
           height: 300,
+          dest_width: 300,
+          dest_height: 300,
           image_format: 'jpeg',
           jpeg_quality: 100,
-          upload_name: 'avatar'
+          upload_name: 'avatar',
+          flip_horiz: false
         });
 
         Webcam.attach("#webcam");
@@ -54,6 +71,8 @@ export default Ember.Route.extend({
 
     takePicture() {
       /* jshint ignore:start */
+      Ember.$('#pictureButton').hide();
+
       Webcam.freeze();
       Webcam.snap((data) => {
         Webcam.upload(data,
@@ -61,10 +80,27 @@ export default Ember.Route.extend({
             if (code !== 200) {
               this.get('toast').error('There was a problem uploading the new avatar.');
               console.log(text);
+
+              Ember.$('#pictureButton').show();
             }
             else {
-              this.get('toast').success('Uploaded new avatar.');
-              this.transitionTo('admin-players-view', this.get('playerId'));
+              if (!this.get('isActivating')) {
+                this.get('toast').success('Uploaded new avatar.');
+                this.transitionTo('admin-players-view', this.get('playerId'));
+              }
+              else {
+                this.get('ajax').post('/admin/users/' + this.get('playerId') + '/activate', {
+                  data: {
+                    apikey: this.get('user').getApiKey()
+                  }
+                }).then((result) => {
+                  this.get('toast').success('Activated user');
+                  this.transitionTo('admin-players');
+                }).catch((err) => {
+                  this.get('errorHandler').handleError(err, 'Unable to activate user.');
+                  Ember.$('#pictureButton').show();
+                });
+              }
             }
           });
       });
