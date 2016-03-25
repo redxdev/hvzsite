@@ -5,6 +5,12 @@
         <div class="col-sm-offset-4 col-sm-4 text-center">
             <img src="{{model.player.avatar}}" alt="avatar" class="avatar">
             <ul class="nav nav-pills">
+              {{#if (eq model.player.access 'inactive')}}
+                  <li class="active">
+                    {{#link-to 'admin-players-avatar' model.player.id (query-params activate=true)}}Activate{{/link-to}}
+                  </li>
+              {{/if}}
+
                 <li>{{#link-to 'admin-players-edit' model.player.id}}Edit{{/link-to}}</li>
                 <li>{{#link-to 'admin-players-avatar' model.player.id}}Avatar{{/link-to}}</li>
                 <li>{{#link-to 'admin-players-delete' model.player.id}}Delete{{/link-to}}</li>

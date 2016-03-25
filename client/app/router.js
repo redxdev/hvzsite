@@ -20,6 +20,7 @@ Router.map(function() {
   this.route('admin-players-edit', {path: '/admin/players/:playerId/edit'});
   this.route('admin-players-delete', {path: '/admin/players/:playerId/delete'});
   this.route('admin-players-avatar', {path: '/admin/players/:playerId/avatar'});
+  this.route('admin-players-create', {path: '/admin/players/create'});
 });
 
 export default Router;
