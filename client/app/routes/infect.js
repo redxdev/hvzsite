@@ -12,6 +12,18 @@ export default Ember.Route.extend({
   longitude: null,
   accuracy: null,
 
+  queryParams: {
+    readHumanId: {
+      refreshModel: true,
+      as: 'human'
+    },
+
+    readZombieId: {
+      refreshModel: true,
+      as: 'zombie'
+    }
+  },
+
   beforeModel() {
     if (this.get('locationId')) {
       navigator.geolocation.clearWatch(this.get('locationId'));
@@ -33,12 +45,12 @@ export default Ember.Route.extend({
     }));
   },
 
-  model() {
+  model(params) {
     if (this.get('user').isLoggedIn()) {
       return this.get('user').getUserProfile().then((result) => {
         var profile = result.profile;
         if (profile.team === 'zombie') {
-          return {humanId: '', zombieId: profile.zombieId};
+          return {humanId: params.readHumanId, zombieId: profile.zombieId};
         }
         else {
           var goodId = '';
@@ -50,10 +62,15 @@ export default Ember.Route.extend({
             }
           }
 
-          return {humanId: goodId, zombieId: ''};
+          return {humanId: goodId, zombieId: params.readZombieId};
         }
       }).catch((err) => {
         this.get('errorHandler').handleError(err, 'Unable to retrieve your id');
+        
+        if (params.readHumanId || params.readZombieId) {
+          this.get('toast').warning("Sorry, you can't use QR codes unless you are logged into the website!");
+        }
+
         return {humanId: '', zombieId: ''};
       });
     }

@@ -65,7 +65,7 @@ module.exports = {
         }
 
         if (user === undefined) {
-          return res.notFound()
+          return res.notFound();
         }
 
         if (user.avatarPath === null) {

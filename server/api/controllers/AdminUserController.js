@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var qrcode = require('yaqrcode');
 
 module.exports = {
   get: function (req, res) {
@@ -405,7 +406,14 @@ module.exports = {
       return res.view('print', {
         preview: (preview) ? true : false,
         profiles: users.map(function (user) {
-          user.avatar = sails.config.hvz.url + "api/v2/avatar/" + user.id;
+          if (user.avatarPath) {
+            user.avatar = sails.config.hvz.url + "api/v2/avatar/" + user.id;
+          }
+
+          user.qrcode = qrcode(
+            sails.config.hvz.url + "infect?zombie=" + user.zombieId + "&human=" + user.humanIds[1].idString,
+            {size: 100});
+
           return user;
         })
       });

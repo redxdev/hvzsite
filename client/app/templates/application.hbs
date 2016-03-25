@@ -27,7 +27,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>{{#link-to 'rules'}}Rules{{/link-to}}</li>
-                <li>{{#link-to 'infect'}}Register Infection{{/link-to}}</li>
+                <li>{{#link-to 'infect' (query-params readHumanId='' readZombieId='')}}Register Infection{{/link-to}}</li>
 
               {{#if model.localUser.isModerator}}
                 <li class="dropdown">
