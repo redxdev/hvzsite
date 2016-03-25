@@ -45,11 +45,14 @@ module.exports.policies = {
     create: ['apikey', 'isAdmin'],
     generateId: ['apikey', 'isModerator'],
     infect: ['apikey', 'isModerator'],
+    heal: ['apikey', 'isModerator'],
     destroy: ['apikey', 'isAdmin']
   },
 
   AdminContentController: {
     rules: ['apikey', 'isAdmin'],
-    updateRule: ['apikey', 'isAdmin']
+    updateRule: ['apikey', 'isAdmin'],
+    createRule: ['apikey', 'isAdmin'],
+    destroyRule: ['apikey', 'isAdmin']
   }
 };

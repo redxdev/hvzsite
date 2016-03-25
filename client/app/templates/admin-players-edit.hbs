@@ -28,6 +28,11 @@
                            value="{{model.player.clan}}">
                 </div>
 
+                <p>
+                    <strong>Warning:</strong>
+                    Don't change their team here unless you know what you are doing! Use the infect/heal buttons
+                  {{#link-to 'admin-players-view' model.player.id}}here{{/link-to}} instead.
+                </p>
                 <div class="form-group">
                     <label for="playerTeam">Team</label>
                     <select class="form-control" id="playerTeam">
@@ -102,7 +107,8 @@
                     </div>
                 </div>
 
-                <button id="saveButton" type="submit" class="btn btn-default pull-right" {{action 'save' model.player.id}}>
+                <button id="saveButton" type="submit"
+                        class="btn btn-default pull-right" {{action 'save' model.player.id}}>
                     Save
                 </button>
             </form>

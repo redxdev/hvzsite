@@ -70,5 +70,42 @@ module.exports = {
         });
       });
     });
+  },
+
+  createRule: function (req, res) {
+    var title = req.param('title');
+    if (title === undefined)
+      return res.badRequest({message: 'No title specified.'});
+
+    var body = req.param('body');
+    if (body === undefined)
+      return res.badRequest({message: 'No body specified.'});
+
+    var position = req.param('position') || 1;
+
+    Ruleset.create({
+      title: title,
+      body: body,
+      position: position
+    }, function (err, rule) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      sails.log.info("Rule #" + rule.id + " was created by " + req.user.email);
+
+      return res.ok({
+        rule: {
+          id: rule.id,
+          title: rule.title,
+          body: rule.body,
+          position: rule.position
+        }
+      })
+    });
+  },
+
+  destroyRule: function (req, res) {
+    var id = req.param('id');
   }
 }

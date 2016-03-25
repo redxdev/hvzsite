@@ -25,6 +25,22 @@
             <h3>{{model.player.name}}</h3>
             <p><strong>Email:</strong> {{model.player.email}}</p>
             <p><strong>Team:</strong> {{model.player.team}}</p>
+          {{#if (eq model.player.team 'human')}}
+              <div class="btn-group" id="infectGroup">
+                  <button type="button" class="btn btn-danger" {{action 'infect' model.player.id true}}>
+                      OZ
+                  </button>
+                  <button type="button" class="btn btn-success" {{action 'infect' model.player.id false}}>
+                      Infect
+                  </button>
+              </div>
+          {{else}}
+            <div class="btn-group" id="heal-group">
+                <button type="button" class="btn btn-danger" {{action 'heal' model.player.id}}>
+                    Heal
+                </button>
+            </div>
+          {{/if}}
             <p><strong>Clan:</strong> {{model.player.clan}}</p>
             <p><strong>Access:</strong> {{model.player.access}}</p>
 

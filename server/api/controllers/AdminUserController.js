@@ -300,9 +300,10 @@ module.exports = {
     });
   },
 
-  // this will not create an InfectionSpread entry, and will OZ the player
+  // this will not create an InfectionSpread entry, and can optionally OZ the player
   infect: function (req, res) {
     var id = req.param('id');
+    var oz = req.param('oz');
     User.findOne({id: id}).exec(function (err, user) {
       if (err) {
         return res.negotiate(err);
@@ -317,11 +318,49 @@ module.exports = {
       }
 
       user.team = 'zombie';
-      user.addBadge('oz');
+      if (oz) {
+        user.addBadge('oz');
+      }
+      else {
+        user.addBadge('infected');
+      }
+
       user.save(function (err) {
         if (err) {
           return res.negotiate(err);
         }
+
+        sails.log.info(user.email + ' was infected by ' + req.user.email);
+
+        res.ok({user: user.getPublicData()});
+      });
+    });
+  },
+
+  heal: function (req, res) {
+    var id = req.param('id');
+    User.findOne({id: id}).exec(function (err, user) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (user === undefined) {
+        return res.notFound({message: 'Unknown user id ' + id});
+      }
+
+      if (user.team === 'human') {
+        return res.badRequest({message: 'User is already a human'});
+      }
+
+      user.team = 'human';
+      user.addBadge('antivirus');
+
+      user.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info(user.email + ' was healed by ' + req.user.email);
 
         res.ok({user: user.getPublicData()});
       });

@@ -74,11 +74,14 @@ module.exports.routes = {
   'post /api/v2/admin/users': 'AdminUserController.create',
   'post /api/v2/admin/users/:id/generateId': 'AdminUserController.generateId',
   'post /api/v2/admin/users/:id/infect': 'AdminUserController.infect',
+  'post /api/v2/admin/users/:id/heal': 'AdminUserController.heal',
   'delete /api/v2/admin/users/:id': 'AdminUserController.destroy',
 
   // AdminContentController
   'get /api/v2/admin/rules': 'AdminContentController.rules',
   'put /api/v2/admin/rules/:id': 'AdminContentController.updateRule',
+  'post /api/v2/admin/rules': 'AdminContentController.createRule',
+  'delete /api/v2/admin/rules/:id': 'AdminContentController.destroyRule',
 
   // Assets
   '/*': {

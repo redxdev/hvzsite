@@ -44,6 +44,52 @@ export default Ember.Route.extend({
         this.get('errorHandler').handleError(err, 'There was a problem generating a new human id.');
         Ember.$('#generateButton').show();
       });
+    },
+
+    infect(id, oz) {
+      Ember.$('#infectGroup').hide();
+
+      var data = {
+        apikey: this.get('user').getApiKey()
+      };
+
+      if (oz) {
+        data.oz = true;
+      }
+
+      this.get('ajax').post('/admin/users/' + id + '/infect', {
+        data: data
+      }).then(() => {
+        if (oz) {
+          this.get('toast').success('Made player into an OZ');
+        }
+        else {
+          this.get('toast').success('Infected player.');
+        }
+
+        Ember.$('#infectGroup').show();
+        this.refresh();
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to infect player.');
+        Ember.$('#infectGroup').show();
+      });
+    },
+
+    heal(id) {
+      Ember.$('#healGroup').hide();
+
+      this.get('ajax').post('/admin/users/' + id + '/heal', {
+        data: {
+          apikey: this.get('user').getApiKey()
+        }
+      }).then(() => {
+        this.get('toast').success('Healed player.');
+        Ember.$('#healGroup').show();
+        this.refresh();
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to heal player.');
+        Ember.$('#healGroup').show();
+      });
     }
   }
 });
