@@ -129,5 +129,22 @@ module.exports = {
 
   destroyRule: function (req, res) {
     var id = req.param('id');
-  }
+    Ruleset.findOne({id: id}).exec(function (err, rule) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (rule === undefined) {
+        return res.notFound({message: 'Unknown rule id ' + id});
+      }
+
+      Ruleset.destroy({id: rule.id}).exec(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        return res.ok({message: 'Deleted rule ' + rule.id});
+      });
+    });
+  },
 }

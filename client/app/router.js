@@ -25,6 +25,7 @@ Router.map(function() {
   this.route('admin-rules', {path: '/admin/rules'});
   this.route('admin-rules-create', {path: '/admin/rules/create'});
   this.route('admin-rules-edit', {path: '/admin/rules/:ruleId/edit'});
+  this.route('admin-rules-delete', {path: '/admin/rules/:ruleId/delete'});
 
   // 404
   this.route('not-found', {path: '/*path'});
