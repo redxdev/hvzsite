@@ -18,6 +18,28 @@ module.exports = {
     });
   },
 
+  rule: function (req, res) {
+    var id = req.param('id');
+    Ruleset.findOne({id: id}).exec(function (err, rule) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (rule === undefined) {
+        return res.notFound({message: 'Unknown ruleset id ' + id});
+      }
+
+      res.ok({
+        rule: {
+          id: rule.id,
+          title: rule.title,
+          body: rule.body,
+          position: rule.position
+        }
+      });
+    });
+  },
+
   updateRule: function (req, res) {
     var id = req.param('id');
     Ruleset.findOne({id: id}).exec(function (err, rule) {

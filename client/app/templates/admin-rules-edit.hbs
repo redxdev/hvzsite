@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h2>Edit Rule</h2>
+            <h3>{{model.rule.title}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <form>
+                <div class="form-group">
+                    <label for="ruleTitle">Title</label>
+                    <input type="text" id="ruleTitle" class="form-control" placeholder="title" value="{{model.rule.title}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="rulePosition">Position</label>
+                    <input type="number" id="rulePosition" class="form-control" value="{{model.rule.position}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="ruleBody">Body</label>
+                    <textarea id="ruleBody" class="form-control">{{{model.rule.body}}}</textarea>
+                </div>
+
+                <button id="saveButton" type="submit" class="btn btn-default pull-right" {{action 'save' model.rule.id}}>
+                    Save
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

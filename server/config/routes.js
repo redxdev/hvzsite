@@ -81,6 +81,7 @@ module.exports.routes = {
 
   // AdminContentController
   'get /api/v2/admin/rules': 'AdminContentController.rules',
+  'get /api/v2/admin/rules/:id': 'AdminContentController.rule',
   'put /api/v2/admin/rules/:id': 'AdminContentController.updateRule',
   'post /api/v2/admin/rules': 'AdminContentController.createRule',
   'delete /api/v2/admin/rules/:id': 'AdminContentController.destroyRule',
