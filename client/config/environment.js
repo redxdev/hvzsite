@@ -15,7 +15,8 @@ module.exports = function(environment) {
 
     APP: {
       apiURL: "https://hvz.rit.edu",
-      loginMethod: "google"
+      loginMethod: "google",
+      contactEmail: 'hvz@rit.edu'
     },
 
     'ember-toastr': {

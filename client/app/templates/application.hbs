@@ -27,20 +27,21 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>{{#link-to 'rules'}}Rules{{/link-to}}</li>
-                <li>{{#link-to 'infect' (query-params readHumanId='' readZombieId='')}}Register Infection{{/link-to}}</li>
+                <li>{{#link-to 'infect' (query-params readHumanId='' readZombieId='')}}Register
+                    Infection{{/link-to}}</li>
 
               {{#if model.localUser.isModerator}}
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>{{#link-to 'admin-players'}}Players{{/link-to}}</li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                          <li>{{#link-to 'admin-players'}}Players{{/link-to}}</li>
 
                         {{#if model.localUser.isAdmin}}
-                          <li>{{#link-to 'admin-rules'}}Rules{{/link-to}}</li>
-                          <li>{{#link-to 'admin-print'}}Print{{/link-to}}</li>
+                            <li>{{#link-to 'admin-rules'}}Rules{{/link-to}}</li>
+                            <li>{{#link-to 'admin-print'}}Print{{/link-to}}</li>
                         {{/if}}
-                    </ul>
-                </li>
+                      </ul>
+                  </li>
               {{/if}}
 
                 <li class="dropdown">
@@ -69,7 +70,8 @@
                 <hr>
                 <p class="text-muted pull-right">
                     Copyright &copy; 2016 |
-                    <a target="_blank" href="https://github.com/redxdev/hvzsite">Source Code</a>
+                    <a target="_blank" href="https://github.com/redxdev/hvzsite">Source</a> |
+                  {{#link-to 'contact'}}Contact{{/link-to}}
                 </p>
             </div>
         </div>
