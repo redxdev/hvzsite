@@ -56,6 +56,12 @@ module.exports.policies = {
     rule: ['apikey', 'isAdmin'],
     updateRule: ['apikey', 'isAdmin'],
     createRule: ['apikey', 'isAdmin'],
-    destroyRule: ['apikey', 'isAdmin']
+    destroyRule: ['apikey', 'isAdmin'],
+
+    missions: ['apikey', 'isModerator'],
+    mission: ['apikey', 'isModerator'],
+    updateMission: ['apikey', 'isAdmin'],
+    createMission: ['apikey', 'isAdmin'],
+    destroyMission: ['apikey', 'isAdmin']
   }
 };

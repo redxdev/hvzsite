@@ -79,12 +79,19 @@ module.exports.routes = {
   'post /api/v2/admin/users/markPrinted': 'AdminUserController.markPrinted',
   'get /print': 'AdminUserController.print',
 
-  // AdminContentController
+  // AdminContentController rules
   'get /api/v2/admin/rules': 'AdminContentController.rules',
   'get /api/v2/admin/rules/:id': 'AdminContentController.rule',
   'put /api/v2/admin/rules/:id': 'AdminContentController.updateRule',
   'post /api/v2/admin/rules': 'AdminContentController.createRule',
   'delete /api/v2/admin/rules/:id': 'AdminContentController.destroyRule',
+
+  // AdminContentController missions
+  'get /api/v2/admin/missions': 'AdminContentController.missions',
+  'get /api/v2/admin/missions/:id': 'AdminContentController.mission',
+  'put /api/v2/admin/missions/:id': 'AdminContentController.updateMission',
+  'post /api/v2/admin/missions': 'AdminContentController.createMission',
+  'delete /api/v2/admin/missions/:id': 'AdminContentController.destroyMission',
 
   // Assets
   '/*': {
