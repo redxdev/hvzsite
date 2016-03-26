@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+  {{#if model.localUser.isAdmin}}
+      <div class="row">
+          <div class="col-md-5 col-sm-4">
+            {{#link-to 'admin-missions-create' class='btn btn-primary'}}
+                <span class="glyphicon glyphicon-plus"></span>
+            {{/link-to}}
+          </div>
+      </div>
+      <div class="vertical-space"></div>
+  {{/if}}
+
+  {{#each model.missions as |mission|}}
+      <div class="row well">
+          <div class="col-sm-12">
+              <div class="row bg-{{mission.team}}">
+                  <div class="col-sm-8">
+                      <h2>{{mission.title}}</h2>
+                      <p>
+                        {{format-time mission.postDate
+                        hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}
+
+                          <em>{{format-relative mission.postDate}}</em>
+                      </p>
+                      <p><strong>Team:</strong> {{mission.team}}</p>
+                  </div>
+                {{#if model.localUser.isAdmin}}
+                    <div class="col-sm-4">
+                        <ul class="nav nav-stacked nav-pills">
+                            <li><a href="#">Edit</a></li>
+                            <li><a href="#">Delete</a></li>
+                        </ul>
+                    </div>
+                {{/if}}
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                    {{{mission.body}}}
+                  </div>
+              </div>
+          </div>
+      </div>
+  {{else}}
+      <div class="row">
+          <div class="col-md-12 text-center">
+              <h1>There were no missions found.</h1>
+          </div>
+      </div>
+  {{/each}}
+</div>

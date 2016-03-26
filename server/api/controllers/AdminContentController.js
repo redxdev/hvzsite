@@ -226,7 +226,7 @@ module.exports = {
 
       var team = req.param('team');
       if (team !== undefined) {
-        if (team !== 'human' && team !== 'zombie') {
+        if (team !== 'human' && team !== 'zombie' && team !== 'all') {
           return res.badRequest({message: 'Unknown team ' + team});
         }
 
@@ -291,7 +291,7 @@ module.exports = {
 
       var team = req.param('team');
       if (team !== undefined) {
-        if (team !== 'human' && team !== 'zombie') {
+        if (team !== 'human' && team !== 'zombie' && team !== 'all') {
           return res.badRequest({message: 'Unknown team ' + team});
         }
 
