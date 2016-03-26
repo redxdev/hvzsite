@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h2>Edit Mission</h2>
+            <h3>{{model.mission.title}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <form>
+                <div class="form-group">
+                    <label for="missionTitle">Title</label>
+                    <input type="text" id="missionTitle" class="form-control" placeholder="title"
+                           value="{{model.mission.title}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="missionTeam">Team</label>
+                    <select class="form-control" id="missionTeam">
+                      {{#if (eq model.mission.team 'all')}}
+                          <option value="all" selected>All</option>
+                          <option value="human">Human</option>
+                          <option value="zombie">Zombie</option>
+                      {{else if (eq model.mission.team 'human')}}
+                          <option value="all">All</option>
+                          <option value="human" selected>Human</option>
+                          <option value="zombie">Zombie</option>
+                      {{else}}
+                          <option value="all">All</option>
+                          <option value="human">Human</option>
+                          <option value="zombie" selected>Zombie</option>
+                      {{/if}}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="missionPostDate">Post Date</label>
+                    <input type="datetime-local" id="missionPostDate" class="form-control" value="{{model.mission.postDate}}">
+                </div>
+
+                <div class="form-group">
+                    <label for="missionBody">Body</label>
+                    <textarea id="missionBody" class="form-control">{{{model.mission.body}}}</textarea>
+                </div>
+
+                <button id="saveButton" type="submit" class="btn btn-default pull-right" {{action 'save' model.mission.id}}>
+                    Save
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

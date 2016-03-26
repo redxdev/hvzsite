@@ -29,7 +29,7 @@
                 {{#if model.localUser.isAdmin}}
                     <div class="col-sm-4">
                         <ul class="nav nav-stacked nav-pills">
-                            <li><a href="#">Edit</a></li>
+                            <li>{{#link-to 'admin-missions-edit' mission.id}}Edit{{/link-to}}</li>
                             <li><a href="#">Delete</a></li>
                         </ul>
                     </div>

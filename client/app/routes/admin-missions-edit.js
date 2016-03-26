@@ -6,6 +6,22 @@ export default Ember.Route.extend({
   errorHandler: Ember.inject.service(),
   user: Ember.inject.service(),
 
+  model(params) {
+    return this.get('ajax').request('/admin/missions/' + params.missionId, {
+      data: {
+        apikey: this.get('user').getApiKey()
+      }
+    }).then((result) => {
+      result.mission.postDate = new Date(result.mission.postDate).toISOString().slice(0,19);
+      return {
+        mission: result.mission
+      };
+    }).catch((err) => {
+      this.get('errorHandler').handleError(err, 'Unable to retrieve mission.');
+      return {};
+    });
+  },
+
   actions: {
     didTransition() {
       Ember.run.scheduleOnce('afterRender', this, () => {
@@ -16,7 +32,7 @@ export default Ember.Route.extend({
     },
 
     /* jshint ignore:start */
-    save() {
+    save(id) {
       Ember.$('#saveButton').hide();
 
       var title = Ember.$('#missionTitle').val();
@@ -30,7 +46,7 @@ export default Ember.Route.extend({
         return;
       }
 
-      this.get('ajax').post('/admin/missions', {
+      this.get('ajax').put('/admin/missions/' + id, {
         data: {
           title: title,
           body: body,
@@ -39,10 +55,10 @@ export default Ember.Route.extend({
           apikey: this.get('user').getApiKey()
         }
       }).then(() => {
-        this.get('toast').success('Created new mission.');
+        this.get('toast').success('Saved mission.');
         this.transitionTo('admin-missions');
       }).catch((err) => {
-        this.get('errorHandler').handleError(err, 'Unable to create mission.');
+        this.get('errorHandler').handleError(err, 'Unable to save mission.');
         Ember.$('#saveButton').show();
       });
     }
