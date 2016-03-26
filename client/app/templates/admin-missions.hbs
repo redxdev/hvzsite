@@ -20,7 +20,8 @@
                       <h2>{{mission.title}}</h2>
                       <p>
                         {{format-time mission.postDate
-                        hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}
+                        hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'
+                        timeZone='UTC'}}
 
                           <em>{{format-relative mission.postDate}}</em>
                       </p>
