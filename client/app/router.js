@@ -22,6 +22,11 @@ Router.map(function() {
   this.route('admin-players-avatar', {path: '/admin/players/:playerId/avatar'});
   this.route('admin-players-create', {path: '/admin/players/create'});
   this.route('admin-print', {path: '/admin/print'});
+  this.route('admin-rules', {path: '/admin/rules'});
+  this.route('admin-rules-create', {path: '/admin/rules/create'});
+
+  // 404
+  this.route('not-found', {path: '/*path'});
 });
 
 export default Router;

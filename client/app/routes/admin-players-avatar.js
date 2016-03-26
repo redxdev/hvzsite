@@ -66,8 +66,8 @@ export default Ember.Route.extend({
       /* jshint ignore:end */
     },
 
+    /* jshint ignore:start */
     takePicture(id) {
-      /* jshint ignore:start */
       Ember.$('#pictureButton').hide();
 
       Webcam.freeze();
@@ -101,7 +101,7 @@ export default Ember.Route.extend({
             }
           });
       });
-      /* jshint ignore:end */
     }
+    /* jshint ignore:end */
   }
 });
