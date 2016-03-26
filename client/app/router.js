@@ -32,6 +32,7 @@ Router.map(function() {
   this.route('admin-missions', {path: '/admin/missions'});
   this.route('admin-missions-create', {path: '/admin/missions/create'});
   this.route('admin-missions-edit', {path: '/admin/missions/:missionId/edit'});
+  this.route('admin-missions-delete', {path: '/admin/missions/:missionId/delete'});
 
   // 404
   this.route('not-found', {path: '/*path'});
