@@ -340,7 +340,7 @@ module.exports = {
     if (team === undefined)
       return res.badRequest({message: 'No team specified.'});
 
-    if (team !== 'human' && team !== 'zombie')
+    if (team !== 'human' && team !== 'zombie' && team !== 'all')
       return res.badRequest({message: 'Unknown team ' + team});
 
     Mission.create({
