@@ -10,7 +10,7 @@ function generateResult(success, message, key) {
 
   return {
     result: JSON.stringify(obj),
-    origin: sails.config.hvz.url
+    origin: process.env.NODE_ENV === 'development' ? '*' : sails.config.hvz.url
   }
 }
 
