@@ -35,7 +35,7 @@ module.exports = {
           return;
         }
 
-        User.findOne({humanIds: [result]}, function (err, found) {
+        HumanId.findOne({idString: result}, function (err, found) {
           if (err) {
             reject(err);
           }

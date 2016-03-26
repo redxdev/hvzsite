@@ -16,6 +16,8 @@ nbproject
 .idea
 .node_history
 /server/config/cert
+/server/logs
+/server/pids
 
 # All assets should be in client/public
 /server/assets

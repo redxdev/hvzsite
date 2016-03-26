@@ -49,7 +49,10 @@ export default Ember.Route.extend(ResetScrollMixin, {
       localUser: this.get('user').getUserInfo()
     }).then((result) => {
       return {
-        players: result.players.players,
+        players: result.players.players.map((player) => {
+          player.avatar = config.APP.apiURL + '/api/v2/avatar/' + player.id;
+          return player;
+        }),
         nextPage: lastCount < result.players.total ? (page + 1) : null,
         previousPage: page > 1 ? (page - 1) : null,
 
@@ -68,3 +71,4 @@ export default Ember.Route.extend(ResetScrollMixin, {
     }
   }
 });
+

@@ -12,9 +12,13 @@ The following packages should be installed with `npm install -g <package>`:
 
   - sails
   - bower
+  - ember-cli
 
 Once global packages are installed, run the following to install dependencies:
 
+    cd ./server
+    npm install
+    cd ../client
     npm install
     bower install
 
@@ -47,6 +51,8 @@ This will launch the api server on http://127.0.0.1:1337 and the ember developme
 Run the following command to build the client:
 
     ember build --environment=production --output-path=../server/assets
+
+Make sure to run this whenever the client changes!
 
 ### User Accounts
 

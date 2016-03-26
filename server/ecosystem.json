@@ -1,0 +1,22 @@
+{
+  /**
+   * Application configuration section
+   * http://pm2.keymetrics.io/docs/usage/application-declaration/
+   */
+  apps : [
+
+    {
+      name      : "web",
+      script    : "app.js",
+      exec_mode: 'cluster',
+      autorestart: true,
+      instances: 0,
+      env: {
+        NODE_ENV: "development"
+      },
+      env_production : {
+        NODE_ENV: "production"
+      },
+    }
+  ],
+}

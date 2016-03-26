@@ -6,9 +6,10 @@
     "ember-cli-test-loader": "0.2.2",
     "ember-qunit-notifications": "0.1.0",
     "bootstrap": "^3.3.6",
-    "bootswatch": "^3.3.6+1",
     "jquery.countdown": "^2.1.0",
     "toastr": "^2.1.2",
-    "pace": "^1.0.2"
+    "pace": "^1.0.2",
+    "bootswatch": "~3.3.6+1",
+    "webcamjs": "~1.0.6"
   }
 }

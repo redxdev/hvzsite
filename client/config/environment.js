@@ -14,7 +14,7 @@ module.exports = function(environment) {
     },
 
     APP: {
-      apiURL: "http://127.0.0.1:1337",
+      apiURL: "https://hvz.rit.edu",
       loginMethod: "google"
     },
 

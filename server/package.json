@@ -6,6 +6,7 @@
   "keywords": [],
   "dependencies": {
     "bluebird": "^3.1.1",
+    "connect-redis": "3.0.2",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
     "grunt-contrib-clean": "~0.5.0",
@@ -27,6 +28,7 @@
     "rc": "~0.5.0",
     "sails": "~0.12.1",
     "sails-disk": "~0.10.9",
+    "sails-mysql": "^0.12.1",
     "skipper-disk": "^0.5.4",
     "yaqrcode": "^0.2.1"
   },
