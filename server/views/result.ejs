@@ -11,7 +11,7 @@
     var result = <%- result %>;
     var didSendResults = false;
     if (window.opener) {
-      window.opener.postMessage(result, '*');
+      window.opener.postMessage(result, '<%= origin %>');
       didSendResults = true;
     }
 

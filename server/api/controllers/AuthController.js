@@ -9,7 +9,8 @@ function generateResult(success, message, key) {
     obj.key = key;
 
   return {
-    result: JSON.stringify(obj)
+    result: JSON.stringify(obj),
+    origin: sails.config.hvz.url
   }
 }
 
