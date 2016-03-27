@@ -9,8 +9,17 @@
             {{/link-to}}
           </div>
       </div>
-      <div class="vertical-space"></div>
+      <div class="vertical-space-sm"></div>
   {{/if}}
+
+  <div class="row">
+      <div class="col-sm-12">
+          <p>
+              Missions are displayed only to logged-in users, and only if their team matches the mission team. You may
+              also set a mission to have a team of "all", in which case it will appear to all logged in players.
+          </p>
+      </div>
+  </div>
 
   {{#each model.missions as |mission|}}
       <div class="row well">
