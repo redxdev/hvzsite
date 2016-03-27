@@ -71,5 +71,13 @@ module.exports.policies = {
     destroyNewsPost: ['apikey', 'isAdmin'],
     markImportantPost: ['apikey', 'isAdmin'],
     markUnimportantPost: ['apikey', 'isAdmin']
+  },
+
+  AdminAntivirusController: {
+    list: ['apikey', 'isAdmin'],
+    get: ['apikey', 'isAdmin'],
+    create: ['apikey', 'isAdmin'],
+    update: ['apikey', 'isAdmin'],
+    destroy: ['apikey', 'isAdmin']
   }
 };

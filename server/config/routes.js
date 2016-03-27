@@ -103,6 +103,13 @@ module.exports.routes = {
   'post /api/v2/admin/news/:id/important': 'AdminContentController.markImportantPost',
   'post /api/v2/admin/news/:id/unimportant': 'AdminContentController.markUnimportantPost',
 
+  // AdminAntivirusController
+  'get /api/v2/admin/antiviruses': 'AdminAntivirusController.list',
+  'get /api/v2/admin/antiviruses/:id': 'AdminAntivirusController.get',
+  'post /api/v2/admin/antiviruses': 'AdminAntivirusController.create',
+  'put /api/v2/admin/antiviruses/:id': 'AdminAntivirusController.update',
+  'delete /api/v2/admin/antiviruses/:id': 'AdminAntivirusController.destroy',
+
   // Assets
   '/*': {
     controller: 'AppController',
