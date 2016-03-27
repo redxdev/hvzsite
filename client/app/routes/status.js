@@ -63,6 +63,13 @@ export default Ember.Route.extend({
       }).catch((err) => {
         this.get('errorHandler').handleError(err, 'Unable to retrieve list of players.');
         return [];
+      }),
+
+      posts: this.get('ajax').request('/content/news').then(function (result) {
+        return result.posts;
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to retrieve news posts.');
+        return [];
       })
     });
   }

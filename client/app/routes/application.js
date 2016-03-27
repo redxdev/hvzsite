@@ -55,6 +55,10 @@ export default Ember.Route.extend({
         this.transitionTo('status');
         this.refresh();
       });
+    },
+
+    openAnnouncement(id) {
+      this.transitionTo('news', id);
     }
-  }
+  },
 });

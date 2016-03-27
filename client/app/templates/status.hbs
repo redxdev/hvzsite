@@ -47,15 +47,28 @@
       {{#if model.topPlayers.length}}
           <div class="col-sm-6 text-center">
               <h1>Top Zombies</h1>
-              {{#each model.topPlayers as |player|}}
+            {{#each model.topPlayers as |player|}}
                 <p>
                     <strong>{{player.name}}</strong>
                     with
                     <strong>{{player.humansTagged}}</strong>
                     tags
                 </p>
-              {{/each}}
+            {{/each}}
           </div>
       {{/if}}
     </div>
+  {{# if model.posts.length}}
+      <div class="row">
+          <div class="col-sm-12 text-center">
+              <h1>News</h1>
+              {{#each model.posts as |post|}}
+                <p>
+                    {{#link-to 'news' post.id}}{{post.summary}}{{/link-to}}
+                    <em>{{format-relative post.postDate}}</em>
+                </p>
+              {{/each}}
+          </div>
+      </div>
+  {{/if}}
 </div>

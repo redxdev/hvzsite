@@ -44,6 +44,30 @@ module.exports = {
       });
   },
 
+  newsPost: function (req, res) {
+    var id = req.param('id');
+    News.findOne({id: id}).exec(function (err, post) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (post === undefined) {
+        return res.notFound({message: 'Unknown post id ' + id});
+      }
+
+      res.ok({
+        post: {
+          id: post.id,
+          title: post.title,
+          summary: post.summary,
+          body: post.body,
+          postDate: post.createdAt,
+          important: post.important
+        }
+      })
+    });
+  },
+
   announcements: function (req, res) {
     News.find({
         important: true,

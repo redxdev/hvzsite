@@ -42,6 +42,7 @@ module.exports.routes = {
   // ContentController
   'get /api/v2/content/rules': 'ContentController.rules',
   'get /api/v2/content/news': 'ContentController.news',
+  'get /api/v2/content/news/:id': 'ContentController.newsPost',
   'get /api/v2/content/announcements': 'ContentController.announcements',
   'get /api/v2/content/missions': 'ContentController.missions',
 
