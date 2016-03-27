@@ -62,6 +62,14 @@ module.exports.policies = {
     mission: ['apikey', 'isModerator'],
     updateMission: ['apikey', 'isAdmin'],
     createMission: ['apikey', 'isAdmin'],
-    destroyMission: ['apikey', 'isAdmin']
+    destroyMission: ['apikey', 'isAdmin'],
+
+    newsPosts: ['apikey', 'isAdmin'],
+    newsPost: ['apikey', 'isAdmin'],
+    updateNewsPost: ['apikey', 'isAdmin'],
+    createNewsPost: ['apikey', 'isAdmin'],
+    destroyNewsPost: ['apikey', 'isAdmin'],
+    markImportantPost: ['apikey', 'isAdmin'],
+    markUnimportantPost: ['apikey', 'isAdmin']
   }
 };

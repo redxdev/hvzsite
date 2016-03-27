@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h2>Create News Post</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <form>
+                <div class="form-group">
+                    <label for="postTitle">Title</label>
+                    <input type="text" id="postTitle" class="form-control" placeholder="title">
+                </div>
+
+                <div class="form-group">
+                    <label for="postSummary">Summary</label>
+                    <input type="text" id="postSummary" class="form-control" placeholder="summary">
+                    <p class="help-block">
+                        This will be used if the post is marked as important.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="postBody">Body</label>
+                    <textarea id="postBody" class="form-control"></textarea>
+                </div>
+
+                <button id="saveButton" type="submit" class="btn btn-default pull-right" {{action 'save'}}>
+                    Save
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

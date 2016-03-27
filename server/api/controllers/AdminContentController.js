@@ -258,71 +258,6 @@ module.exports = {
     });
   },
 
-  updateMission: function (req, res) {
-    var id = req.param('id');
-    Mission.findOne({id: id}).exec(function (err, mission) {
-      if (err) {
-        return res.negotiate(err);
-      }
-
-      if (mission === undefined) {
-        return res.notFound({message: 'Unknown mission id ' + id});
-      }
-
-      var changed = false;
-
-      var title = req.param('title');
-      if (title !== undefined) {
-        mission.title = title;
-        changed = true;
-      }
-
-      var body = req.param('body');
-      if (body !== undefined) {
-        mission.body = body;
-        changed = true;
-      }
-
-      var postDate = req.param('postDate');
-      if (postDate !== undefined) {
-        mission.postDate = new Date(postDate);
-        changed = true;
-      }
-
-      var team = req.param('team');
-      if (team !== undefined) {
-        if (team !== 'human' && team !== 'zombie' && team !== 'all') {
-          return res.badRequest({message: 'Unknown team ' + team});
-        }
-
-        mission.team = team;
-        changed = true;
-      }
-
-      if (!changed) {
-        return res.badRequest({message: 'You didn\'t change anything!'});
-      }
-
-      mission.save(function (err) {
-        if (err) {
-          return res.negotiate(err);
-        }
-
-        sails.log.info("Mission #" + mission.id + " was modified by " + req.user.email);
-
-        return res.ok({
-          mission: {
-            id: mission.id,
-            title: mission.title,
-            body: mission.body,
-            postDate: mission.postDate,
-            team: mission.team
-          }
-        });
-      });
-    });
-  },
-
   createMission: function (req, res) {
     var title = req.param('title');
     if (title === undefined)
@@ -386,6 +321,236 @@ module.exports = {
         sails.log.info("Mission #" + mission.id + " was deleted by " + req.user.email);
 
         return res.ok({message: 'Deleted mission ' + mission.id});
+      });
+    });
+  },
+
+  newsPosts: function (req, res) {
+    News.find({sort: {createdAt: -1}}).exec(function (err, posts) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      res.ok({
+        posts: posts.map(function (post) {
+          return {
+            id: post.id,
+            title: post.title,
+            summary: post.summary,
+            body: post.body,
+            postDate: post.createdAt,
+            important: post.important
+          };
+        })
+      });
+    });
+  },
+
+  newsPost: function (req, res) {
+    var id = req.param('id');
+    News.findOne({id: id}).exec(function (err, post) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (post === undefined) {
+        return res.notFound({message: 'Unknown post id ' + id});
+      }
+
+      res.ok({
+        post: {
+          id: post.id,
+          title: post.title,
+          summary: post.summary,
+          body: post.body,
+          postDate: post.createdAt,
+          important: post.important
+        }
+      });
+    });
+  },
+
+  updateNewsPost: function (req, res) {
+    var id = req.param('id');
+    News.findOne({id: id}).exec(function (err, post) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (post === undefined) {
+        return res.notFound({message: 'Unknown post id ' + id});
+      }
+
+      var changed = false;
+
+      var title = req.param('title');
+      if (title !== undefined) {
+        post.title = title;
+        changed = true;
+      }
+
+      var summary = req.param('summary');
+      if (summary !== undefined) {
+        post.summary = summary;
+        changed = true;
+      }
+
+      var body = req.param('body');
+      if (body !== undefined) {
+        post.body = body;
+        changed = true;
+      }
+
+      if (!changed) {
+        return res.badRequest({message: 'You didn\'t change anything!'});
+      }
+
+      post.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info("Post #" + post.id + " was modified by " + req.user.email);
+
+        return res.ok({
+          post: {
+            id: post.id,
+            title: post.title,
+            summary: post.summary,
+            body: post.body,
+            postDate: post.createdAt,
+            important: post.important
+          }
+        });
+      });
+    });
+  },
+
+  createNewsPost: function (req, res) {
+    var title = req.param('title');
+    if (title === undefined)
+      return res.badRequest({message: 'No title specified.'});
+
+    var summary = req.param('summary');
+    if (summary === undefined)
+      return res.badRequest({message: 'No summary specified'});
+
+    var body = req.param('body');
+    if (body === undefined)
+      return res.badRequest({message: 'No body specified.'});
+
+    News.create({
+      title: title,
+      summary: summary,
+      body: body,
+      important: false
+    }, function (err, post) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      sails.log.info("Post #" + post.id + " was created by " + req.user.email);
+
+      return res.ok({
+        post: {
+          id: post.id,
+          title: post.title,
+          summary: post.summary,
+          body: post.body,
+          postDate: post.createdAt,
+          important: post.important
+        }
+      });
+    });
+  },
+
+  destroyNewsPost: function (req, res) {
+    var id = req.param('id');
+    News.findOne({id: id}).exec(function (err, post) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (post === undefined) {
+        return res.notFound({message: 'Unknown post id ' + id});
+      }
+
+      News.destroy({id: post.id}).exec(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info("Post #" + post.id + " was deleted by " + req.user.email);
+
+        return res.ok({message: 'Deleted post ' + post.id});
+      });
+    });
+  },
+
+  markImportantPost: function (req, res) {
+    var id = req.param('id');
+    News.findOne({id: id}).exec(function (err, post) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (post === undefined) {
+        return res.notFound({message: 'Unknown post id ' + id});
+      }
+
+      News.update({important: true}, {important: false}).exec(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        post.important = true;
+        post.save(function (err) {
+          if (err) {
+            return res.negotiate(err);
+          }
+
+          res.ok({
+            post: {
+              id: post.id,
+              title: post.title,
+              summary: post.summary,
+              body: post.body,
+              postDate: post.createdAt,
+              important: post.important
+            }
+          });
+        });
+      });
+    });
+  },
+
+  markUnimportantPost: function (req, res) {
+    var id = req.param('id');
+    News.findOne({id: id}).exec(function (err, post) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (post === undefined) {
+        return res.notFound({message: 'Unknown post id ' + id});
+      }
+
+      post.important = false;
+      post.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        res.ok({
+          post: {
+            id: post.id,
+            title: post.title,
+            summary: post.summary,
+            body: post.body,
+            postDate: post.createdAt,
+            important: post.important
+          }
+        });
       });
     });
   }

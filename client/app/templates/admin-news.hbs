@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="col-md-5 col-sm-4">
+          {{#link-to 'admin-news-create' class="btn btn-primary"}}
+              <span class="glyphicon glyphicon-plus"></span>
+          {{/link-to}}
+        </div>
+    </div>
+
+    <div class="vertical-space"></div>
+
+  {{#each model.posts as |post|}}
+      <div class="row well">
+          <div class="col-sm-12">
+              <div class="row">
+                  <div class="col-sm-8">
+                      <h2>{{post.title}}</h2>
+                      <p>
+                        {{format-time post.postDate
+                        hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}
+
+                          <em>{{format-relative post.postDate}}</em>
+                      </p>
+
+                    {{#if post.important}}
+                        <div class="alert alert-danger">
+                            This post is marked as important, and its summary will appear at the top of all pages.
+                        </div>
+                    {{/if}}
+                  </div>
+                  <div class="col-sm-4">
+                      <ul class="nav nav-stacked nav-pills">
+                          <li>{{#link-to 'admin-news-edit' post.id}}Edit{{/link-to}}</li>
+
+                        {{#if post.important}}
+                            <li class="active"><a href="#">Mark Unimportant</a></li>
+                        {{else}}
+                            <li><a href="#">Mark Important</a></li>
+                        {{/if}}
+
+                          <li><a href="#">Delete</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <h4>Summary</h4>
+                    {{post.summary}}
+                  </div>
+                  <div class="col-sm-12">
+                      <h4>Body</h4>
+                    {{{post.body}}}
+                  </div>
+              </div>
+          </div>
+      </div>
+  {{else}}
+      <div class="row">
+          <div class="col-md-12 text-center">
+              <h1>There were no posts found.</h1>
+          </div>
+      </div>
+  {{/each}}
+</div>

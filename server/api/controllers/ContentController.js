@@ -21,11 +21,7 @@ module.exports = {
 
   news: function (req, res) {
     News.find({
-        postDate: {
-          '<=': new Date()
-        },
-
-        sort: {postDate: -1}
+        sort: {createdAt: -1}
       })
       .exec(function (err, posts) {
         if (err) {
@@ -39,7 +35,7 @@ module.exports = {
                 title: post.title,
                 summary: post.summary,
                 body: post.body,
-                postDate: post.postDate,
+                postDate: post.createdAt,
                 important: post.important
               };
             })
@@ -50,12 +46,8 @@ module.exports = {
 
   announcements: function (req, res) {
     News.find({
-        postDate: {
-          '<=': new Date()
-        },
         important: true,
-
-        sort: {postDate: -1}
+        sort: {createdAt: -1}
       })
       .exec(function (err, posts) {
         if (err) {
@@ -69,8 +61,8 @@ module.exports = {
                 title: post.title,
                 summary: post.summary,
                 body: post.body,
-                postDate: post.postDate,
-                important: post.important
+                important: post.important,
+                postDate: post.createdAt
               };
             })
           });

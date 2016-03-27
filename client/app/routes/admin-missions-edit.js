@@ -12,7 +12,11 @@ export default Ember.Route.extend({
         apikey: this.get('user').getApiKey()
       }
     }).then((result) => {
-      result.mission.postDate = new Date(result.mission.postDate).toISOString().slice(0,19);
+      console.log(result.mission.postDate);
+      var postDate = new Date(result.mission.postDate);
+      postDate = new Date(postDate.getTime() - postDate.getTimezoneOffset()*60000);
+      result.mission.postDate = postDate.toISOString().slice(0,19);
+      console.log(result.mission.postDate);
       return {
         mission: result.mission
       };
@@ -37,21 +41,24 @@ export default Ember.Route.extend({
 
       var title = Ember.$('#missionTitle').val();
       var team = Ember.$('#missionTeam').val();
-      var postDate = Ember.$('#missionPostDate').val();
       var body = CKEDITOR.instances.missionBody.getData();
 
+      var postDate = Ember.$('#missionPostDate').val();
       if (postDate.trim() === '') {
         this.get('toast').warning("You didn't enter a time for the mission!");
         Ember.$('#saveButton').show();
         return;
       }
 
+      postDate = new Date(Ember.$('#missionPostDate').val());
+      postDate = new Date(postDate.getTime() + postDate.getTimezoneOffset()*60000);
+
       this.get('ajax').put('/admin/missions/' + id, {
         data: {
           title: title,
           body: body,
           team: team,
-          postDate: postDate,
+          postDate: postDate.toISOString(),
           apikey: this.get('user').getApiKey()
         }
       }).then(() => {

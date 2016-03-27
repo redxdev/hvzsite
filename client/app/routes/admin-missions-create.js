@@ -21,14 +21,17 @@ export default Ember.Route.extend({
 
       var title = Ember.$('#missionTitle').val();
       var team = Ember.$('#missionTeam').val();
-      var postDate = Ember.$('#missionPostDate').val();
       var body = CKEDITOR.instances.missionBody.getData();
 
+      var postDate = Ember.$('#missionPostDate').val();
       if (postDate.trim() === '') {
         this.get('toast').warning("You didn't enter a time for the mission!");
         Ember.$('#saveButton').show();
         return;
       }
+
+      postDate = new Date(Ember.$('#missionPostDate').val());
+      postDate = new Date(postDate.getTime() + postDate.getTimezoneOffset()*60000);
 
       this.get('ajax').post('/admin/missions', {
         data: {

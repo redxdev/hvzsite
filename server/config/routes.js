@@ -93,6 +93,15 @@ module.exports.routes = {
   'post /api/v2/admin/missions': 'AdminContentController.createMission',
   'delete /api/v2/admin/missions/:id': 'AdminContentController.destroyMission',
 
+  // AdminContentController news posts
+  'get /api/v2/admin/news': 'AdminContentController.newsPosts',
+  'get /api/v2/admin/news/:id': 'AdminContentController.newsPost',
+  'put /api/v2/admin/news/:id': 'AdminContentController.updateNewsPost',
+  'post /api/v2/admin/news': 'AdminContentController.createNewsPost',
+  'delete /api/v2/admin/news/:id': 'AdminContentController.destroyNewsPost',
+  'post /api/v2/admin/news/:id/important': 'AdminContentController.markImportantPost',
+  'post /api/v2/admin/news/:id/unimportant': 'AdminContentController.markUnimportantPost',
+
   // Assets
   '/*': {
     controller: 'AppController',
