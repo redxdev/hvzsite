@@ -7,7 +7,12 @@ module.exports = function (req, res, next) {
     .then(function (user) {
       if (user) {
         if (req.isAuthenticated()) {
-          return next();
+          if (req.user.id !== user.id) {
+            req.logOut();
+          }
+          else if (req.user.id === user.id) {
+            return next();
+          }
         }
 
         req.logIn(user, function (err) {
