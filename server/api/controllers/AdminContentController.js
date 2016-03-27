@@ -509,6 +509,8 @@ module.exports = {
             return res.negotiate(err);
           }
 
+          sails.log.info("Post #" + post.id + " was marked as important by " + req.user.email);
+
           res.ok({
             post: {
               id: post.id,
@@ -540,6 +542,8 @@ module.exports = {
         if (err) {
           return res.negotiate(err);
         }
+
+        sails.log.info("Post #" + post.id + " was marked as unimportant by " + req.user.email);
 
         res.ok({
           post: {

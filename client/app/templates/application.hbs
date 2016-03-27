@@ -63,6 +63,22 @@
     </div>
 </nav>
 
+{{#if model.announcement}}
+  <div class="container">
+      <div class="vertical-space-sm"></div>
+
+      <div class="row">
+          <div class="col-sm-8 col-sm-offset-2">
+              <div class="alert alert-info">
+                  {{! TODO: Link announcement to post page }}
+                  <strong>Announcement:</strong>
+                  {{model.announcement.summary}}
+              </div>
+          </div>
+      </div>
+  </div>
+{{/if}}
+
 {{outlet}}
 
 <footer>

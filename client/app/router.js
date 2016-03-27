@@ -37,6 +37,7 @@ Router.map(function() {
   this.route('admin-news', {path: '/admin/news'});
   this.route('admin-news-create', {path: '/admin/news/create'});
   this.route('admin-news-edit', {path: '/admin/news/:postId/edit'});
+  this.route('admin-news-delete', {path: '/admin/news/:postId/delete'});
 
   // 404
   this.route('not-found', {path: '/*path'});
