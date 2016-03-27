@@ -64,7 +64,7 @@
               <h1>News</h1>
               {{#each model.posts as |post|}}
                 <p>
-                    {{#link-to 'news' post.id}}{{post.summary}}{{/link-to}}
+                    {{#link-to 'news' post.id}}{{post.title}}{{/link-to}}
                     <em>{{format-relative post.postDate}}</em>
                 </p>
               {{/each}}
