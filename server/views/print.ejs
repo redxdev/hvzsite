@@ -95,7 +95,7 @@
         <% if (profile.avatar) { %>
           <img src="<%= profile.avatar %>" alt="avatar">
         <% } else { %>
-          <img src="holder.js/100x100" alt="avatar">
+          <img src="images/no-avatar.png" alt="avatar">
         <% } %>
       </div>
       <div class="info">
@@ -110,7 +110,7 @@
     <div class="bottom">
       <div class="qr">
         <% if (preview) { %>
-          <img src="holder.js/65x65" alt="qr">
+          <img src="images/no-qr.png" alt="qr">
         <% } else { %>
           <img src="<%= profile.qrcode %>" alt="qr">
         <% } %>
@@ -128,15 +128,13 @@
     </div>
   </div>
 
-  <% if (i % 2 === 0) { %>
+  <% if ((i+1) % 2 === 0) { %>
     <br style="clear:both">
   <% } %>
 
-  <% if (i % 8 === 0) { %>
+  <% if ((i+1) % 8 === 0) { %>
     <div class="card-spacer"></div>
   <% } %>
 <% } %>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.3.1/holder.min.js"></script>
 </body>
 </html>

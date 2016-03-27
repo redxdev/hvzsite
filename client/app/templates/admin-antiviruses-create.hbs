@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h2>Create Antivirus</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <form>
+                <div class="form-group">
+                    <label for="antivirusDescription">Description</label>
+                    <input type="text" id="antivirusDescription" class="form-control" placeholder="description">
+                </div>
+
+                <div class="form-group">
+                    <label for="antivirusExpirationTime">Expiration</label>
+                    <input type="datetime-local" id="antivirusExpirationTime" class="form-control">
+                </div>
+
+                <button id="saveButton" type="submit" class="btn btn-default pull-right" {{action 'save'}}>
+                    Save
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -17,7 +17,7 @@ export default Ember.Route.extend({
       };
     }).catch((err) => {
       this.get('errorHandler').handleError(err, 'Unable to retrieve rule.');
-      return {};
+      this.transitionTo('admin-rules');
     });
   },
 

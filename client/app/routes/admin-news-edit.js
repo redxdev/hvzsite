@@ -17,7 +17,7 @@ export default Ember.Route.extend({
       };
     }).catch((err) => {
       this.get('errorHandler').handleError(err, 'Unable to retrieve post.');
-      return {};
+      this.transitionTo('admin-news');
     });
   },
 

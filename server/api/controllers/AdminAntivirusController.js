@@ -5,7 +5,7 @@ module.exports = {
         return res.negotiate(err);
       }
 
-      return {
+      res.ok({
         antiviruses: avs.map(function (av) {
           return {
             id: av.id,
@@ -16,7 +16,7 @@ module.exports = {
             expirationTime: av.expirationTime
           };
         })
-      };
+      });
     });
   },
 
@@ -27,7 +27,11 @@ module.exports = {
         return res.negotiate(err);
       }
 
-      return {
+      if (av === undefined) {
+        return res.notFound({message: 'Unknown antivirus id ' + id});
+      }
+
+      res.ok({
         antivirus: {
           id: av.id,
           idString: av.idString,
@@ -36,7 +40,7 @@ module.exports = {
           user: av.user ? av.user.getPublicData() : null,
           expirationTime: av.expirationTime
         }
-      }
+      });
     });
   },
 
@@ -63,7 +67,7 @@ module.exports = {
 
         sails.log.info("Antivirus #" + av.id + " was created by " + req.user.email);
 
-        return {
+        res.ok({
           antivirus: {
             id: av.id,
             idString: av.idString,
@@ -72,7 +76,7 @@ module.exports = {
             user: null,
             expirationTime: av.expirationTime
           }
-        };
+        });
       });
     }).catch(function (err) {
       res.negotiate(err);
@@ -131,7 +135,7 @@ module.exports = {
 
   destroy: function (req, res) {
     var id = req.param('id');
-    Antivirus.findOne({id: id}).exec(function (err, av) {
+    AntivirusId.findOne({id: id}).exec(function (err, av) {
       if (err) {
         return res.negotiate(err);
       }
@@ -140,7 +144,7 @@ module.exports = {
         return res.notFound({message: 'Unknown antivirus id ' + id});
       }
 
-      Antivirus.destroy({id: av.id}).exec(function (err) {
+      AntivirusId.destroy({id: av.id}).exec(function (err) {
         if (err) {
           return res.negotiate(err);
         }

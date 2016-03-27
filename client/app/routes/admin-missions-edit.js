@@ -12,17 +12,15 @@ export default Ember.Route.extend({
         apikey: this.get('user').getApiKey()
       }
     }).then((result) => {
-      console.log(result.mission.postDate);
       var postDate = new Date(result.mission.postDate);
       postDate = new Date(postDate.getTime() - postDate.getTimezoneOffset()*60000);
       result.mission.postDate = postDate.toISOString().slice(0,19);
-      console.log(result.mission.postDate);
       return {
         mission: result.mission
       };
     }).catch((err) => {
       this.get('errorHandler').handleError(err, 'Unable to retrieve mission.');
-      return {};
+      this.transitionTo('admin-missions');
     });
   },
 
@@ -50,7 +48,7 @@ export default Ember.Route.extend({
         return;
       }
 
-      postDate = new Date(Ember.$('#missionPostDate').val());
+      postDate = new Date(postDate);
       postDate = new Date(postDate.getTime() + postDate.getTimezoneOffset()*60000);
 
       this.get('ajax').put('/admin/missions/' + id, {

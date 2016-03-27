@@ -17,7 +17,7 @@ export default Ember.Route.extend({
       return {player: player};
     }).catch((err) => {
       this.get('errorHandler').handleError(err, 'Unable to retrieve player profile.');
-      return {player: {}};
+      this.transitionTo('admin-players');
     });
   },
 

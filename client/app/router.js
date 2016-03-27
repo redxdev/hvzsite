@@ -40,6 +40,11 @@ Router.map(function() {
   this.route('admin-news-edit', {path: '/admin/news/:postId/edit'});
   this.route('admin-news-delete', {path: '/admin/news/:postId/delete'});
 
+  this.route('admin-antiviruses', {path: '/admin/antiviruses'});
+  this.route('admin-antiviruses-create', {path: '/admin/antiviruses/create'});
+  this.route('admin-antiviruses-edit', {path: '/admin/antiviruses/:antivirusId/edit'});
+  this.route('admin-antiviruses-delete', {path: '/admin/antiviruses/:antivirusId/delete'});
+
   // 404
   this.route('not-found', {path: '/*path'});
 });

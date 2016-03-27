@@ -38,6 +38,7 @@
                           <li>{{#link-to 'admin-missions'}}Missions{{/link-to}}</li>
 
                         {{#if model.localUser.isAdmin}}
+                            <li>{{#link-to 'admin-antiviruses'}}Antiviruses{{/link-to}}</li>
                             <li>{{#link-to 'admin-news'}}News{{/link-to}}</li>
                             <li>{{#link-to 'admin-rules'}}Rules{{/link-to}}</li>
                             <li>{{#link-to 'admin-print'}}Print{{/link-to}}</li>
@@ -64,20 +65,20 @@
 </nav>
 
 {{#if model.announcement}}
-  <div class="container">
-      <div class="vertical-space-sm"></div>
+    <div class="container">
+        <div class="vertical-space-sm"></div>
 
-      <div class="row">
-          <div class="col-sm-12">
-              <div class="alert alert-info announcement" {{action 'openAnnouncement' model.announcement.id}}>
-                  <strong>Announcement:</strong>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-info announcement" {{action 'openAnnouncement' model.announcement.id}}>
+                    <strong>Announcement:</strong>
                   {{model.announcement.summary}}
 
-                  <em class="pull-right">Click for more info...</em>
-              </div>
-          </div>
-      </div>
-  </div>
+                    <em class="pull-right">Click for more info...</em>
+                </div>
+            </div>
+        </div>
+    </div>
 {{/if}}
 
 {{outlet}}

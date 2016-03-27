@@ -96,7 +96,8 @@ module.exports = {
         humansTagged: this.humansTagged,
         badges: BadgeRegistry.getBadges(this.badges),
         clan: this.clan,
-        access: this.access
+        access: this.access,
+        hasAvatar: this.avatarPath !== null
       };
     },
 
@@ -116,7 +117,8 @@ module.exports = {
         clan: this.clan,
         failures: this.failures,
         maxFailures: this.maxFailures,
-        usedAV: this.usedAV
+        usedAV: this.usedAV,
+        hasAvatar: this.avatarPath !== null
       }
     },
 
