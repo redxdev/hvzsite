@@ -38,6 +38,7 @@ export default Ember.Service.extend({
 
         if (event.data.success === true) {
           this.get('toast').success(event.data.message);
+          this.get('toast').success("Make sure you attend a registration session! You can't play until you do!");
           resolve();
         }
         else {
