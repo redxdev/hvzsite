@@ -36,10 +36,6 @@ module.exports = {
 
   // Passport Methods
   loginGoogle: function (req, res) {
-    if (req.isAuthenticated()) {
-      return res.view('result', generateResult(true, "You are already logged in."));
-    }
-
     passport.authenticate('google', {scope: ['profile', 'email']})(req, res);
   },
   callbackGoogle: function (req, res) {
