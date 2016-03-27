@@ -1,8 +1,4 @@
 module.exports = function (req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-
   if (req.param('apikey') == undefined) {
     return next();
   }
@@ -10,6 +6,10 @@ module.exports = function (req, res, next) {
   AuthService.getUser(req.param('apikey'))
     .then(function (user) {
       if (user) {
+        if (req.isAuthenticated()) {
+          return next();
+        }
+
         req.logIn(user, function (err) {
           if (err) {
             return res.badRequest(err);

@@ -1,11 +1,7 @@
 module.exports = function (req, res, next) {
-  if (req.isAuthenticated()) {
-    if (!AuthService.hasPermission(req.user, 'player')) {
-      return res.forbidden({message: "Your account is not active."});
-    }
-
-    return next();
+  if (!AuthService.hasPermission(req.user, 'player')) {
+    return res.forbidden({message: "You do not have permission to access this page."});
   }
 
-  return res.unauthorized({message: "You are not logged in."});
-}
+  next();
+};
