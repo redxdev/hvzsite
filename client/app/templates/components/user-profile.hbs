@@ -1,6 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8 bg-{{profile.team}} text-center">
+            <div class="vertical-space-sm"></div>
+          {{#if player.hasAvatar}}
+              <img src="{{player.avatar}}" alt="avatar" class="avatar">
+          {{else}}
+              <img src="images/no-avatar.png" alt="avatar" class="avatar">
+          {{/if}}
             <h3>{{profile.name}}</h3>
             <p><strong>Email:</strong> {{profile.email}}</p>
             <p><strong>Team:</strong> {{profile.team}}</p>
