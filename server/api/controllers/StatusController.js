@@ -135,6 +135,8 @@ module.exports = {
       sort: {createdAt: -1}
     });
 
+    var c = {where:{}};
+
     var limit = req.param('limit');
     if (limit !== undefined)
       q.limit(limit);
@@ -143,12 +145,24 @@ module.exports = {
     if (skip !== undefined)
       q.skip(skip);
 
+    var human = req.param('human');
+    if (human !== undefined) {
+      q.where({human: human});
+      c.where.human = human;
+    }
+
+    var zombie = req.param('zombie');
+    if (zombie !== undefined) {
+      q.where({zombie: zombie});
+      c.where.zombie = zombie;
+    }
+
     q.populate('zombie').populate('human').exec(function (err, infections) {
       if (err) {
         res.negotiate(err);
       }
       else {
-        InfectionSpread.count().exec(function (err, count) {
+        InfectionSpread.count(c).exec(function (err, count) {
           if (err) {
             res.negotiate(err);
           }

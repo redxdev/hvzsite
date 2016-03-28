@@ -14,12 +14,19 @@ export default Ember.Route.extend({
         }
       }),
 
+      infections: this.get('ajax').request('/status/infections', {
+        data: {
+          zombie: params.playerId
+        }
+      }),
+
       localUser: this.get('user').getUserInfo()
     }).then((result) => {
       var player = result.player.user;
       player.avatar = config.APP.apiURL + '/api/v2/avatar/' + params.playerId;
       return {
         player: player,
+        infections: result.infections.infections,
         localUser: result.localUser
       };
     }).catch((err) => {

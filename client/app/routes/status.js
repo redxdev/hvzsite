@@ -72,5 +72,58 @@ export default Ember.Route.extend({
         return [];
       })
     });
+  },
+
+  actions: {
+    /* globals google */
+    didTransition() {
+      Ember.run.scheduleOnce('afterRender', () => {
+        this.get('ajax').request('/status/infections').then((result) => {
+          if (result.infections.length === 0) {
+            return;
+          }
+
+          // Processing to categorize infections into hours
+          var infectionMap = {};
+          var infections = [];
+          result.infections.forEach((inf) => {
+            var date = new Date(inf.time);
+            date = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours());
+            var key = date.getFullYear() + " " + date.getMonth() + " " + date.getDate() + " " + date.getHours();
+            if (infectionMap[key]) {
+              infectionMap[key][1]++;
+            }
+            else {
+              var obj = [date, 1];
+              infectionMap[key] = obj;
+              infections.push(obj);
+            }
+          });
+
+          Ember.$.getScript('https://www.google.com/jsapi', function () {
+            google.load('visualization', '1.1', {packages:['bar'], callback: () => {
+              Ember.$('#infection-chart').css('height', '250px');
+              var data = new google.visualization.DataTable();
+
+              data.addColumn('datetime', 'Time');
+              data.addColumn('number', 'Infections');
+
+              data.addRows(infections);
+
+              var options = google.charts.Bar.convertOptions({
+                title: 'Infection Timeline',
+                colors: ['black'],
+                legend: {position: 'none'}
+              });
+
+              var chart = new google.charts.Bar(document.getElementById('infection-chart'));
+              chart.draw(data, options);
+            }});
+          });
+        }).catch((err) => {
+          this.get('errorHandler').handleError(err, 'Unable to load list of infections');
+        });
+      });
+    }
   }
 });

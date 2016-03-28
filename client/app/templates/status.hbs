@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="row">
-      {{! TODO: Infection Chart }}
+        <div id="infection-chart" class="col-md-12"></div>
     </div>
     <div class="row">
       {{#if model.infections.length}}
@@ -36,7 +36,11 @@
                     <strong>{{infection.human}}</strong>
                     was tagged by
                     <strong>{{infection.zombie}}</strong>
-                    <em>{{format-relative infection.time}}</em>
+                    <span title="{{format-time infection.time
+                    hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}"
+                          class="hover-text">
+                      <em>{{format-relative infection.time}}</em>
+                    </span>
                 </p>
             {{/each}}
           </div>
@@ -62,12 +66,12 @@
       <div class="row">
           <div class="col-sm-12 text-center">
               <h1>News</h1>
-              {{#each model.posts as |post|}}
+            {{#each model.posts as |post|}}
                 <p>
-                    {{#link-to 'news' post.id}}{{post.title}}{{/link-to}}
+                  {{#link-to 'news' post.id}}{{post.title}}{{/link-to}}
                     <em>{{format-relative post.postDate}}</em>
                 </p>
-              {{/each}}
+            {{/each}}
           </div>
       </div>
   {{/if}}
