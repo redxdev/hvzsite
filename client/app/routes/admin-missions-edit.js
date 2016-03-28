@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+/* globals CKEDITOR */
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
   toast: Ember.inject.service(),
@@ -13,8 +14,8 @@ export default Ember.Route.extend({
       }
     }).then((result) => {
       var postDate = new Date(result.mission.postDate);
-      postDate = new Date(postDate.getTime() - postDate.getTimezoneOffset()*60000);
-      result.mission.postDate = postDate.toISOString().slice(0,19);
+      postDate = new Date(postDate.getTime() - postDate.getTimezoneOffset() * 60000);
+      result.mission.postDate = postDate.toISOString().slice(0, 19);
       return {
         mission: result.mission
       };
@@ -27,13 +28,12 @@ export default Ember.Route.extend({
   actions: {
     didTransition() {
       Ember.run.scheduleOnce('afterRender', this, () => {
-        /* jshint ignore:start */
-        CKEDITOR.replace('missionBody');
-        /* jshint ignore:end */
+        Ember.$.getScript('//cdn.ckeditor.com/4.4.6/standard/ckeditor.js', () => {
+          CKEDITOR.replace('missionBody');
+        });
       });
     },
 
-    /* jshint ignore:start */
     save(id) {
       Ember.$('#saveButton').hide();
 
@@ -49,7 +49,7 @@ export default Ember.Route.extend({
       }
 
       postDate = new Date(postDate);
-      postDate = new Date(postDate.getTime() + postDate.getTimezoneOffset()*60000);
+      postDate = new Date(postDate.getTime() + postDate.getTimezoneOffset() * 60000);
 
       this.get('ajax').put('/admin/missions/' + id, {
         data: {
@@ -67,6 +67,5 @@ export default Ember.Route.extend({
         Ember.$('#saveButton').show();
       });
     }
-    /* jshint ignore:end */
   }
 });

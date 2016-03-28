@@ -16,6 +16,7 @@ Router.map(function() {
   this.route('infect');
   this.route('antivirus');
   this.route('contact');
+  this.route('map');
 
   this.route('admin-players', {path: '/admin/players'});
   this.route('admin-players-view', {path: '/admin/players/:playerId'});

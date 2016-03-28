@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+/* globals CKEDITOR */
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
   toast: Ember.inject.service(),
@@ -24,13 +25,12 @@ export default Ember.Route.extend({
   actions: {
     didTransition() {
       Ember.run.scheduleOnce('afterRender', this, () => {
-        /* jshint ignore:start */
-        CKEDITOR.replace('postBody');
-        /* jshint ignore:end */
+        Ember.$.getScript('//cdn.ckeditor.com/4.4.6/standard/ckeditor.js', () => {
+          CKEDITOR.replace('postBody');
+        });
       });
     },
 
-    /* jshint ignore:start */
     save(id) {
       Ember.$('#saveButton').hide();
 
@@ -53,6 +53,5 @@ export default Ember.Route.extend({
         Ember.$('#saveButton').show();
       });
     }
-    /* jshint ignore:end */
   }
 });
