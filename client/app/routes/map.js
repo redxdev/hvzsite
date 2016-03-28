@@ -23,7 +23,6 @@ export default Ember.Route.extend({
     didTransition() {
       Ember.run.scheduleOnce('afterRender', this, () => {
         window.map_callback = () => {
-          Ember.$('#loading-message').remove();
 
           var mapOptions = {
             zoom: config.APP.map.zoom,
@@ -70,6 +69,8 @@ export default Ember.Route.extend({
 
             var heatmap = new google.maps.visualization.HeatmapLayer({data: locations});
             heatmap.setMap(map);
+
+            Ember.$('#loading-message').remove();
           }).catch((err) => {
             this.get('errorHandler').handleError(err, 'Unable to retrieve infections.');
           });

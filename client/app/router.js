@@ -11,12 +11,13 @@ Router.map(function() {
   this.route('profile');
   this.route('players');
   this.route('infections');
+  this.route('map');
+  this.route('spread');
   this.route('missions');
   this.route('rules');
   this.route('infect');
   this.route('antivirus');
   this.route('contact');
-  this.route('map');
 
   this.route('admin-players', {path: '/admin/players'});
   this.route('admin-players-view', {path: '/admin/players/:playerId'});
