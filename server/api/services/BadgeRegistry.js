@@ -67,7 +67,7 @@ module.exports = {
       var day = now.getDay();
 
       if (hour >= 6 && hour < 8)
-        zombie.addBadge('earlyBird');
+        zombie.addBadge('earlyRiser');
       else if (hour >= 23)
         human.addBadge('missionNotOver');
 

@@ -1,5 +1,16 @@
+{{#if (eq access 'mod')}}
+    <img class="game-badge" data-toggle="tooltip" data-placement="top" data-html="true"
+         title="<p><strong>Moderator</strong></p><p>I am a MODERATOR!</p>"
+         src="images/badges/mod.png"
+         alt="moderator badge">
+{{else if (or (eq access 'admin') (eq access 'superadmin'))}}
+    <img class="game-badge" data-toggle="tooltip" data-placement="top" data-html="true"
+         title="<p><strong>Admin</strong></p><p>I am an ADMIN!</p>"
+         src="images/badges/admin.png"
+         alt="admin badge">
+{{/if}}
 {{#each badges as |badge|}}
-    <img data-toggle="tooltip" data-placement="top" data-html="true"
+    <img class="game-badge" data-toggle="tooltip" data-placement="top" data-html="true"
          title="<p><strong>{{badge.name}}</strong></p><p>{{badge.description}}</p>"
          src="images/badges/{{badge.image}}"
          alt="{{badge.name}} badge">

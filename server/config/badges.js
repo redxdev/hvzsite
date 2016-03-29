@@ -2,20 +2,6 @@ module.exports.badges = {
   enableKillstreaks: true,
 
   registry: {
-    // Manual badges
-    twinkie: {
-      name: 'Twinkie!',
-      description: 'I have a twinkie!',
-      image: 'twinkie.png',
-      access: 'mod'
-    },
-    heliExtract: {
-      name: 'Extraction',
-      description: 'Survived the week and made it to extraction',
-      image: 'helicopter.png',
-      access: 'admin'
-    },
-
     // Automated badges
     infected: {
       name: 'Infected',
@@ -32,19 +18,19 @@ module.exports.badges = {
     oz: {
       name: 'OZ',
       description: 'Patient Zero',
-      image: 'zero.png',
+      image: 'oz.png',
       access: 'internal'
     },
-    earlyBird: {
-      name: 'Early Bird',
+    earlyRiser: {
+      name: 'Early Riser',
       description: 'Caught a human between 6 and 8 AM',
-      image: 'earlybird.png',
+      image: 'earlyriser.png',
       access: 'internal'
     },
     missionNotOver: {
       name: 'After-Mission Casualty',
       description: 'Died between 11 PM and midnight',
-      image: 'mission-aint-over.png',
+      image: 'mission-not-over.png',
       access: 'internal'
     },
     badStart: {
@@ -62,7 +48,7 @@ module.exports.badges = {
     quickTurnaround: {
       name: 'Quick Turnaround',
       description: 'Killed a human within an hour of becoming a zombie',
-      image: 'clock.png',
+      image: 'quick.png',
       access: 'internal'
     },
 
