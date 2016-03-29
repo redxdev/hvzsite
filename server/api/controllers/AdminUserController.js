@@ -44,14 +44,16 @@ module.exports = {
         or: [
           {name: {'contains': search}},
           {clan: {'contains': search}},
-          {email: {'contains': search}}
+          {email: {'contains': search}},
+          {access: {'contains': search}}
         ]
       });
 
       c.or = [
         {name: {'contains': search}},
         {clan: {'contains': search}},
-        {email: {'contains': search}}
+        {email: {'contains': search}},
+        {access: {'contains': search}}
       ];
     }
 
