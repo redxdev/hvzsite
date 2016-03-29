@@ -20,14 +20,15 @@
                 <li>{{#link-to 'status'}}Status{{/link-to}}</li>
                 <li>{{#link-to 'players' (query-params page='' sort='' searchTerm='')}}Players{{/link-to}}</li>
 
-              <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Infections <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                      <li>{{#link-to 'infections' (query-params page='')}}List{{/link-to}}</li>
-                      <li>{{#link-to 'map'}}Map{{/link-to}}</li>
-                      <li>{{#link-to 'spread'}}Spread{{/link-to}}</li>
-                  </ul>
-              </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Infections <span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>{{#link-to 'infections' (query-params page='')}}List{{/link-to}}</li>
+                        <li>{{#link-to 'map'}}Map{{/link-to}}</li>
+                        <li>{{#link-to 'spread'}}Spread{{/link-to}}</li>
+                    </ul>
+                </li>
 
               {{#if model.localUser.loggedIn}}
                   <li>{{#link-to 'missions'}}Missions{{/link-to}}</li>
@@ -99,6 +100,7 @@
                 <p class="text-muted pull-right">
                     Copyright &copy; 2016 |
                     <a target="_blank" href="https://github.com/redxdev/hvzsite">Source</a> |
+                    <a target="_blank" href="https://github.com/redxdev/hvzsite/tree/master/docs">API</a> |
                   {{#link-to 'contact'}}Contact{{/link-to}}
                 </p>
             </div>
