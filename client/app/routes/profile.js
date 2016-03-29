@@ -1,4 +1,5 @@
 import Ember from "ember";
+import config from '../config/environment';
 
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
@@ -12,6 +13,7 @@ export default Ember.Route.extend({
           zombie: result.profile.id
         }
       }).then((inf) => {
+        result.profile.avatar = config.APP.apiURL + '/api/v2/avatar/' + result.profile.id;
         return {
           profile: result.profile,
           infections: inf.infections
