@@ -31,9 +31,11 @@
             <p><strong>Team:</strong> {{model.player.team}}</p>
           {{#if (eq model.player.team 'human')}}
               <div class="btn-group" id="infectGroup">
-                  <button type="button" class="btn btn-danger" {{action 'infect' model.player.id true}}>
-                      OZ
-                  </button>
+                {{#if model.localUser.isAdmin}}
+                    <button type="button" class="btn btn-danger" {{action 'infect' model.player.id true}}>
+                        OZ
+                    </button>
+                {{/if}}
                   <button type="button" class="btn btn-success" {{action 'infect' model.player.id false}}>
                       Infect
                   </button>

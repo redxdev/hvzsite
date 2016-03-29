@@ -65,19 +65,19 @@
 
                       {{#if (eq model.player.access 'mod')}}
                           <option value="mod" selected>Moderator</option>
-                      {{else}}
+                      {{else if model.localUser.isAdmin}}
                           <option value="mod">Moderator</option>
                       {{/if}}
 
                       {{#if (eq model.player.access 'admin')}}
                           <option value="admin" selected>Admin</option>
-                      {{else}}
+                      {{else if model.localUser.isAdmin}}
                           <option value="admin">Admin</option>
                       {{/if}}
 
                       {{#if (eq model.player.access 'superadmin')}}
                           <option value="superadmin" selected>Superadmin</option>
-                      {{else}}
+                      {{else if model.localUser.isSuperAdmin}}
                           <option value="superadmin">Superadmin</option>
                       {{/if}}
                     </select>

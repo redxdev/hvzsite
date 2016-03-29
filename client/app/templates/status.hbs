@@ -52,12 +52,14 @@
           <div class="col-sm-6 text-center">
               <h1>Top Zombies</h1>
             {{#each model.topPlayers as |player|}}
-                <p>
-                    <strong>{{player.name}}</strong>
-                    with
-                    <strong>{{player.humansTagged}}</strong>
-                    tags
-                </p>
+              {{#if (gt player.humansTagged 0)}}
+                  <p>
+                      <strong>{{player.name}}</strong>
+                      with
+                      <strong>{{player.humansTagged}}</strong>
+                      tags
+                  </p>
+              {{/if}}
             {{/each}}
           </div>
       {{/if}}

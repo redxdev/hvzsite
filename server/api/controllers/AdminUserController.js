@@ -305,6 +305,11 @@ module.exports = {
   infect: function (req, res) {
     var id = req.param('id');
     var oz = req.param('oz');
+
+    if (oz && !AuthService.hasPermission(req.user, 'admin')) {
+      return res.forbidden({message: 'You do not have permission to do that!'});
+    }
+
     User.findOne({id: id}).exec(function (err, user) {
       if (err) {
         return res.negotiate(err);

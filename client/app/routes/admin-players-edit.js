@@ -8,13 +8,19 @@ export default Ember.Route.extend({
   toast: Ember.inject.service(),
 
   model(params) {
-    return this.get('ajax').request('/admin/users/' + params.playerId, {
-      data: {
-        apikey: this.get('user').getApiKey()
-      }
+    return Ember.RSVP.hash({
+      player: this.get('ajax').request('/admin/users/' + params.playerId, {
+        data: {
+          apikey: this.get('user').getApiKey()
+        }
+      }),
+
+      localUser: this.get('user').getUserInfo()
     }).then((result) => {
-      var player = result.user;
-      return {player: player};
+      return {
+        player: result.player.user,
+        localUser: result.localUser
+      };
     }).catch((err) => {
       this.get('errorHandler').handleError(err, 'Unable to retrieve player profile.');
       this.transitionTo('admin-players');
