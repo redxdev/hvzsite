@@ -65,7 +65,7 @@ export default Ember.Route.extend({
               return {location: new google.maps.LatLng(inf.latitude, inf.longitude), weight: 1};
             });
 
-            console.log("Removed " + locations + " locations as out of bounds");
+            console.log("Removed " + removeCount + " locations as out of bounds");
 
             var heatmap = new google.maps.visualization.HeatmapLayer({data: locations});
             heatmap.setMap(map);
