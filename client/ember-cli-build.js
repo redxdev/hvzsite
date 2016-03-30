@@ -27,7 +27,7 @@ module.exports = function(defaults) {
   app.import('bower_components/bootstrap/dist/js/bootstrap.js');
 
   // bootswatch
-  app.import('bower_components/bootswatch/cosmo/bootstrap.css');
+  app.import('bower_components/bootswatch/yeti/bootstrap.css');
 
   // jQuery Countdown
   app.import('bower_components/jquery.countdown/dist/jquery.countdown.js');
