@@ -21,7 +21,12 @@ export default Ember.Route.extend(ResetScrollMixin, {
       return {infections: [], nextPage: null, previousPage: null};
     }
 
-    return this.get('ajax').request('/status/infections').then(function (result) {
+    return this.get('ajax').request('/status/infections', {
+      data: {
+        limit: 10,
+        skip: (page - 1) * 10
+      }
+    }).then(function (result) {
       return {
         infections: result.infections.map(function (inf) {
           return {human: inf.human.name, zombie: inf.zombie.name, time: new Date(inf.time)};
