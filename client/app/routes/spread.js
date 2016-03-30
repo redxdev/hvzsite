@@ -60,10 +60,10 @@ export default Ember.Route.extend({
               },
 
               Node: {
-                color: '#ddeeff'
+                color: '#24d324'
               },
               Edge: {
-                color: '#c17878',
+                color: '#088A08',
                 lineWidth: 1.5
               },
 
@@ -79,7 +79,6 @@ export default Ember.Route.extend({
                 style.display = '';
                 style.cursor = 'pointer';
 
-                style.color = 'black';
                 if (node._depth <= 1) {
                   style.fontSize = '0.8em';
                 }
@@ -104,7 +103,7 @@ export default Ember.Route.extend({
 
             rgraph.loadJSON({
               id: -1,
-              name: "OZ",
+              name: "Infection",
               children: data
             });
             rgraph.graph.eachNode(function (n) {
