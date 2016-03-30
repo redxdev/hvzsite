@@ -2,12 +2,36 @@ import Ember from 'ember';
 import config from './config/environment';
 
 const Router = Ember.Router.extend({
+  user: Ember.inject.service(),
   location: config.locationType,
 
   didTransition() {
     this._super(...arguments);
 
     Ember.$('.navbar-collapse').collapse('hide');
+
+    if (this.get('user').isLoggedIn()) {
+      this.get('user').getUserInfo().then((result) => {
+        if (result.profile) {
+          if (result.profile.team === 'human') {
+            Ember.$('meta[name=theme-color]').prop('content', '#eb4600');
+          }
+          else {
+            Ember.$('meta[name=theme-color]').prop('content', '#00af04');
+          }
+        }
+        else {
+          Ember.$('meta[name=theme-color]').prop('content', '#3a3a3a');
+        }
+      }).catch((err) => {
+        console.error('Unable to retrieve user info for theme');
+        console.error(err);
+        Ember.$('meta[name=theme-color]').prop('content', '#3a3a3a');
+      });
+    }
+    else {
+      Ember.$('meta[name=theme-color]').prop('content', '#3a3a3a');
+    }
   }
 });
 
