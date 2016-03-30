@@ -112,7 +112,7 @@ export default Ember.Route.extend({
 
               var options = google.charts.Bar.convertOptions({
                 title: 'Infection Timeline',
-                colors: ['#008404'],
+                colors: ['#00af04'],
                 legend: {position: 'none'}
               });
 
