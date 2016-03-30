@@ -1,8 +1,8 @@
 // Variables
 
-@human-color: #ff7519;
-@zombie-color: #31e636;
-@all-color: #ffff99;
+@human-color: #AF4500;
+@zombie-color: #008404;
+@all-color: #3A3A3A;
 
 
 // Styles
@@ -16,6 +16,10 @@ body {
   h1 {
     font-size: 400%;
   }
+}
+
+.form-control {
+  color: black;
 }
 
 @media screen and (min-width:769px) {
@@ -50,10 +54,20 @@ body {
 
 .bg-human {
   background-color: @human-color;
+  color: black;
+
+  h1 {
+    color: white;
+  }
 }
 
 .bg-zombie {
   background-color: @zombie-color;
+  color: black;
+
+  h1 {
+    color: white;
+  }
 }
 
 .bg-all {
