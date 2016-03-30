@@ -51,5 +51,5 @@ export default Ember.Route.extend({
     openAnnouncement(id) {
       this.transitionTo('news', id);
     }
-  },
+  }
 });
