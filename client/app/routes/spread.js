@@ -31,6 +31,7 @@ export default Ember.Route.extend({
                 };
                 players[player.id] = player;
                 roots[player.id] = player;
+                console.log("Created " + obj.name);
               }
               else {
                 player = players[obj.id];
@@ -99,6 +100,7 @@ export default Ember.Route.extend({
               }
             }
 
+            console.log("Spread Data:");
             console.log(data);
 
             rgraph.loadJSON({
