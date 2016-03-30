@@ -1,12 +1,12 @@
 <div class="jumbotron header">
     <div class="container header-text text-center">
-        <h1 id="countdown">
-          {{#if model.date.inPast}}
-              <strong>Game Over</strong>
-          {{else}}
+      {{#if model.date.inPast}}
+          <h1><strong>Game Over</strong></h1>
+      {{else}}
+          <h1 id="countdown">
               <strong>Loading...</strong>
-          {{/if}}
-        </h1>
+          </h1>
+      {{/if}}
     </div>
 </div>
 
