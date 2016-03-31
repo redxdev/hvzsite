@@ -24,27 +24,6 @@ export default Ember.Route.extend({
     }
   },
 
-  beforeModel() {
-    if (this.get('locationId')) {
-      navigator.geolocation.clearWatch(this.get('locationId'));
-    }
-
-    this.set('locationId', navigator.geolocation.watchPosition((loc) => {
-      Ember.$('#location-status').html("SENDING (accuracy: " + loc.coords.accuracy + " meters)");
-      this.set('useLocation', true);
-      this.set('latitude', loc.coords.latitude);
-      this.set('longitude', loc.coords.longitude);
-    }, (err) => {
-      console.log(err);
-      Ember.$('#location-status').innerHTML = "NOT SENDING";
-      this.set('useLocation', false);
-    }, {
-      enableHighAccuracy: true,
-      timeout: Infinity,
-      maximumAge: 0
-    }));
-  },
-
   model(params) {
     if (this.get('user').isLoggedIn()) {
       return this.get('user').getUserProfile().then((result) => {
@@ -66,7 +45,7 @@ export default Ember.Route.extend({
         }
       }).catch((err) => {
         this.get('errorHandler').handleError(err, 'Unable to retrieve your id');
-        
+
         if (params.readHumanId || params.readZombieId) {
           this.get('toast').warning("Sorry, you can't use QR codes unless you are logged into the website!");
         }
@@ -80,6 +59,27 @@ export default Ember.Route.extend({
   },
 
   actions: {
+    didTransition() {
+      if (this.get('locationId')) {
+        navigator.geolocation.clearWatch(this.get('locationId'));
+      }
+
+      this.set('locationId', navigator.geolocation.watchPosition((loc) => {
+        Ember.$('#location-status').html("SENDING (accuracy: " + loc.coords.accuracy + " meters)");
+        this.set('useLocation', true);
+        this.set('latitude', loc.coords.latitude);
+        this.set('longitude', loc.coords.longitude);
+      }, (err) => {
+        console.log(err);
+        Ember.$('#location-status').innerHTML = "NOT SENDING";
+        this.set('useLocation', false);
+      }, {
+        enableHighAccuracy: true,
+        timeout: Infinity,
+        maximumAge: 0
+      }));
+    },
+
     willTransition() {
       if (this.get('locationId')) {
         navigator.geolocation.clearWatch(this.get('locationId'));
