@@ -33,6 +33,7 @@ export default Ember.Route.extend({
         }
         else {
           var goodId = '';
+          profile.humanIds.reverse();
           for (var i = 0; i < profile.humanIds.length; ++i) {
             var id = profile.humanIds[i];
             if (id.active) {
