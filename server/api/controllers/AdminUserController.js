@@ -400,7 +400,12 @@ module.exports = {
     var preview = req.param('preview');
     User.find({
       where: {
-        access: 'player',
+        or: [
+          {access: 'player'},
+          {access: 'mod'},
+          {access: 'admin'},
+          {access: 'superadmin'}
+        ],
         printed: false
       },
 
@@ -430,7 +435,12 @@ module.exports = {
   markPrinted: function (req, res) {
     User.update({
       where: {
-        access: 'player',
+        or: [
+          {access: 'player'},
+          {access: 'mod'},
+          {access: 'admin'},
+          {access: 'superadmin'}
+        ],
         printed: false
       }
     }, {
