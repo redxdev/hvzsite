@@ -121,5 +121,107 @@ module.exports = {
           });
         }
       });
+  },
+
+  polls: function (req, res) {
+    Poll.find({
+      team: ['all', req.user.team],
+      postDate: {
+        '<=': new Date()
+      },
+
+      sort: {postDate: -1}
+    }).exec(function (err, polls) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      Vote.find({user: req.user.id}).exec(function (err, votes) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        var voteMap = {};
+        votes.forEach(function (vote) {
+          voteMap[vote.poll] = vote.option;
+        });
+
+        res.ok({
+          polls: polls.map(function (poll) {
+            return {
+              id: poll.id,
+              title: poll.title,
+              question: poll.question,
+              body: poll.body,
+              options: poll.options,
+              team: poll.team,
+              postDate: poll.postDate,
+              endDate: poll.endDate,
+              vote: voteMap[poll.id]
+            }
+          })
+        });
+      });
+    });
+  },
+
+  vote: function (req, res) {
+    var id = req.param('id');
+    var option = req.param('option');
+    option = Number(option);
+    if (isNaN(option)) {
+      return res.badRequest({message: 'Invalid parameter for \'option\''});
+    }
+
+    Poll.findOne({
+      id: id,
+      postDate: {
+        '<=': new Date()
+      },
+      team: ['all', req.user.team]
+    }).exec(function (err, poll) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (poll === undefined) {
+        return res.notFound({message: 'Unknown poll id ' + id});
+      }
+
+      if (poll.endDate <= new Date()) {
+        return res.badRequest({message: 'That poll has ended.'});
+      }
+
+      Vote.findOne({user: req.user.id, poll: poll.id}).exec(function (err, vote) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        if (vote !== undefined) {
+          return res.badRequest({message: 'You have already voted in this poll.'});
+        }
+
+        if (option < 0 || option >= poll.options.length) {
+          return res.badRequest({message: 'Invalid option index'});
+        }
+
+        Vote.create({user: req.user.id, poll: poll.id, option: option}).exec(function (err, vote) {
+          if (err) {
+            return res.negotiate(err);
+          }
+
+          if (vote === undefined) {
+            return res.serverError({message: 'Unable to create vote object'});
+          }
+
+          return res.ok({
+            vote: {
+              poll: poll.id,
+              option: vote.option
+            }
+          });
+        });
+      });
+    });
   }
 };

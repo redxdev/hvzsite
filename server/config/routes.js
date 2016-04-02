@@ -45,6 +45,8 @@ module.exports.routes = {
   'get /api/v2/content/news/:id': 'ContentController.newsPost',
   'get /api/v2/content/announcements': 'ContentController.announcements',
   'get /api/v2/content/missions': 'ContentController.missions',
+  'get /api/v2/content/polls': 'ContentController.polls',
+  'post /api/v2/content/polls/:id': 'ContentController.vote',
 
   // GameController
   'post /api/v2/game/infect': 'GameController.infect',
@@ -102,6 +104,13 @@ module.exports.routes = {
   'delete /api/v2/admin/news/:id': 'AdminContentController.destroyNewsPost',
   'post /api/v2/admin/news/:id/important': 'AdminContentController.markImportantPost',
   'post /api/v2/admin/news/:id/unimportant': 'AdminContentController.markUnimportantPost',
+
+  // AdminContentController polls
+  'get /api/v2/admin/polls': 'AdminContentController.polls',
+  'get /api/v2/admin/polls/:id': 'AdminContentController.poll',
+  'put /api/v2/admin/polls/:id': 'AdminContentController.updatePoll',
+  'post /api/v2/admin/polls': 'AdminContentController.createPoll',
+  'delete /api/v2/admin/polls/:id': 'AdminContentController.destroyPoll',
 
   // AdminAntivirusController
   'get /api/v2/admin/antiviruses': 'AdminAntivirusController.list',

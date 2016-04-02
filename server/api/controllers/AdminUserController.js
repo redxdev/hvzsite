@@ -386,12 +386,31 @@ module.exports = {
         return res.notFound({message: 'Unknown user id ' + id});
       }
 
-      User.destroy({id: user.id}).exec(function (err) {
+      InfectionSpread.destroy({
+        or: [
+          {human: user.id},
+          {zombie: user.id}
+        ]
+      }, function (err) {
         if (err) {
           return res.negotiate(err);
         }
 
-        return res.ok({user: user.getPublicData()});
+        HumanId.destroy({user: user.id}, function (err) {
+          if (err) {
+            return res.negotiate(err);
+          }
+
+          User.destroy({id: user.id}).exec(function (err) {
+            if (err) {
+              return res.negotiate(err);
+            }
+
+            sails.log.info("User " + user.email + " was deleted by " + req.user.email);
+
+            return res.ok({user: user.getPublicData()});
+          });
+        });
       });
     });
   },

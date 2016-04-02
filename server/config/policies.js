@@ -28,7 +28,9 @@ module.exports.policies = {
   },
 
   ContentController: {
-    missions: ['apikey', 'isActive']
+    missions: ['apikey', 'isActive'],
+    polls: ['apikey', 'isActive'],
+    vote: ['apikey', 'isActive']
   },
 
   GameController: {
@@ -70,7 +72,13 @@ module.exports.policies = {
     createNewsPost: ['apikey', 'isAdmin'],
     destroyNewsPost: ['apikey', 'isAdmin'],
     markImportantPost: ['apikey', 'isAdmin'],
-    markUnimportantPost: ['apikey', 'isAdmin']
+    markUnimportantPost: ['apikey', 'isAdmin'],
+
+    polls: ['apikey', 'isModerator'],
+    poll: ['apikey', 'isAdmin'],
+    updatePoll: ['apikey', 'isAdmin'],
+    createPoll: ['apikey', 'isAdmin'],
+    destroyPoll: ['apikey', 'isAdmin']
   },
 
   AdminAntivirusController: {
