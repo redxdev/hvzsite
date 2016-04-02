@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+  {{#if model.localUser.isAdmin}}
+      <div class="row">
+          <div class="col-md-5 col-sm-4">
+            {{#link-to 'admin-polls-create' class='btn btn-primary'}}
+                <span class="glyphicon glyphicon-plus"></span>
+            {{/link-to}}
+          </div>
+      </div>
+      <div class="vertical-space-sm"></div>
+  {{/if}}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+                Polls are displayed only to logged-in users on the missions page, and only if their team matches the
+                mission team. You may also set a poll to have a team of "all", in which case it will appear to all
+                logged in players.
+            </p>
+            <p>
+                Polls may only be voted on once per user. Once a user has voted on a poll, their vote cannot be
+                changed.
+            </p>
+        </div>
+    </div>
+
+  {{#each model.polls as |poll|}}
+      <div class="row well">
+          <div class="col-sm-12">
+              <div class="row bg-{{poll.team}}">
+                  <div class="col-sm-8">
+                      <h2>{{poll.title}}</h2>
+                      <p>
+                        {{format-time poll.postDate
+                        hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}
+
+                          <em>{{format-relative poll.postDate}}</em>
+                      </p>
+                      <p>
+                          Closes on
+                        {{format-time poll.endDate
+                        hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}
+
+                          <em>{{format-relative poll.endDate}}</em>
+                      </p>
+                      <p><strong>Team:</strong> {{poll.team}}</p>
+                  </div>
+                {{#if model.localUser.isAdmin}}
+                    <div class="col-sm-4">
+                        <ul class="nav nav-stacked nav-pills">
+                            <li>{{#link-to 'admin-polls-view' poll.id}}Results{{/link-to}}</li>
+                            <li>{{#link-to 'admin-polls-edit' poll.id}}Edit{{/link-to}}</li>
+                            <li>{{#link-to 'admin-polls-delete' poll.id}}Delete{{/link-to}}</li>
+                        </ul>
+                    </div>
+                {{/if}}
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                    {{{poll.body}}}
+                  </div>
+                  <div class="col-sm-12">
+                      <h4>{{poll.question}}</h4>
+                      <ul>
+                        {{#each poll.options as |option|}}
+                            <li>{{option}}</li>
+                        {{/each}}
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  {{else}}
+      <div class="row">
+          <div class="col-md-12 text-center">
+              <h1>There were no polls found.</h1>
+          </div>
+      </div>
+  {{/each}}
+</div>

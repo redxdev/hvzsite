@@ -557,5 +557,326 @@ module.exports = {
         });
       });
     });
+  },
+
+  polls: function (req, res) {
+    Poll.find({sort: {postDate: -1}}).exec(function (err, polls) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      res.ok({
+        polls: polls.map(function (poll) {
+          return {
+            id: poll.id,
+            title: poll.title,
+            question: poll.question,
+            body: poll.body,
+            options: poll.options,
+            team: poll.team,
+            postDate: poll.postDate,
+            endDate: poll.endDate
+          };
+        })
+      });
+    });
+  },
+
+  poll: function (req, res) {
+    var id = req.param('id');
+    Poll.findOne({id: id}).populate('votes').exec(function (err, poll) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (poll === undefined) {
+        return res.notFound({message: 'Unknown poll id ' + id});
+      }
+
+      var votes = {};
+      poll.votes.forEach(function (vote) {
+        if (votes[vote.option]) {
+          votes[vote.option]++;
+        }
+        else {
+          votes[vote.option] = 1;
+        }
+      });
+
+      res.ok({
+        poll: {
+          id: poll.id,
+          title: poll.title,
+          question: poll.question,
+          body: poll.body,
+          options: poll.options,
+          team: poll.team,
+          postDate: poll.postDate,
+          endDate: poll.endDate,
+          votes: votes
+        }
+      });
+    });
+  },
+
+  updatePoll: function (req, res) {
+    var id = req.param('id');
+    Poll.findOne({id: id}).exec(function (err, poll) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (poll === undefined) {
+        return res.notFound({message: 'Unknown poll id ' + id});
+      }
+
+      var changed = false;
+
+      var title = req.param('title');
+      if (title !== undefined) {
+        poll.title = title;
+        changed = true;
+      }
+
+      var question = req.param('question');
+      if (question !== undefined) {
+        poll.question = question;
+        changed = true;
+      }
+
+      var body = req.param('body');
+      if (body !== undefined) {
+        poll.body = body;
+        changed = true;
+      }
+
+      var options = req.param('options');
+      var resetVotes = false;
+      console.log(options);
+      if (options !== undefined) {
+        try {
+          options = JSON.parse(options);
+        }
+        catch (e) {
+          return res.badRequest({message: 'Malformed JSON in options parameter'});
+        }
+
+        if (options.options === undefined) {
+          return res.badRequest({message: 'Missing \'options\' key in options parameter'});
+        }
+
+        options = options.options;
+
+        if (!Array.isArray(options)) {
+          return res.badRequest({message: '\'options\' key is not an array in options parameter'});
+        }
+
+        for (var i = 0; i < options.length; ++i) {
+          if (typeof options[i] !== 'string') {
+            return res.badRequest({message: '\'options\' must contain a list of strings in options parameter'});
+          }
+        }
+
+        poll.options.forEach(function (option, i) {
+          if (i >= options.length || option.trim() !== options[i].trim()) {
+            resetVotes = true;
+          }
+        });
+
+        poll.options = options;
+        changed = true;
+      }
+
+      var team = req.param('team');
+      if (team !== undefined) {
+        if (team !== 'human' && team !== 'zombie' && team !== 'all') {
+          return res.badRequest({message: 'Unknown team ' + team});
+        }
+
+        poll.team = team;
+        changed = true;
+      }
+
+      var postDate = req.param('postDate');
+      if (postDate !== undefined) {
+        poll.postDate = new Date(postDate);
+        changed = true;
+      }
+
+      var endDate = req.param('endDate');
+      if (endDate !== undefined) {
+        poll.endDate = new Date(endDate);
+        changed = true;
+      }
+
+      if (!changed) {
+        return res.badRequest({message: 'You didn\'t change anything!'});
+      }
+
+      poll.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info("Poll #" + poll.id + " was modified by " + req.user.email);
+
+        if (resetVotes) {
+          Vote.destroy({
+            poll: poll.id
+          }).exec(function (err) {
+            if (err) {
+              return res.negotiate(err);
+            }
+
+            sails.log.info("Reset some votes on poll #" + poll.id + " due to options change");
+
+            res.ok({
+              id: poll.id,
+              title: poll.title,
+              question: poll.question,
+              body: poll.body,
+              options: poll.options,
+              team: poll.team,
+              postDate: poll.postDate,
+              endDate: poll.endDate
+            });
+          });
+        }
+        else {
+          res.ok({
+            id: poll.id,
+            title: poll.title,
+            question: poll.question,
+            body: poll.body,
+            options: poll.options,
+            team: poll.team,
+            postDate: poll.postDate,
+            endDate: poll.endDate
+          });
+        }
+      });
+    });
+  },
+
+  createPoll: function (req, res) {
+    var title = req.param('title');
+    if (title === undefined) {
+      return res.badRequest({message: 'No title specified.'});
+    }
+
+    var question = req.param('question');
+    if (question === undefined) {
+      return res.badRequest({message: 'No question specified.'});
+    }
+
+    var body = req.param('body');
+    if (body === undefined) {
+      return res.badRequest({message: 'No body specified.'});
+    }
+
+    var options = req.param('options');
+    if (options !== undefined) {
+      try {
+        options = JSON.parse(options);
+      }
+      catch (e) {
+        return res.badRequest({message: 'Malformed JSON in options parameter'});
+      }
+
+      if (options.options === undefined) {
+        return res.badRequest({message: 'Missing \'options\' key in options parameter'});
+      }
+
+      options = options.options;
+
+      if (!Array.isArray(options)) {
+        return res.badRequest({message: '\'options\' key is not an array in options parameter'});
+      }
+
+      for (var i = 0; i < options.length; ++i) {
+        if (typeof options[i] !== 'string') {
+          return res.badRequest({message: '\'options\' must contain a list of strings in options parameter'});
+        }
+      }
+    }
+    else {
+      return res.badRequest({message: 'No options specified.'});
+    }
+
+    var team = req.param('team');
+    if (team !== undefined) {
+      if (team !== 'human' && team !== 'zombie' && team !== 'all') {
+        return res.badRequest({message: 'Unknown team ' + team});
+      }
+    }
+    else {
+      return res.badRequest({message: 'No team specified.'});
+    }
+
+    var postDate = req.param('postDate');
+    if (postDate === undefined) {
+      return res.badRequest({message: 'No postDate specified.'});
+    }
+
+    var endDate = req.param('endDate');
+    if (endDate === undefined) {
+      return res.badRequest({message: 'No endDate specified.'});
+    }
+
+    Poll.create({
+      title: title,
+      question: question,
+      body: body,
+      options: options,
+      team: team,
+      postDate: new Date(postDate),
+      endDate: new Date(endDate)
+    }, function (err, poll) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      sails.log.info("Poll #" + poll.id + " was created by " + req.user.email);
+
+      res.ok({
+        id: poll.id,
+        title: poll.title,
+        question: poll.question,
+        body: poll.body,
+        options: poll.options,
+        team: poll.team,
+        postDate: poll.postDate,
+        endDate: poll.endDate
+      });
+    });
+  },
+
+  destroyPoll: function (req, res) {
+    var id = req.param('id');
+    Poll.findOne({id: id}).exec(function (err, poll) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (poll === undefined) {
+        return res.notFound({message: 'Unknown poll id ' + id});
+      }
+
+      Poll.destroy({id: poll.id}).exec(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        Vote.destroy({poll: poll.id}).exec(function (err) {
+          if (err) {
+            return res.negotiate(err);
+          }
+
+          sails.log.info("Poll #" + poll.id + " was deleted by " + req.user.email);
+
+          return res.ok({message: 'Deleted poll ' + poll.id});
+        });
+      });
+    });
   }
 };

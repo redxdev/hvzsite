@@ -4,9 +4,13 @@
     <div class="row visible-xs">
         <div class="col-md-12">
             <ul class="nav nav-pills nav-stacked side-nav">
-                {{#each model.missions as |mission|}}
-                  <li><a href="#" {{action 'goToMission' mission.id}}>{{mission.title}}</a></li>
-                {{/each}}
+              {{#each model.missions as |mission|}}
+                {{#if (eq mission.type 'mission')}}
+                    <li><a href="#" {{action 'goToMission' mission.id}}>{{mission.title}}</a></li>
+                {{else}}
+                    <li><a href="#" {{action 'goToPoll' mission.id}}>{{mission.title}}</a></li>
+                {{/if}}
+              {{/each}}
             </ul>
         </div>
     </div>
@@ -14,24 +18,78 @@
     <div class="row">
         <div class="hidden-xs col-sm-3">
             <ul class="nav nav-pills nav-stacked side-nav" data-spy="affix" style="overflow: auto; height: 100%">
-                {{#each model.missions as |mission|}}
-                  <li><a href="#" {{action 'goToMission' mission.id}}>{{mission.title}}</a></li>
-                {{/each}}
+              {{#each model.missions as |mission|}}
+                {{#if (eq mission.type 'mission')}}
+                    <li><a href="#" {{action 'goToMission' mission.id}}>{{mission.title}}</a></li>
+                {{else}}
+                    <li><a href="#" {{action 'goToPoll' mission.id}}>{{mission.title}}</a></li>
+                {{/if}}
+              {{/each}}
             </ul>
         </div>
         <div class="col-sm-9">
-            {{#each model.missions as |mission|}}
+          {{#each model.missions as |mission|}}
               <section>
-                  <a id="mission-{{mission.id}}" class="offset"></a>
-                  <h2>{{mission.title}}</h2>
-                  <h5 class="text-muted">{{format-relative mission.postDate}}</h5>
-                  <div>
+                {{#if (eq mission.type 'mission')}}
+                    <a id="mission-{{mission.id}}" class="offset"></a>
+                    <h2>{{mission.title}}</h2>
+                    <h5 class="text-muted">{{format-relative mission.postDate}}</h5>
+                    <div>
                       {{{mission.body}}}
-                  </div>
+                    </div>
+                {{else}}
+                    <a id="poll-{{mission.id}}" class="offset"></a>
+                    <h2>{{mission.title}}</h2>
+                    <h5 class="text-muted">
+                        Posted {{format-relative mission.postDate}},
+                      {{#if mission.inPast}}
+                          closed {{format-relative mission.endDate}}
+                      {{else}}
+                          closes {{format-relative mission.endDate}}
+                      {{/if}}
+                    </h5>
+                    <div>
+                      {{{mission.body}}}
+                    </div>
+                    <h4>{{mission.question}}</h4>
+                    <div>
+                      {{#each mission.options as |option|}}
+                        {{#if mission.closed}}
+                            <div class="radio disabled">
+                                <label>
+                                  {{#if (eq mission.vote option.value)}}
+                                      <input type="radio" name="poll-{{mission.id}}-option" value="{{option.value}}"
+                                             checked>
+                                  {{else}}
+                                      <input type="radio" name="poll-{{mission.id}}-option" value="{{option.value}}"
+                                             disabled>
+                                  {{/if}}
+                                  {{option.text}}
+                                </label>
+                            </div>
+                        {{else}}
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="poll-{{mission.id}}-option" value="{{option.value}}">
+                                  {{option.text}}
+                                </label>
+                            </div>
+                        {{/if}}
+                      {{/each}}
+                      {{#if mission.closed}}
+                          <button type="button" class="btn btn-primary" disabled>Submit</button>
+                      {{else}}
+                          <button id="poll-{{mission.id}}-submit" type="button"
+                                  class="btn btn-primary" {{action 'submitPoll' mission.id}}>
+                              Submit
+                          </button>
+                      {{/if}}
+                    </div>
+                {{/if}}
               </section>
-            {{else}}
+          {{else}}
               <h1>There were no missions found.</h1>
-            {{/each}}
+          {{/each}}
         </div>
     </div>
 </div>
