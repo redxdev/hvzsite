@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h1 class="text-center">{{model.poll.title}}</h1>
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Votes</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each model.poll.votes as |option|}}
+                        <tr>
+                            <td>{{option.text}}</td>
+                            <td>{{option.count}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

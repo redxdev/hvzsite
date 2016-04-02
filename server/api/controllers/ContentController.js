@@ -214,6 +214,8 @@ module.exports = {
             return res.serverError({message: 'Unable to create vote object'});
           }
 
+          sails.log.info("User " + req.user.email + " voted for option #" + option + " on poll #" + poll.id);
+
           return res.ok({
             vote: {
               poll: poll.id,

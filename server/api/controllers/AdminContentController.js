@@ -604,15 +604,17 @@ module.exports = {
       });
 
       res.ok({
-        id: poll.id,
-        title: poll.title,
-        question: poll.question,
-        body: poll.body,
-        options: poll.options,
-        team: poll.team,
-        postDate: poll.postDate,
-        endDate: poll.endDate,
-        votes: votes
+        poll: {
+          id: poll.id,
+          title: poll.title,
+          question: poll.question,
+          body: poll.body,
+          options: poll.options,
+          team: poll.team,
+          postDate: poll.postDate,
+          endDate: poll.endDate,
+          votes: votes
+        }
       });
     });
   },
@@ -649,7 +651,8 @@ module.exports = {
       }
 
       var options = req.param('options');
-      var resetVotes = [];
+      var resetVotes = false;
+      console.log(options);
       if (options !== undefined) {
         try {
           options = JSON.parse(options);
@@ -676,11 +679,11 @@ module.exports = {
 
         poll.options.forEach(function (option, i) {
           if (i >= options.length || option.trim() !== options[i].trim()) {
-            resetVotes.push(i);
+            resetVotes = true;
           }
         });
 
-        poll.options = options.options;
+        poll.options = options;
         changed = true;
       }
 
@@ -717,10 +720,9 @@ module.exports = {
 
         sails.log.info("Poll #" + poll.id + " was modified by " + req.user.email);
 
-        if (resetVotes.length > 0) {
+        if (resetVotes) {
           Vote.destroy({
-            poll: poll.id,
-            option: resetVotes
+            poll: poll.id
           }).exec(function (err) {
             if (err) {
               return res.negotiate(err);
@@ -773,7 +775,6 @@ module.exports = {
     }
 
     var options = req.param('options');
-    var resetVotes = [];
     if (options !== undefined) {
       try {
         options = JSON.parse(options);

@@ -68,6 +68,12 @@ Router.map(function() {
   this.route('admin-missions-edit', {path: '/admin/missions/:missionId/edit'});
   this.route('admin-missions-delete', {path: '/admin/missions/:missionId/delete'});
 
+  this.route('admin-polls', {path: '/admin/polls'});
+  this.route('admin-polls-create', {path: '/admin/polls/create'});
+  this.route('admin-polls-view', {path: '/admin/polls/:pollId'});
+  this.route('admin-polls-edit', {path: '/admin/polls/:pollId/edit'});
+  this.route('admin-polls-delete', {path: '/admin/polls/:pollId/delete'});
+
   this.route('admin-news', {path: '/admin/news'});
   this.route('admin-news-create', {path: '/admin/news/create'});
   this.route('admin-news-edit', {path: '/admin/news/:postId/edit'});

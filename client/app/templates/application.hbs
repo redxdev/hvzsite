@@ -45,6 +45,7 @@
                       <ul class="dropdown-menu" role="menu">
                           <li>{{#link-to 'admin-players' (query-params page='' searchTerm='')}}Players{{/link-to}}</li>
                           <li>{{#link-to 'admin-missions'}}Missions{{/link-to}}</li>
+                          <li>{{#link-to 'admin-polls'}}Polls{{/link-to}}</li>
 
                         {{#if model.localUser.isAdmin}}
                             <li>{{#link-to 'admin-antiviruses'}}Antiviruses{{/link-to}}</li>
