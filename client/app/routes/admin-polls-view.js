@@ -1,6 +1,5 @@
 import Ember from 'ember';
 
-/* globals CKEDITOR */
 export default Ember.Route.extend({
   ajax: Ember.inject.service(),
   toast: Ember.inject.service(),
@@ -16,8 +15,9 @@ export default Ember.Route.extend({
       var votes = [];
       result.poll.options.forEach((option, i) => {
         var count = result.poll.votes[i];
-        if (count === undefined)
+        if (count === undefined) {
           count = 0;
+        }
 
         var opt = {
           text: option,
