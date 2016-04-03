@@ -46,8 +46,8 @@ module.exports.policies = {
     uploadAvatar: ['apikey', 'isModerator'],
     create: ['apikey', 'isAdmin'],
     generateId: ['apikey', 'isModerator'],
-    infect: ['apikey', 'isModerator'],
-    heal: ['apikey', 'isModerator'],
+    infect: ['apikey', 'isAdmin'],
+    heal: ['apikey', 'isAdmin'],
     destroy: ['apikey', 'isAdmin'],
     print: ['apikey', 'isAdmin'],
     markPrinted: ['apikey', 'isAdmin']
