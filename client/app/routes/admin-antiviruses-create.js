@@ -7,12 +7,19 @@ export default Ember.Route.extend({
   user: Ember.inject.service(),
 
   actions: {
+    nowPlus24() {
+      var date = new Date();
+      date.setTime(date.getTime() + 24*60*60*1000);
+      date = new Date(date.getTime() - date.getTimezoneOffset()*60000);
+      Ember.$('#antivirusExpirationTime').val(date.toISOString().slice(0,19));
+    },
+
     save() {
       Ember.$('#saveButton').hide();
 
       var description = Ember.$('#antivirusDescription').val();
 
-      var expirationTime= Ember.$('#antivirusExpirationTime').val();
+      var expirationTime = Ember.$('#antivirusExpirationTime').val();
       if (expirationTime.trim() === '') {
         this.get('toast').warning("You didn't enter an expiration time for the antivirus!");
         Ember.$('#saveButton').show();

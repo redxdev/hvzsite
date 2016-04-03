@@ -25,6 +25,13 @@ export default Ember.Route.extend({
   },
 
   actions: {
+    nowPlus24() {
+      var date = new Date();
+      date.setTime(date.getTime() + 24*60*60*1000);
+      date = new Date(date.getTime() - date.getTimezoneOffset()*60000);
+      Ember.$('#antivirusExpirationTime').val(date.toISOString().slice(0,19));
+    },
+
     save(id) {
       Ember.$('#saveButton').hide();
 
