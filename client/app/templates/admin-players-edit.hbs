@@ -63,6 +63,12 @@
                           <option value="player">Player</option>
                       {{/if}}
 
+                      {{#if (eq model.player.access 'hidden')}}
+                          <option value="hidden" selected>Hidden</option>
+                      {{else}}
+                          <option value="hidden">Hidden</option>
+                      {{/if}}
+
                       {{#if (eq model.player.access 'mod')}}
                           <option value="mod" selected>Moderator</option>
                       {{else if model.localUser.isAdmin}}

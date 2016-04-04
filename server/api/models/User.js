@@ -25,7 +25,7 @@ module.exports = {
 
     access: {
       type: 'string',
-      enum: ['inactive', 'player', 'mod', 'admin', 'superadmin'],
+      enum: ['inactive', 'player', 'hidden', 'mod', 'admin', 'superadmin'],
       defaultsTo: 'inactive'
     },
 
