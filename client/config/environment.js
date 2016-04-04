@@ -82,7 +82,10 @@ module.exports = function (environment) {
     // pace loading bar
     pace: {
       theme: 'flash',
-      color: 'orange'
+      color: 'orange',
+      ajax: {
+        trackMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+      }
     }
   };
 
