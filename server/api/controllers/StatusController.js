@@ -115,7 +115,8 @@ module.exports = {
 
   moderators: function (req, res) {
     User.find({
-      access: ['mod', 'admin', 'superadmin']
+      access: ['mod', 'admin', 'superadmin'],
+      sort: {name: 1}
     }).exec(function (err, users) {
       if (err) {
         res.negotiate(err);
