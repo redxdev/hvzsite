@@ -15,6 +15,9 @@ export default Ember.Route.extend({
               return;
             }
 
+            result.infections.reverse();
+            console.log(result.infections);
+
             var roots = {};
             var players = {};
 
@@ -25,13 +28,14 @@ export default Ember.Route.extend({
                   id: obj.id,
                   name: obj.name,
                   children: [],
+                  adjacencies: [],
                   data: {
-                    parent: null
+                    parent: null,
+                    oz: false
                   }
                 };
                 players[player.id] = player;
                 roots[player.id] = player;
-                console.log("Created " + obj.name);
               }
               else {
                 player = players[obj.id];
@@ -44,7 +48,11 @@ export default Ember.Route.extend({
               var zombie = getPlayer(inf.zombie);
               var human = getPlayer(inf.human);
 
-              if (human.data.parent === null) {
+              if (zombie.data.parent === null) {
+                zombie.data.oz = true;
+              }
+
+              if (human.data.parent === null && !human.data.oz) {
                 delete roots[human.id];
                 zombie.children.push(human);
                 human.data.parent = zombie.id;
@@ -67,6 +75,10 @@ export default Ember.Route.extend({
                 color: '#088A08',
                 lineWidth: 1.5
               },
+
+              interpolation: 'polar',
+              duration: 500,
+              fps: 30,
 
               onCreateLabel: function (domElement, node) {
                 domElement.innerHTML = node.name;
@@ -108,15 +120,7 @@ export default Ember.Route.extend({
               name: "Infection",
               children: data
             });
-            rgraph.graph.eachNode(function (n) {
-              var pos = n.getPos();
-              pos.setc(-200, -200);
-            });
-            rgraph.compute('end');
-            rgraph.fx.animate({
-              modes: ['polar'],
-              duration: 500
-            });
+            rgraph.refresh();
 
             Ember.$('#loading-message').remove();
           }).catch((err) => {
