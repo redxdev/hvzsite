@@ -25,7 +25,7 @@ export default Ember.Route.extend({
   actions: {
     didTransition() {
       Ember.run.scheduleOnce('afterRender', this, () => {
-        Ember.$.getScript('//cdn.ckeditor.com/4.4.6/standard/ckeditor.js', () => {
+        Ember.$.getScript('//cdn.ckeditor.com/4.5.8/standard/ckeditor.js', () => {
           CKEDITOR.replace('postBody');
         });
       });
