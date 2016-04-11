@@ -17,7 +17,7 @@ export default Ember.Service.extend({
       return window.localStorage.getItem(id);
     }
     else {
-      return _data.hasOwnProperty(id) ? _data[id] : undefined;
+      return _data.hasOwnProperty(id) ? _data[id] : null;
     }
   },
 
