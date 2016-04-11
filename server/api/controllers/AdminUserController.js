@@ -411,6 +411,26 @@ module.exports = {
     });
   },
 
+  loginKey: function (req, res) {
+    var id = req.param('id');
+    User.findOne({id: id}).exec(function (err, user) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (user === undefined) {
+        return res.notFound({message: 'Unknown user id ' + id});
+      }
+
+      return res.view('loginKey', {
+        qr: qrcode(
+          sails.config.hvz.url + "setkey?key=" + user.apiKey,
+          {size: 300}
+        )
+      });
+    });
+  },
+
   print: function (req, res) {
     var preview = req.param('preview');
     User.find({

@@ -81,6 +81,7 @@ module.exports.routes = {
   'delete /api/v2/admin/users/:id': 'AdminUserController.destroy',
   'post /api/v2/admin/users/markPrinted': 'AdminUserController.markPrinted',
   'get /print': 'AdminUserController.print',
+  'get /auth/l/qr/:id': 'AdminUserController.loginKey',
 
   // AdminContentController rules
   'get /api/v2/admin/rules': 'AdminContentController.rules',

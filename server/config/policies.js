@@ -50,7 +50,8 @@ module.exports.policies = {
     heal: ['apikey', 'isAdmin'],
     destroy: ['apikey', 'isAdmin'],
     print: ['apikey', 'isAdmin'],
-    markPrinted: ['apikey', 'isAdmin']
+    markPrinted: ['apikey', 'isAdmin'],
+    loginKey: ['apikey', 'isAdmin']
   },
 
   AdminContentController: {

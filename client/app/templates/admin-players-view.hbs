@@ -53,7 +53,10 @@
           {{hvz-badges badges=model.player.badges}}
         </div>
         <div class="col-sm-4">
-            <p><strong>API Key:</strong> {{model.player.apiKey}}</p>
+            <p>
+                <strong>API Key:</strong> {{model.player.apiKey}}
+                <a href="{{model.player.qrLoginURL}}" class="btn btn-danger" target="_blank">QR Login</a>
+            </p>
             <p><strong>API Failures:</strong> {{model.player.failures}} / {{model.player.maxFailures}}</p>
             <p><strong>Zombie Id:</strong> {{model.player.zombieId}}</p>
             <p>

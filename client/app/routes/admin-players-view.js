@@ -24,6 +24,7 @@ export default Ember.Route.extend({
     }).then((result) => {
       var player = result.player.user;
       player.avatar = config.APP.apiURL + '/api/v2/avatar/' + params.playerId;
+      player.qrLoginURL = config.APP.apiURL + '/auth/l/qr/' + params.playerId;
       return {
         player: player,
         infections: result.infections.infections,
