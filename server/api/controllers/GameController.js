@@ -24,7 +24,7 @@ module.exports = {
     }
 
     if (hasLocation && (!latitude || !longitude)) {
-      errors.push("Missing latitude or longitude when specifying location");
+      hasLocation = false;
     }
 
     if (errors.length > 0) {
