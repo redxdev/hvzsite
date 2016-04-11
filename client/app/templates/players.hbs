@@ -60,7 +60,9 @@
 
     <div id="player-list">
       {{#each model.players as |player|}}
-        {{hvz-player player=player}}
+          <div class="clickable" {{action 'goToPlayer' player.id}}>
+            {{hvz-player player=player}}
+          </div>
       {{else}}
           <div class="row">
               <div class="col-md-12 text-center">

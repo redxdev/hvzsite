@@ -40,6 +40,7 @@ Router.map(function() {
   this.route('news', {path: '/news/:postId'});
   this.route('profile');
   this.route('players');
+  this.route('player', {path: '/players/:playerId'});
   this.route('infections');
   this.route('map');
   this.route('spread');

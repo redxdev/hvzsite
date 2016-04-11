@@ -8,7 +8,9 @@
               <img src="images/no-avatar.png" alt="avatar" class="avatar">
           {{/if}}
             <h3>{{profile.name}}</h3>
-            <p><strong>Email:</strong> {{profile.email}}</p>
+          {{#if profile.email}}
+              <p><strong>Email:</strong> {{profile.email}}</p>
+          {{/if}}
             <p><strong>Team:</strong> {{profile.team}}</p>
             <p>
                 <strong>Clan:</strong> {{profile.clan}}
@@ -20,32 +22,36 @@
           {{hvz-badges badges=profile.badges}}
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-offset-2 col-sm-8 well text-center">
-            <p><strong>Zombie Id:</strong> {{profile.zombieId}}</p>
-            <p>
-                <strong>Human Ids:</strong>
-                <small class="text-muted">(give to zombies as a human)</small>
-            </p>
-          {{#each profile.humanIds as |humanId|}}
+  {{#if profile.zombieId}}
+      <div class="row">
+          <div class="col-sm-offset-2 col-sm-8 well text-center">
+              <p><strong>Zombie Id:</strong> {{profile.zombieId}}</p>
               <p>
-                {{#if humanId.active}}
-                  {{humanId.idString}}
-                {{else}}
-                    <s>{{humanId.idString}}</s>
-                {{/if}}
+                  <strong>Human Ids:</strong>
+                  <small class="text-muted">(give to zombies as a human)</small>
               </p>
-          {{/each}}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8 col-sm-offset-2 text-center">
-            <p>API Key: <a href="#" {{action 'toggleApiKey'}} class="btn btn-danger btn-sm">Toggle</a></p>
-            <div id="apikey" class="hidden">
-                <p>{{profile.apiKey}}</p>
-            </div>
-        </div>
-    </div>
+            {{#each profile.humanIds as |humanId|}}
+                <p>
+                  {{#if humanId.active}}
+                    {{humanId.idString}}
+                  {{else}}
+                      <s>{{humanId.idString}}</s>
+                  {{/if}}
+                </p>
+            {{/each}}
+          </div>
+      </div>
+  {{/if}}
+  {{#if profile.apiKey}}
+      <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 text-center">
+              <p>API Key: <a href="#" {{action 'toggleApiKey'}} class="btn btn-danger btn-sm">Toggle</a></p>
+              <div id="apikey" class="hidden">
+                  <p>{{profile.apiKey}}</p>
+              </div>
+          </div>
+      </div>
+  {{/if}}
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2 text-center">
             <h1 class="header-text">

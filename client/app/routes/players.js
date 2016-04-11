@@ -63,6 +63,10 @@ export default Ember.Route.extend(ResetScrollMixin, {
     search() {
       var searchTerm = Ember.$('#searchTerm').val();
       this.transitionTo('players', {queryParams: {searchTerm: searchTerm, page: 1}});
+    },
+
+    goToPlayer(id) {
+      this.transitionTo('player', id);
     }
   }
 });
