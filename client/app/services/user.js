@@ -5,16 +5,17 @@ export default Ember.Service.extend({
   ajax: Ember.inject.service(),
   toast: Ember.inject.service(),
   routing: Ember.inject.service('-routing'),
+  storage: Ember.inject.service(),
 
   loginWindow: null,
   userInfoCache: null,
 
   isLoggedIn() {
-    return window.localStorage.getItem("apikey") !== null;
+    return this.get('storage').getItem('apikey') !== null;
   },
 
   getApiKey() {
-    return window.localStorage.getItem("apikey");
+    return this.get('storage').getItem("apikey");
   },
 
   register() {
@@ -73,7 +74,7 @@ export default Ember.Service.extend({
         if (event.data.success === true) {
           this.get('toast').success(event.data.message);
           this.set('apikey', event.data.key);
-          window.localStorage.setItem("apikey", event.data.key);
+          this.get('storage').setItem("apikey", event.data.key);
           console.log("API Key: " + event.data.key);
           resolve();
         }
@@ -88,7 +89,7 @@ export default Ember.Service.extend({
 
   logout() {
     return new Ember.RSVP.Promise((resolve, reject) => {
-      window.localStorage.removeItem("apikey");
+      this.get('storage').removeItem("apikey");
       this.set('userInfoCache', null);
 
       var loginWindow = this.get('loginWindow');
