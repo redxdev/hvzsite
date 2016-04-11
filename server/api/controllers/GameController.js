@@ -29,6 +29,11 @@ module.exports = {
       longitude = 0;
     }
 
+    if (!hasLocation) {
+      latitude = 0;
+      longitude = 0;
+    }
+
     if (errors.length > 0) {
       return res.badRequest({
         message: "There was an error with your request",
