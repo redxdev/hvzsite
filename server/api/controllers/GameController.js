@@ -25,6 +25,8 @@ module.exports = {
 
     if (hasLocation && (!latitude || !longitude)) {
       hasLocation = false;
+      latitude = 0;
+      longitude = 0;
     }
 
     if (errors.length > 0) {
