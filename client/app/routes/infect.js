@@ -62,28 +62,34 @@ export default Ember.Route.extend({
   actions: {
     didTransition() {
       if (this.get('locationId')) {
-        navigator.geolocation.clearWatch(this.get('locationId'));
+        if (navigator && navigator.geolocation) {
+          navigator.geolocation.clearWatch(this.get('locationId'));
+        }
       }
 
-      this.set('locationId', navigator.geolocation.watchPosition((loc) => {
-        Ember.$('#location-status').html("SENDING (accuracy: " + loc.coords.accuracy + " meters)");
-        this.set('useLocation', true);
-        this.set('latitude', loc.coords.latitude);
-        this.set('longitude', loc.coords.longitude);
-      }, (err) => {
-        console.log(err);
-        Ember.$('#location-status').innerHTML = "NOT SENDING";
-        this.set('useLocation', false);
-      }, {
-        enableHighAccuracy: true,
-        timeout: Infinity,
-        maximumAge: 0
-      }));
+      if (navigator && navigator.geolocation) {
+        this.set('locationId', navigator.geolocation.watchPosition((loc) => {
+          Ember.$('#location-status').html("SENDING (accuracy: " + loc.coords.accuracy + " meters)");
+          this.set('useLocation', true);
+          this.set('latitude', loc.coords.latitude);
+          this.set('longitude', loc.coords.longitude);
+        }, (err) => {
+          console.log(err);
+          Ember.$('#location-status').innerHTML = "NOT SENDING";
+          this.set('useLocation', false);
+        }, {
+          enableHighAccuracy: true,
+          timeout: Infinity,
+          maximumAge: 0
+        }));
+      }
     },
 
     willTransition() {
       if (this.get('locationId')) {
-        navigator.geolocation.clearWatch(this.get('locationId'));
+        if (navigator && navigator.geolocation) {
+          navigator.geolocation.clearWatch(this.get('locationId'));
+        }
         this.set('locationId', null);
       }
 
