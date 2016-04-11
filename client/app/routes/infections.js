@@ -29,7 +29,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
     }).then(function (result) {
       return {
         infections: result.infections.map(function (inf) {
-          return {human: inf.human.name, zombie: inf.zombie.name, time: new Date(inf.time)};
+          return {human: inf.human, zombie: inf.zombie, time: new Date(inf.time)};
         }),
 
         nextPage: lastCount < result.total ? (page + 1) : null,

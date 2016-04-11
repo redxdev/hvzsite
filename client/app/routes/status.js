@@ -43,7 +43,7 @@ export default Ember.Route.extend({
         }
       }).then(function (infections) {
         return infections.infections.map(function (inf) {
-          return {human: inf.human.name, zombie: inf.zombie.name, time: new Date(inf.time)};
+          return {human: inf.human, zombie: inf.zombie, time: new Date(inf.time)};
         });
       }).catch((err) => {
         this.get('errorHandler').handleError(err, 'Unable to retrieve list of infections.');

@@ -5,9 +5,9 @@
         <div class="col-md-12 text-center">
           {{#each model.infections as |infection|}}
               <p>
-                  <strong>{{infection.human}}</strong>
+                  {{#link-to 'player' infection.human.id}}<strong>{{infection.human.name}}</strong>{{/link-to}}
                   was tagged by
-                  <strong>{{infection.zombie}}</strong>
+                  {{#link-to 'player' infection.zombie.id}}<strong>{{infection.zombie.name}}</strong>{{/link-to}}
                   <span title="{{format-time infection.time
                   hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}" class="hover-text">
                       <em>{{format-relative infection.time}}</em>
