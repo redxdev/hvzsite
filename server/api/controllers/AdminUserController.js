@@ -437,6 +437,7 @@ module.exports = {
       where: {
         or: [
           {access: 'player'},
+          {access: 'hidden'},
           {access: 'mod'},
           {access: 'admin'},
           {access: 'superadmin'}
@@ -472,6 +473,7 @@ module.exports = {
       where: {
         or: [
           {access: 'player'},
+          {access: 'hidden'},
           {access: 'mod'},
           {access: 'admin'},
           {access: 'superadmin'}
