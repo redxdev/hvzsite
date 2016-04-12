@@ -435,7 +435,13 @@ module.exports = {
     var preview = req.param('preview');
     User.find({
       where: {
-        access: {'!=': 'inactive'},
+        or: [
+          {access: 'player'},
+          {access: 'hidden'},
+          {access: 'mod'},
+          {access: 'admin'},
+          {access: 'superadmin'}
+        ],
         printed: false
       },
 
@@ -465,7 +471,13 @@ module.exports = {
   markPrinted: function (req, res) {
     User.update({
       where: {
-        access: {'!=': 'inactive'},
+        or: [
+          {access: 'player'},
+          {access: 'hidden'},
+          {access: 'mod'},
+          {access: 'admin'},
+          {access: 'superadmin'}
+        ],
         printed: false
       }
     }, {
