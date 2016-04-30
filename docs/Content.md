@@ -142,10 +142,12 @@ None
 
 _API key required_
 
-_Minimum access:_ `player`
+_Minimum access:_ `player` (sometimes, see below)
 
 Get the list of missions for your team. Note that this includes missions with their team set to
 `"all"` in addition to ones associated with your team.
+
+__Note:__ This endpoint will display all missions for all players and will act as a public endpoint (no API key or login required) if the game has ended.
 
 ### Parameters
 
@@ -179,11 +181,13 @@ None
 
 _API key required_
 
-_Minimum access:_ `player`
+_Minimum access:_ `player` (sometimes, see below)
 
 Get the list of polls for your team. These should be displayed interspersed with missions.
 Note that this includes polls with their team set to `"all"` in addition to ones associated
 with your team.
+
+__Note:__ This endpoint will display all missions for all players and will act as a public endpoint (no API key or login required) if the game has ended.
 
 ### Parameters
 
