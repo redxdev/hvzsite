@@ -30,7 +30,7 @@
                     </ul>
                 </li>
 
-              {{#if model.localUser.loggedIn}}
+              {{#if (or model.localUser.loggedIn model.date.inPast)}}
                   <li>{{#link-to 'missions'}}Missions{{/link-to}}</li>
               {{/if}}
             </ul>

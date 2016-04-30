@@ -28,8 +28,8 @@ module.exports.policies = {
   },
 
   ContentController: {
-    missions: ['apikey', 'isActive'],
-    polls: ['apikey', 'isActive'],
+    missions: ['apikey'], // isActive is handled by the controller itself
+    polls: ['apikey'], // isActive is handled by the controller itself
     vote: ['apikey', 'isActive']
   },
 

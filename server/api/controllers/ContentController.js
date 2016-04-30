@@ -95,74 +95,171 @@ module.exports = {
   },
 
   missions: function (req, res) {
-    Mission.find({
+    if (sails.config.hvz.endDate < new Date()) {
+      Mission.find({
+          postDate: {
+            '<=': new Date()
+          },
+
+          sort: {postDate: -1}
+        })
+        .exec(function (err, missions) {
+          if (err) {
+            res.negotiate(err);
+          }
+          else {
+            res.ok({
+              missions: missions.map(function (mission) {
+                return {
+                  id: mission.id,
+                  title: mission.title,
+                  body: mission.body,
+                  postDate: mission.postDate,
+                  team: mission.team
+                };
+              })
+            });
+          }
+        });
+    }
+    else {
+      if (!AuthService.hasPermission(req.user, 'player')) {
+        return res.forbidden({message: "You do not have permission to access this page."});
+      }
+
+      Mission.find({
+          team: ['all', req.user.team],
+          postDate: {
+            '<=': new Date()
+          },
+
+          sort: {postDate: -1}
+        })
+        .exec(function (err, missions) {
+          if (err) {
+            res.negotiate(err);
+          }
+          else {
+            res.ok({
+              missions: missions.map(function (mission) {
+                return {
+                  id: mission.id,
+                  title: mission.title,
+                  body: mission.body,
+                  postDate: mission.postDate,
+                  team: mission.team
+                };
+              })
+            });
+          }
+        });
+    }
+  },
+
+  polls: function (req, res) {
+    if (sails.config.hvz.endDate < new Date()) {
+      Poll.find({
+        postDate: {
+          '<=': new Date()
+        },
+
+        sort: {postDate: -1}
+      }).exec(function (err, polls) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        if (req.user) {
+          Vote.find({user: req.user.id}).exec(function (err, votes) {
+            if (err) {
+              return res.negotiate(err);
+            }
+
+            var voteMap = {};
+            votes.forEach(function (vote) {
+              voteMap[vote.poll] = vote.option;
+            });
+
+            res.ok({
+              polls: polls.map(function (poll) {
+                return {
+                  id: poll.id,
+                  title: poll.title,
+                  question: poll.question,
+                  body: poll.body,
+                  options: poll.options,
+                  team: poll.team,
+                  postDate: poll.postDate,
+                  endDate: poll.endDate,
+                  vote: voteMap[poll.id]
+                }
+              })
+            });
+          });
+        }
+        else {
+          res.ok({
+            polls: polls.map(function (poll) {
+              return {
+                id: poll.id,
+                title: poll.title,
+                question: poll.question,
+                body: poll.body,
+                options: poll.options,
+                team: poll.team,
+                postDate: poll.postDate,
+                endDate: poll.endDate
+              }
+            })
+          });
+        }
+      });
+    }
+    else {
+      if (!AuthService.hasPermission(req.user, 'player')) {
+        return res.forbidden({message: "You do not have permission to access this page."});
+      }
+
+      Poll.find({
         team: ['all', req.user.team],
         postDate: {
           '<=': new Date()
         },
 
         sort: {postDate: -1}
-      })
-      .exec(function (err, missions) {
-        if (err) {
-          res.negotiate(err);
-        }
-        else {
-          res.ok({
-            missions: missions.map(function (mission) {
-              return {
-                id: mission.id,
-                title: mission.title,
-                body: mission.body,
-                postDate: mission.postDate,
-                team: mission.team
-              };
-            })
-          });
-        }
-      });
-  },
-
-  polls: function (req, res) {
-    Poll.find({
-      team: ['all', req.user.team],
-      postDate: {
-        '<=': new Date()
-      },
-
-      sort: {postDate: -1}
-    }).exec(function (err, polls) {
-      if (err) {
-        return res.negotiate(err);
-      }
-
-      Vote.find({user: req.user.id}).exec(function (err, votes) {
+      }).exec(function (err, polls) {
         if (err) {
           return res.negotiate(err);
         }
 
-        var voteMap = {};
-        votes.forEach(function (vote) {
-          voteMap[vote.poll] = vote.option;
-        });
+        Vote.find({user: req.user.id}).exec(function (err, votes) {
+          if (err) {
+            return res.negotiate(err);
+          }
 
-        res.ok({
-          polls: polls.map(function (poll) {
-            return {
-              id: poll.id,
-              title: poll.title,
-              question: poll.question,
-              body: poll.body,
-              options: poll.options,
-              team: poll.team,
-              postDate: poll.postDate,
-              endDate: poll.endDate,
-              vote: voteMap[poll.id]
-            }
-          })
+          var voteMap = {};
+          votes.forEach(function (vote) {
+            voteMap[vote.poll] = vote.option;
+          });
+
+          res.ok({
+            polls: polls.map(function (poll) {
+              return {
+                id: poll.id,
+                title: poll.title,
+                question: poll.question,
+                body: poll.body,
+                options: poll.options,
+                team: poll.team,
+                postDate: poll.postDate,
+                endDate: poll.endDate,
+                vote: voteMap[poll.id]
+              }
+            })
+          });
         });
       });
-    });
+    }
   },
 
   vote: function (req, res) {

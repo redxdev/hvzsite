@@ -17,6 +17,13 @@ export default Ember.Route.extend({
         if (result.posts.length > 0) {
           return result.posts[0];
         }
+      }),
+      date: this.get('ajax').request('/status/dates').then(function (dates) {
+        var val = new Date(dates.next);
+        return {
+          value: val,
+          inPast: val < new Date()
+        };
       })
     }).catch((err) => {
       this.get('errorHandler').handleError(err);
