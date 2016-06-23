@@ -3,6 +3,10 @@
 This is the next-generation version of the website used by the Rochester
 Institute of Technology's Humans vs Zombies club.
 
+## Warning
+
+This website echews most best practices of ember, dear god do not use it as a model for how to make a website. It works and it works well, that doesn't mean the code is pretty.
+
 ## Installing
 
 The website is powered by _NodeJS_ and requires both _node_ and _npm_ to be
