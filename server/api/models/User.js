@@ -82,6 +82,11 @@ module.exports = {
       defaultsTo: false
     },
 
+    oz: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+
     avatarPath: {
       type: 'string',
       defaultsTo: null
@@ -118,6 +123,7 @@ module.exports = {
         failures: this.failures,
         maxFailures: this.maxFailures,
         usedAV: this.usedAV,
+        oz: this.oz,
         hasAvatar: this.avatarPath !== null
       }
     },

@@ -211,6 +211,13 @@ module.exports = {
               });
             }
 
+            if (zombie.oz) {
+              return res.badRequest({
+                message: "There was a problem using the antivirus.",
+                problems: ['Original zombies may not use an antivirus.']
+              });
+            }
+
             av.active = false;
             av.user = zombie.id;
 

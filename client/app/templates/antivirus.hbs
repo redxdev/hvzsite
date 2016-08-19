@@ -18,7 +18,9 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-center">
-            {{#if model.usedAV}}
+            {{#if model.oz}}
+              <span style="color: red;">You may not use an antivirus as an original zombie. You may only enter AVs for other people here.</span>
+            {{else if model.usedAV}}
               <span style="color: red;">You have already used an antivirus. You may only enter AVs for other people here.</span>
             {{else}}
               <span style="color: green;">You have not yet used an antivirus.</span>

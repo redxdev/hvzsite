@@ -11,10 +11,10 @@ export default Ember.Route.extend({
       return this.get('user').getUserProfile().then((result) => {
         var profile = result.profile;
         if (profile.team === 'zombie') {
-          return {zombieId: profile.zombieId, usedAV: profile.usedAV};
+          return {zombieId: profile.zombieId, usedAV: profile.usedAV, oz: profile.oz};
         }
         else {
-          return {zombieId: '', usedAV: profile.usedAV};
+          return {zombieId: '', usedAV: profile.usedAV, oz: profile.oz};
         }
       }).catch((err) => {
         this.get('errorHandler').handleError(err, 'Unable to retrieve your id');

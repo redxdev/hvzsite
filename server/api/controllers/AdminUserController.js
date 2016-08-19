@@ -324,6 +324,7 @@ module.exports = {
       user.team = 'zombie';
       if (oz) {
         user.addBadge('oz');
+        user.oz = true;
       }
       else {
         user.addBadge('infected');
@@ -357,6 +358,7 @@ module.exports = {
       }
 
       user.team = 'human';
+      user.oz = false;
       user.addBadge('antivirus');
 
       user.save(function (err) {
