@@ -11,9 +11,9 @@ module.exports = {
     var latitude = req.param('latitude');
     var longitude = req.param('longitude');
 
-    if (sails.config.hvz.endDate < new Date()) {
+    /*if (sails.config.hvz.endDate < new Date()) {
       errors.push("You cannot infect a player after the game has ended");
-    }
+    }*/
 
     if (!humanId) {
       errors.push("Missing parameter 'human'");
