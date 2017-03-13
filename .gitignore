@@ -17,6 +17,7 @@ nbproject
 .node_history
 *.vc.db
 *.vc.db-wal
+*.vc.db-shm
 /server/config/cert
 /server/logs
 /server/pids
