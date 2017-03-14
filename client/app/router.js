@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import config from './config/environment';
+import {OneSignal, OneSignalEnabled} from './app';
 
 const Router = Ember.Router.extend({
   user: Ember.inject.service(),
@@ -18,6 +19,10 @@ const Router = Ember.Router.extend({
           }
           else {
             Ember.$('meta[name=theme-color]').prop('content', '#00af04');
+          }
+
+          if (OneSignalEnabled) {
+            OneSignal.push(['sendTags', {team: result.profile.team}]);
           }
         }
         else {

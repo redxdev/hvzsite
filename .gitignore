@@ -40,3 +40,4 @@ nbproject
 /client/libpeerconnection.log
 /client/npm-debug.log
 /client/testem.log
+/client/public/manifest.json

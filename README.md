@@ -35,6 +35,15 @@ For development purposes, the "localDiskDb" connection is probably good
 enough (it saves to a json file in .tmp). For production purposes, you should
 setup a connection to a database such as MySQL, MongoDB, etc...
 
+### Push Notification Support
+
+We use [OneSignal](https://onesignal.com/) for web-push notifications. hvzsite doesn't send any notifications itself,
+but it will prompt users to enable notifications if you want (and it will set the user's `team` tag in OneSignal).
+We use this to quickly disseminate emergency information or changes to missions. If you want to use it, copy
+`client/public/manifest.json.dist` to `client/public/manifest.json` and edit according to the docs
+[here](https://documentation.onesignal.com/docs/web-push-setup). You can then change the OneSignal settings in
+`client/config/environment.js`.
+
 ### Development
 
 For the purposes of development, you will need to launch both the api server and also an ember-cli server. To do so,

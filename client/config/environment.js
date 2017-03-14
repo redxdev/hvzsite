@@ -69,6 +69,25 @@ module.exports = function (environment) {
           {latitude: 43.090247, longitude: -77.680646},
           {latitude: 43.091301, longitude: -77.679605}
         ]
+      },
+
+      onesignal: {
+        enabled: false,
+        config: {
+          // This is where your onesignal config goes.
+          appId: "your-app-id",
+          autoRegister: false,
+          notifyButton: {
+            enable: true
+          },
+          promptOptions: {
+            actionMessage: "We send emergency information and mission updates through notifications. Would you like to enable them?",
+          },
+          welcomeNotification: {
+            title: "Notifications Enabled",
+            message: "Thank you for enabling notifications."
+          }
+        }
       }
     },
 

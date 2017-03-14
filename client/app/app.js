@@ -16,3 +16,10 @@ App = Ember.Application.extend({
 loadInitializers(App, config.modulePrefix);
 
 export default App;
+
+export var OneSignal = window.OneSignal || [];
+export var OneSignalEnabled = config.APP.onesignal.enabled === true;
+
+if (OneSignalEnabled) {
+  OneSignal.push(['init', config.APP.onesignal.config]);
+}
