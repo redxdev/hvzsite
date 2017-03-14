@@ -22,4 +22,7 @@ export var OneSignalEnabled = config.APP.onesignal.enabled === true;
 
 if (OneSignalEnabled) {
   OneSignal.push(['init', config.APP.onesignal.config]);
+  OneSignal.push(function () {
+    OneSignal.showHttpPrompt();
+  });
 }
