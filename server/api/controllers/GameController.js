@@ -110,6 +110,8 @@ module.exports = {
                       humanIdObj.save(),
                       zombie.save(),
                       function() {
+                        NotificationService.sendToUser(human, "Infected", "You have been infected by " + zombie.name + "! Welcome to the horde.");
+
                         sails.log.info(zombie.email + " infected " + human.email);
 
                         res.ok({

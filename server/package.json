@@ -30,6 +30,7 @@
     "sails-disk": "^0.10.10",
     "sails-mysql": "^0.12.2",
     "skipper-disk": "^0.5.4",
+    "unirest": "^0.5.1",
     "yaqrcode": "^0.2.1"
   },
   "scripts": {

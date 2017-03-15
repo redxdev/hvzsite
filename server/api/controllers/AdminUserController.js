@@ -337,6 +337,13 @@ module.exports = {
 
         sails.log.info(user.email + ' was infected by ' + req.user.email);
 
+        if (oz) {
+          NotificationService.sendToUser(user, "Infected", "You are an OZ! Go out there and eat some brains!");
+        }
+        else {
+          NotificationService.sendToUser(user, "Infected", "You have been infected! Welcome to the horde.");
+        }
+
         res.ok({user: user.getPublicData()});
       });
     });
