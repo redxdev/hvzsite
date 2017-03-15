@@ -99,3 +99,7 @@ to run `app.js`.
 
 The frontend is a bit hastily thrown together in Ember, and doesn't really follow all conventions thoroughly. It doesn't
 make use of Ember's model system or components very well, but there are plans to slowly clean it up.
+
+If the database model changes in sails, running in production will _not_ automatically apply the changes. You will have
+to either manually apply changes or let sails try to alter it (possibly destroying data!!!) by running the server
+in development mode briefly.
