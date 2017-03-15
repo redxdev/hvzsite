@@ -75,13 +75,15 @@ module.exports = function (environment) {
         enabled: false,
         config: {
           // This is where your onesignal config goes.
+          // The default settings here will only work with a full HTTPS site.
+          // See the OneSignal docs for how to configure an HTTP site.
           appId: "your-app-id",
           autoRegister: false,
           notifyButton: {
             enable: true
           },
           promptOptions: {
-            actionMessage: "We send emergency information and mission updates through notifications. Would you like to enable them?",
+            actionMessage: "Would you like to enable notifications for emergency and mission information?",
           },
           welcomeNotification: {
             title: "Notifications Enabled",
