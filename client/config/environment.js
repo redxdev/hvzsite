@@ -83,7 +83,7 @@ module.exports = function (environment) {
             enable: true
           },
           promptOptions: {
-            actionMessage: "Would you like to enable notifications for emergency and mission information?",
+            actionMessage: "Would you like to enable notifications to receive mission and game information?",
           },
           welcomeNotification: {
             title: "Notifications Enabled",
