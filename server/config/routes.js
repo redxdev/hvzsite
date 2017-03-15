@@ -67,6 +67,7 @@ module.exports.routes = {
   'get /api/v2/profile/:id': 'ProfileController.other',
   'post /api/v2/profile/clan': 'ProfileController.setClan',
   'get /api/v2/avatar/:id': 'ProfileController.avatar',
+  'post /api/v2/profile/notificationKey': 'ProfileController.addNotificationKey',
 
   // AdminUserController
   'get /api/v2/admin/users': 'AdminUserController.list',

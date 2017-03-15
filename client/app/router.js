@@ -22,7 +22,13 @@ const Router = Ember.Router.extend({
           }
 
           if (OneSignalEnabled) {
-            OneSignal.push(['sendTags', {team: result.profile.team}]);
+            OneSignal.push(() => {
+              OneSignal.getUserId((userId) => {
+                this.get('user').addNotificationKey(userId).catch((err) => {
+                  console.error("Error while adding notification key", err);
+                });
+              });
+            });
           }
         }
         else {

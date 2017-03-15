@@ -23,6 +23,11 @@ module.exports = {
       index: true
     },
 
+    notificationKeys: {
+      type: 'array',
+      defaultsTo: []
+    },
+
     access: {
       type: 'string',
       enum: ['inactive', 'player', 'hidden', 'mod', 'admin', 'superadmin'],

@@ -166,6 +166,15 @@ export default Ember.Service.extend({
     });
   },
 
+  addNotificationKey(key) {
+    return this.get('ajax').post('/profile/notificationKey', {
+      data: {
+        key: key,
+        apikey: this.getApiKey()
+      }
+    });
+  },
+
   isModerator(access) {
     return access === "mod" || access === "admin" || access === "superadmin";
   },

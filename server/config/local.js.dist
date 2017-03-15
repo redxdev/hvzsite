@@ -104,5 +104,11 @@ module.exports = {
     // note that months are zero-based
     startDate: new Date(2016, 2, 22, 21, 0, 0, 0),
     endDate: new Date(2016, 2, 29, 21, 0, 0, 0)
+  },
+
+  // onesignal settings
+  onesignal: {
+    enabled: false,
+    appId: 'your-app-id'
   }
 };

@@ -79,5 +79,29 @@ module.exports = {
           })
           .pipe(res);
       });
+  },
+
+  addNotificationKey: function (req, res) {
+    var user = req.user;
+    var key = req.param('key').trim();
+    if (key.length > 64) {
+      res.badRequest({message: "Notification key is too long"});
+      return;
+    }
+
+    if (user.notificationKeys.includes(key)) {
+      res.ok({message: "Notification key " + key + " already set"});
+      return;
+    }
+
+    user.notificationKeys.push(key);
+    user.save(function (err) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      sails.log.info("Added notification key " + key + " to " + req.user.email);
+      res.ok({message: "Added notification key " + key});
+    });
   }
 }
