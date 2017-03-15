@@ -40,6 +40,12 @@
                             This post is marked as important, and its summary will appear at the top of all pages.
                         </div>
                     {{/if}}
+
+                    {{#if post.frontpage}}
+                        <div class="alert alert-info">
+                            This post is marked as being for the front page.
+                        </div>
+                    {{/if}}
                   </div>
                   <div class="col-sm-4">
                       <ul class="nav nav-stacked nav-pills">
@@ -52,6 +58,16 @@
                         {{else}}
                             <li class="post-important-link">
                                 <a href="#" {{action 'markImportant' post.id}}>Mark Important</a>
+                            </li>
+                        {{/if}}
+
+                        {{#if post.frontpage}}
+                            <li class="active post-frontpage-link">
+                                <a href="#" {{action 'markNotFrontpage' post.id}}>Remove from front page</a>
+                            </li>
+                        {{else}}
+                            <li class="post-frontpage-link">
+                                <a href="#" {{action 'markFrontpage' post.id}}>Place on front page</a>
                             </li>
                         {{/if}}
 

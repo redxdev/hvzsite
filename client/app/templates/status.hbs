@@ -25,6 +25,13 @@
         </div>
     </div>
     <div class="row">
+        {{#if model.frontpage}}
+            <div class="col-md-8 col-md-offset-2 well">
+                {{{model.frontpage.body}}}
+            </div>
+        {{/if}}
+    </div>
+    <div class="row">
         <div id="infection-chart" class="col-md-12"></div>
     </div>
     <div class="row">

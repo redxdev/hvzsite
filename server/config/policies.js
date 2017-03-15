@@ -76,6 +76,8 @@ module.exports.policies = {
     destroyNewsPost: ['apikey', 'isAdmin'],
     markImportantPost: ['apikey', 'isAdmin'],
     markUnimportantPost: ['apikey', 'isAdmin'],
+    markFrontpagePost: ['apikey', 'isAdmin'],
+    markNotFrontpagePost: ['apikey', 'isAdmin'],
 
     polls: ['apikey', 'isModerator'],
     poll: ['apikey', 'isAdmin'],

@@ -36,7 +36,8 @@ module.exports = {
                 summary: post.summary,
                 body: post.body,
                 postDate: post.createdAt,
-                important: post.important
+                important: post.important,
+                frontpage: post.frontpage
               };
             })
           });
@@ -62,7 +63,8 @@ module.exports = {
           summary: post.summary,
           body: post.body,
           postDate: post.createdAt,
-          important: post.important
+          important: post.important,
+          frontpage: post.frontpage
         }
       })
     });
@@ -86,7 +88,35 @@ module.exports = {
                 summary: post.summary,
                 body: post.body,
                 important: post.important,
-                postDate: post.createdAt
+                postDate: post.createdAt,
+                frontpage: post.frontpage
+              };
+            })
+          });
+        }
+      });
+  },
+
+  frontpage: function (req, res) {
+    News.find({
+      frontpage: true,
+      sort: {createdAt: -1}
+    })
+    .exec(function (err, posts) {
+        if (err) {
+          res.negotiate(err)
+        }
+        else {
+          res.ok({
+            posts: posts.map(function (post) {
+              return {
+                id: post.id,
+                title: post.title,
+                summary: post.summary,
+                body: post.body,
+                important: post.important,
+                postDate: post.createdAt,
+                frontpage: post.frontpage
               };
             })
           });

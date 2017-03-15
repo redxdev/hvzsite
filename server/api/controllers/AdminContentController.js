@@ -339,7 +339,8 @@ module.exports = {
             summary: post.summary,
             body: post.body,
             postDate: post.createdAt,
-            important: post.important
+            important: post.important,
+            frontpage: post.frontpage
           };
         })
       });
@@ -364,7 +365,8 @@ module.exports = {
           summary: post.summary,
           body: post.body,
           postDate: post.createdAt,
-          important: post.important
+          important: post.important,
+          frontpage: post.frontpage
         }
       });
     });
@@ -443,7 +445,8 @@ module.exports = {
       title: title,
       summary: summary,
       body: body,
-      important: false
+      important: false,
+      frontpage: false
     }, function (err, post) {
       if (err) {
         return res.negotiate(err);
@@ -518,7 +521,8 @@ module.exports = {
               summary: post.summary,
               body: post.body,
               postDate: post.createdAt,
-              important: post.important
+              important: post.important,
+              frontpage: post.frontpage
             }
           });
         });
@@ -552,7 +556,82 @@ module.exports = {
             summary: post.summary,
             body: post.body,
             postDate: post.createdAt,
-            important: post.important
+            important: post.important,
+            frontpage: post.frontpage
+          }
+        });
+      });
+    });
+  },
+
+  markFrontpagePost: function (req, res) {
+    var id = req.param('id');
+    News.findOne({id: id}).exec(function (err, post) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (post === undefined) {
+        return res.notFound({message: 'Unknown post id ' + id});
+      }
+
+      News.update({frontpage: true}, {frontpage: false}).exec(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        post.frontpage = true;
+        post.save(function (err) {
+          if (err) {
+            return res.negotiate(err);
+          }
+
+          sails.log.info("Post #" + post.id + " was marked as frontpage by " + req.user.email);
+
+          res.ok({
+            post: {
+              id: post.id,
+              title: post.title,
+              summary: post.summary,
+              body: post.body,
+              postDate: post.createdAt,
+              important: post.important,
+              frontpage: post.frontpage
+            }
+          });
+        });
+      });
+    });
+  },
+
+  markNotFrontpagePost: function (req, res) {
+    var id = req.param('id');
+    News.findOne({id: id}).exec(function (err, post) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (post === undefined) {
+        return res.notFound({message: 'Unknown post id ' + id});
+      }
+
+      post.frontpage = false;
+      post.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info("Post #" + post.id + " was marked as not frontpage by " + req.user.email);
+
+        res.ok({
+          post: {
+            id: post.id,
+            title: post.title,
+            summary: post.summary,
+            body: post.body,
+            postDate: post.createdAt,
+            important: post.important,
+            frontpage: post.frontpage
           }
         });
       });

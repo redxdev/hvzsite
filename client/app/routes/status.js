@@ -66,9 +66,16 @@ export default Ember.Route.extend({
       }),
 
       posts: this.get('ajax').request('/content/news').then(function (result) {
-        return result.posts;
+        return result.posts.filter((post) => !post.frontpage);
       }).catch((err) => {
         this.get('errorHandler').handleError(err, 'Unable to retrieve news posts.');
+        return [];
+      }),
+
+      frontpage: this.get('ajax').request('/content/frontpage').then(function (result) {
+        return result.posts.length > 0 ? result.posts[0] : null;
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to retrieve frontpage content.');
         return [];
       })
     });

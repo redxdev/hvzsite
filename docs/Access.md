@@ -7,6 +7,6 @@ The following access levels exist at this time, in order from lowest level to hi
 * `player`: A normal player that may participate in the game.
 * `hidden`: Has the same access level as `player`, but does not appear in the player list.
 * `mod`: A moderator. Moderators have severely restricted access to the admin panel.
-* `admin`: An administrator. Full access to the admin panel.
-* `superadmin`: Currently the same as `admin`. but may not be edited by an `admin`. This access
-  level can only be set by superadmins.
+* `admin`: An administrator. Full access to the admin panel, bar notifications and API keys.
+* `superadmin`: Full access to everything. Basically the same as `admin`, but can also view API keys and
+OneSignal notification/device keys.

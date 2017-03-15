@@ -16,6 +16,11 @@ module.exports = {
     important: {
       type: 'boolean',
       defaultsTo: false
+    },
+
+    frontpage: {
+      type: 'boolean',
+      defaultsTo: false
     }
   }
 };

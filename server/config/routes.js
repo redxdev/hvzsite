@@ -44,6 +44,7 @@ module.exports.routes = {
   'get /api/v2/content/news': 'ContentController.news',
   'get /api/v2/content/news/:id': 'ContentController.newsPost',
   'get /api/v2/content/announcements': 'ContentController.announcements',
+  'get /api/v2/content/frontpage': 'ContentController.frontpage',
   'get /api/v2/content/missions': 'ContentController.missions',
   'get /api/v2/content/polls': 'ContentController.polls',
   'post /api/v2/content/polls/:id': 'ContentController.vote',
@@ -107,6 +108,8 @@ module.exports.routes = {
   'delete /api/v2/admin/news/:id': 'AdminContentController.destroyNewsPost',
   'post /api/v2/admin/news/:id/important': 'AdminContentController.markImportantPost',
   'post /api/v2/admin/news/:id/unimportant': 'AdminContentController.markUnimportantPost',
+  'post /api/v2/admin/news/:id/frontpage': 'AdminContentController.markFrontpagePost',
+  'post /api/v2/admin/news/:id/notfrontpage': 'AdminContentController.markNotFrontpagePost',
 
   // AdminContentController polls
   'get /api/v2/admin/polls': 'AdminContentController.polls',
