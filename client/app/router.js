@@ -24,9 +24,11 @@ const Router = Ember.Router.extend({
           if (OneSignalEnabled) {
             OneSignal.push(() => {
               OneSignal.getUserId((userId) => {
-                this.get('user').addNotificationKey(userId).catch((err) => {
-                  console.error("Error while adding notification key", err);
-                });
+                if (userId !== null) {
+                  this.get('user').addNotificationKey(userId).catch((err) => {
+                    console.error("Error while adding notification key", err);
+                  });
+                }
               });
             });
           }
