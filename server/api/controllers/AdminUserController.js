@@ -507,6 +507,14 @@ module.exports = {
             user.avatar = sails.config.hvz.url + "api/v2/avatar/" + user.id;
           }
 
+          user.accessClass = '';
+          if (AuthService.hasPermission(user, 'admin')) {
+            user.accessClass = 'admin';
+          }
+          else if (AuthService.hasPermission(user, 'mod')) {
+            user.accessClass = 'mod';
+          }
+
           user.qrcode = qrcode(
             sails.config.hvz.url + "infect?zombie=" + user.zombieId + "&human=" + user.humanIds[1].idString,
             {size: 100});

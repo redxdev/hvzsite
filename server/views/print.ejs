@@ -23,13 +23,21 @@
       border-radius: 10px;
     }
 
+    .card.mod {
+      border-color: #0000CC;
+    }
+
+    .card.admin {
+      border-color: #EEEE00;
+    }
+
     .card .info {
       position: absolute;
       font-size: 14px;
       color: black;
-      margin-top: -5px;
+      margin-top: -10px;
       margin-left: 105px;
-      width: 100px;
+      width: 130px;
       height: 2.8cm;
       line-height: 1.2em;
       word-wrap: break-word;
@@ -92,7 +100,7 @@
 <body>
 <% for (var i = 0; i < profiles.length; ++i) { %>
   <% var profile = profiles[i]; %>
-  <div class="card">
+  <div class="card <%= profile.accessClass %>">
     <div class="top">
       <div class="avatar">
         <% if (profile.avatar) { %>
@@ -109,7 +117,7 @@
         <% } %>
       </div>
       <div class="info">
-        <p class="name"><%= profile.name %></p>
+        <p class="name"><%= profile.name.substring(0, 28) %></p>
         <% if (preview) { %>
           <p>Zombie Id:</p>
         <% } else { %>
