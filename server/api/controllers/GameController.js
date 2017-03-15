@@ -111,6 +111,7 @@ module.exports = {
                       zombie.save(),
                       function() {
                         NotificationService.sendToUser(human, "Infected", "You have been infected by " + zombie.name + "! Welcome to the horde.");
+                        NotificationService.updateTags(human, {team: human.team});
 
                         sails.log.info(zombie.email + " infected " + human.email);
 

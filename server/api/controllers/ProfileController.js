@@ -84,7 +84,7 @@ module.exports = {
   addNotificationKey: function (req, res) {
     var user = req.user;
     var key = req.param('key').trim();
-    
+
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(key)) {
       res.badRequest({message: "Invalid UUID for notification key"});
       return;
@@ -100,6 +100,8 @@ module.exports = {
       if (err) {
         return res.negotiate(err);
       }
+
+      NotificationService.updateTags(user, {team: user.team});
 
       sails.log.info("Added notification key " + key + " to " + req.user.email);
       res.ok({message: "Added notification key " + key});

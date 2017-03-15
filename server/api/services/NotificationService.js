@@ -5,7 +5,7 @@ var config = sails.config.onesignal;
 
 function sendToUsers(users, title, message, options) {
     return new Promise(function (resolve, reject) {
-        if (config.enabled === false) {
+        if (config.enabled !== true) {
             resolve();
             return;
         }
@@ -50,5 +50,41 @@ module.exports = {
         return sendToUsers([user], title, message);
     },
 
-    sendToUsers: sendToUsers
+    sendToUsers: sendToUsers,
+
+    updateTags: function (user, tags) {
+        return new Promise(function (resolve, reject) {
+            if (config.enabled !== true) {
+                resolve();
+                return;
+            }
+
+            var promises = [];
+            user.notificationKeys.forEach(function (key) {
+                promises.push(new Promise(function (resolve, reject) {
+                    unirest.put('https://onesignal.com/api/v1/players/' + key)
+                        .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+                        .send({
+                            app_id: config.appId,
+                            tags: tags
+                        })
+                        .end(function (response) {
+                            if (response.status != 200) {
+                                console.log("Unable to change tags for notification key " + key, response.body);
+                                reject(response.body);
+                            }
+                            else {
+                                resolve(response.body);
+                            }
+                        });
+                }));
+            });
+
+            Promise.all(promises).then(function () {
+                resolve();
+            }).catch(function () {
+                reject();
+            });
+        });
+    }
 };

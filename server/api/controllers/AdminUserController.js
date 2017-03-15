@@ -148,6 +148,7 @@ module.exports = {
           }
           else {
             user.team = team;
+            NotificationService.updateTags(user, {team: user.team});
             changed = true;
           }
         }
@@ -344,6 +345,9 @@ module.exports = {
           NotificationService.sendToUser(user, "Infected", "You have been infected! Welcome to the horde.");
         }
 
+        
+        NotificationService.updateTags(user, {team: user.team});
+
         res.ok({user: user.getPublicData()});
       });
     });
@@ -372,6 +376,8 @@ module.exports = {
         if (err) {
           return res.negotiate(err);
         }
+
+        NotificationService.updateTags(user, {team: user.team});
 
         sails.log.info(user.email + ' was healed by ' + req.user.email);
 
