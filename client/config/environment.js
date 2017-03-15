@@ -72,7 +72,7 @@ module.exports = function (environment) {
       },
 
       onesignal: {
-        enabled: false,
+        enabled: true,
         config: {
           // This is where your onesignal config goes.
           // The default settings here will only work with a full HTTPS site.
@@ -80,7 +80,16 @@ module.exports = function (environment) {
           appId: "your-app-id",
           autoRegister: false,
           notifyButton: {
-            enable: true
+            enable: true,
+            position: 'bottom-left',
+            showCredit: false,
+            colors: {
+              'circle.background': '#00af04',
+              'badge.background': '#00af04',
+              'dialog.button.background': '#eb4600',
+              'dialog.button.background.hovering': '#aa3300',
+              'dialog.button.background.active': '#eb4600'
+            }
           },
           promptOptions: {
             actionMessage: "Would you like to enable notifications to receive mission and game information?",
