@@ -118,6 +118,7 @@ module.exports = {
         email: this.email,
         authMethod: this.authMethod,
         apiKey: this.apiKey,
+        notificationKeys: this.notificationKeys,
         access: this.access,
         team: this.team,
         zombieId: this.zombieId,

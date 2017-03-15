@@ -53,11 +53,27 @@
           {{hvz-badges badges=model.player.badges}}
         </div>
         <div class="col-sm-4">
-            <p>
-                <strong>API Key:</strong> {{model.player.apiKey}}
-                <a href="{{model.player.qrLoginURL}}" class="btn btn-danger" target="_blank">QR Login</a>
-            </p>
-            <p><strong>API Failures:</strong> {{model.player.failures}} / {{model.player.maxFailures}}</p>
+            {{#if model.localUser.isSuperAdmin}}
+                <p>
+                    <strong>API Key:</strong> {{model.player.apiKey}}
+                    <a href="{{model.player.qrLoginURL}}" class="btn btn-danger" target="_blank">QR Login</a>
+                </p>
+                <p><strong>API Failures:</strong> {{model.player.failures}} / {{model.player.maxFailures}}</p>
+                <p>
+                    <strong>Notification Keys:</strong>
+                    <small class="text-muted">These are OneSignal keys. Each represents a device the user has signed in to that can receive notifications.</small>
+                </p>
+                <ul>
+                    {{#each model.player.notificationKeys as |notificationKey|}}
+                        <li>{{notificationKey}}</li>
+                    {{else}}
+                        <li>No Keys Available (notifications disabled)</li>
+                    {{/each}}
+                </ul>
+                <button id="notificationButton" type="button" class="btn btn-warning" {{action 'sendNotificationDialog'}}>
+                    Send Notification
+                </button>
+            {{/if}}
             <p><strong>Zombie Id:</strong> {{model.player.zombieId}}</p>
             <p>
                 <strong>Human Ids:</strong>
@@ -93,6 +109,36 @@
                   </span>
               </p>
           {{/each}}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="sendNotificationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">Send Notification</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    This will send a notification to all <strong>{{model.player.notificationKeys.length}}</strong>
+                    devices registered to this user's account. This number may not be accurate - if they have turned off
+                    notifications on any devices then those devices will not receive a notification.
+                </p>
+                <div class="form-group">
+                    <label for="notificationTitle">Notification Title</label>
+                    <input type="text" class="form-control" id="notificationTitle" placeholder="Title">
+                    <label for="notificationMessage">Notification Message</label>
+                    <input type="text" class="form-control" id="notificationMessage" placeholder="Message">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="sendNotificationButton" class="btn btn-danger" {{action 'sendNotification' model.player.id}}>Send</button>
+            </div>
         </div>
     </div>
 </div>

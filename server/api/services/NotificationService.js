@@ -21,7 +21,7 @@ function sendToUsers(users, title, message, options) {
         });
 
         if (keys.length == 0) {
-            resolve();
+            reject({message: "No notification keys for any users."});
             return;
         }
 

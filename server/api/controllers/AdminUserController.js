@@ -24,6 +24,13 @@ module.exports = {
       var data = user.getAllData();
       data.humanIds = humanIds;
 
+      if (!AuthService.hasPermission(req.user, 'superadmin')) {
+        data.notificationKeys = ['unavailable'];
+        data.apiKey = 'unavailable';
+        data.failures = 0;
+        data.maxFailures = 0;
+      }
+
       res.ok({user: data});
     });
   },
@@ -422,6 +429,33 @@ module.exports = {
             return res.ok({user: user.getPublicData()});
           });
         });
+      });
+    });
+  },
+
+  sendNotification: function (req, res) {
+    var id = req.param('id');
+    User.findOne({id: id}).exec(function (err, user) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (user === undefined) {
+        return res.notFound({message: 'Unknown user id ' + id});
+      }
+
+      var title = req.param('title');
+      var message = req.param('message');
+      if (!message || message.length == 0) {
+        return res.badRequest({message: 'A notification message must be specified.'});
+      }
+
+      NotificationService.sendToUser(user, title, message).then(function () {
+        sails.log.info("Sent notification to " + user.email);
+        res.ok({message: 'Sent notification to ' + user.name});
+      }).catch(function (err) {
+        sails.log.error(err);
+        res.negotiate({message: "Unable to send notification."});
       });
     });
   },

@@ -98,6 +98,34 @@ export default Ember.Route.extend({
         this.get('errorHandler').handleError(err, 'Unable to heal player.');
         Ember.$('#healGroup').show();
       });
+    },
+
+    sendNotificationDialog() {
+      Ember.$('#sendNotificationModal').modal();
+    },
+
+    sendNotification(id) {
+      Ember.$('#sendNotificationnModal button').hide();
+      Ember.$('#notificationTitle').prop('disabled', true);
+      Ember.$('#notificationMessage').prop('disabled', true);
+      this.get('ajax').post('/admin/users/' + id + '/notification', {
+        data: {
+          apikey: this.get('user').getApiKey(),
+          title: Ember.$('#notificationTitle').val(),
+          message: Ember.$('#notificationMessage').val()
+        }
+      }).then(() => {
+        Ember.$("#sendNotificationModal").modal('hide');
+        Ember.$("#sendNotificationModal button").show();
+        Ember.$('#notificationTitle').prop('disabled', false);
+        Ember.$('#notificationMessage').prop('disabled', false);
+        this.get('toast').success("Sent notification.");
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, "Unable to send notification. Does the user have any devices registered?");
+        Ember.$("#sendNotificationModal button").show();
+        Ember.$('#notificationTitle').prop('disabled', false);
+        Ember.$('#notificationMessage').prop('disabled', false);
+      });
     }
   }
 });

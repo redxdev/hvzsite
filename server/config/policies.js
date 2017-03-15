@@ -50,9 +50,10 @@ module.exports.policies = {
     infect: ['apikey', 'isAdmin'],
     heal: ['apikey', 'isAdmin'],
     destroy: ['apikey', 'isAdmin'],
+    sendNotification: ['apikey', 'isSuperAdmin'],
     print: ['apikey', 'isAdmin'],
     markPrinted: ['apikey', 'isAdmin'],
-    loginKey: ['apikey', 'isAdmin']
+    loginKey: ['apikey', 'isSuperAdmin']
   },
 
   AdminContentController: {
