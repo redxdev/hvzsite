@@ -110,6 +110,7 @@ module.exports = {
   onesignal: {
     enabled: false,
     appId: 'your-app-id',
-    restKey: 'your-rest-api-key'
+    restKey: 'your-rest-api-key',
+    defaultIconUrl: 'https://hvz.rit.edu/icon.png'
   }
 };

@@ -44,6 +44,7 @@ function sendToUsers(users, title, message, options) {
                 .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
                 .send({
                     app_id: config.appId,
+                    chrome_web_icon: config.defaultIconUrl,
                     include_player_ids: group,
                     headings: {'en': title},
                     contents: {'en': message},
@@ -91,6 +92,7 @@ function sendToSegments(segments, title, message, options) {
             })
             .send({
                 app_id: config.appId,
+                chrome_web_icon: config.defaultIconUrl,
                 included_segments: segments,
                 headings: {'en': title},
                 contents: {'en': message},
