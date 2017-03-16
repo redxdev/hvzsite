@@ -51,6 +51,7 @@ module.exports.policies = {
     heal: ['apikey', 'isAdmin'],
     destroy: ['apikey', 'isAdmin'],
     sendNotification: ['apikey', 'isSuperAdmin'],
+    sendNotificationToGroup: ['apikey', 'isSuperAdmin'],
     print: ['apikey', 'isAdmin'],
     markPrinted: ['apikey', 'isAdmin'],
     loginKey: ['apikey', 'isSuperAdmin']

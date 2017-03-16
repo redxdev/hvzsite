@@ -70,9 +70,15 @@
                         <li>No Keys Available (notifications disabled)</li>
                     {{/each}}
                 </ul>
-                <button id="notificationButton" type="button" class="btn btn-warning" {{action 'sendNotificationDialog'}}>
-                    Send Notification
-                </button>
+                {{#if model.player.notificationKeys.length}}
+                    <button id="notificationButton" type="button" class="btn btn-warning" {{action 'sendNotificationDialog'}}>
+                        Send Notification
+                    </button>
+                {{else}}
+                    <button id="notificationButton" type="button" class="btn btn-warning" disabled="true">
+                        Notifications Disabled
+                    </button>
+                {{/if}}
             {{/if}}
             <p><strong>Zombie Id:</strong> {{model.player.zombieId}}</p>
             <p>
@@ -133,6 +139,9 @@
                     <input type="text" class="form-control" id="notificationTitle" placeholder="Title">
                     <label for="notificationMessage">Notification Message</label>
                     <input type="text" class="form-control" id="notificationMessage" placeholder="Message">
+                    <label for="notificationUrl">URL</label>
+                    <input type="text" class="form-control" id="notificationUrl" placeholder="URL">
+                    <span class="help-block">If left unspecified, the notification will lead to the status page.</span>
                 </div>
             </div>
             <div class="modal-footer">

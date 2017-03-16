@@ -109,6 +109,7 @@ module.exports = {
   // onesignal settings
   onesignal: {
     enabled: false,
-    appId: 'your-app-id'
+    appId: 'your-app-id',
+    restKey: 'your-rest-api-key'
   }
 };

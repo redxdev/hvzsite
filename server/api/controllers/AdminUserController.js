@@ -450,7 +450,11 @@ module.exports = {
         return res.badRequest({message: 'A notification message must be specified.'});
       }
 
-      NotificationService.sendToUser(user, title, message).then(function () {
+      var url = req.param('url');
+
+      NotificationService.sendToUser(user, title, message, {
+        url: url
+      }).then(function () {
         sails.log.info("Sent notification to " + user.email);
         res.ok({message: 'Sent notification to ' + user.name});
       }).catch(function (err) {
@@ -458,6 +462,56 @@ module.exports = {
         res.negotiate({message: "Unable to send notification."});
       });
     });
+  },
+
+  sendNotificationToGroup: function (req, res) {
+    var team = req.param('team');
+    if (team === undefined) {
+      return res.badRequest({message: 'team must be specified'});
+    }
+
+    var title = req.param('title');
+    var message = req.param('message');
+    if (!message || message.length == 0) {
+      return res.badRequest({message: 'A notification message must be specified.'});
+    }
+
+    if (team === 'all') {
+      NotificationService.sendToAll(title, message, {
+        url: req.param('url')
+      }).then(function () {
+        sails.log.info("Sent notification to everyone");
+        res.ok({message: 'Sent notification to everyone'});
+      }).catch(function (err) {
+        sails.log.error(err);
+        res.negotiate({message: 'Unable to send notification.'});
+      });
+    }
+    else if (team === 'human' || team === 'zombie') {
+      User.find({team: team})
+        .exec(function (err, users) {
+          if (err) {
+            return res.negotiate(err);
+          }
+
+          if (users.length === 0) {
+            return res.ok({message: 'No users on that team, notification ignored.'});
+          }
+
+          NotificationService.sendToUsers(users, title, message, {
+            url: req.param('url')
+          }).then(function () {
+            sails.log.info("Sent notification to team " + team);
+            res.ok({message: 'Sent notification to team ' + team});
+          }).catch(function (err) {
+            sails.log.error(err);
+            res.negotiate({message: 'Unable to send notification.'});
+          });
+        });
+    }
+    else {
+      return res.badRequest({message: 'team must be "human", "zombie", or "all"'});
+    }
   },
 
   loginKey: function (req, res) {

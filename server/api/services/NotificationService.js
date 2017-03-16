@@ -4,38 +4,101 @@ var unirest = require('unirest');
 var config = sails.config.onesignal;
 
 function sendToUsers(users, title, message, options) {
+    options = options || {};
+
+    if (config.enabled !== true) {
+        return new Promise(function (resolve, reject) {resolve();});
+    }
+
+    if (users.length === 0) {
+        return new Promise(function (resolve, reject) {reject("No users specified");});
+    }
+
+    var keys = [];
+    users.forEach(function (user) {
+        keys = keys.concat(user.notificationKeys);
+    });
+
+    if (keys.length === 0) {
+        return new Promise(function (resolve, reject) {resolve("No keys for any user, skipping notification call.");});
+    }
+
+    // There's a hard limit of 2000 devices per REST call for this endpoint, so we need to split
+    // up the calls.
+    var groups = [];
+    while (keys.length > 0) {
+        groups.push(keys.splice(0, 2000));
+    }
+
+    var url = options.url;
+    if (url !== undefined) {
+        url = url.trim();
+        if (url.length === 0)
+            url = undefined;
+    }
+
+    var promises = [];
+    groups.forEach((group) => {
+        promises.push(new Promise(function (resolve, reject) {
+            unirest.post('https://onesignal.com/api/v1/notifications')
+                .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+                .send({
+                    app_id: config.appId,
+                    include_player_ids: group,
+                    headings: {'en': title},
+                    contents: {'en': message},
+                    url: url
+                })
+                .end(function (response) {
+                    if (response.status != 200) {
+                        console.log("Unable to send notification to users: ", response.body);
+                        reject(response.body);
+                    }
+                    else {
+                        resolve(response.body);
+                    }
+                });
+        }));
+    });
+
+    return Promise.all(promises);
+}
+
+function sendToSegments(segments, title, message, options) {
+    options = options || {};
+
+    if (config.enabled !== true) {
+        return new Promise(function (resolve, reject) {resolve();});
+    }
+
+    if (segments.length === 0) {
+        return new Promise(function (resolve, reject) {reject("No segments specified");});
+    }
+
+    var url = options.url;
+    if (url !== undefined) {
+        url = url.trim();
+        if (url.length === 0)
+            url = undefined;
+    }
+
     return new Promise(function (resolve, reject) {
-        if (config.enabled !== true) {
-            resolve();
-            return;
-        }
-
-        if (users.length == 0) {
-            reject("No users specified");
-            return;
-        }
-
-        var keys = [];
-        users.forEach(function (user) {
-            keys = keys.concat(user.notificationKeys);
-        });
-
-        if (keys.length == 0) {
-            reject({message: "No notification keys for any users."});
-            return;
-        }
-
         unirest.post('https://onesignal.com/api/v1/notifications')
-            .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+            .headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + config.restKey
+            })
             .send({
                 app_id: config.appId,
-                include_player_ids: keys,
+                included_segments: segments,
                 headings: {'en': title},
-                contents: {'en': message}
+                contents: {'en': message},
+                url: url
             })
             .end(function (response) {
                 if (response.status != 200) {
-                    console.log("Unable to send notification to users: ", response.body);
+                    console.log("Unable to send notification to segments: ", response.body);
                     reject(response.body);
                 }
                 else {
@@ -46,11 +109,21 @@ function sendToUsers(users, title, message, options) {
 }
 
 module.exports = {
-    sendToUser: function (user, title, message) {
-        return sendToUsers([user], title, message);
+    sendToUser: function (user, title, message, options) {
+        return sendToUsers([user], title, message, options);
     },
 
     sendToUsers: sendToUsers,
+
+    sendToSegment: function (segment, title, message, options) {
+        return sendToSegments([segment], title, message, options);
+    },
+
+    sendToSegments: sendToSegments,
+
+    sendToAll: function (title, message, options) {
+        return sendToSegments(['All'], title, message, options);
+    },
 
     updateTags: function (user, tags) {
         return new Promise(function (resolve, reject) {

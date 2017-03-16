@@ -19,6 +19,12 @@
             {{#link-to 'admin-players-create' class='btn btn-primary'}}
               <span class="glyphicon glyphicon-plus"></span>
             {{/link-to}}
+
+            {{#if model.localUser.isSuperAdmin}}
+                <button id="notificationButton" type="button" class="btn btn-warning" {{action 'sendNotificationDialog'}}>
+                    Send Notification
+                </button>
+            {{/if}}
         </div>
       {{/if}}
     </div>
@@ -48,6 +54,44 @@
                   <li>{{#link-to 'admin-players' (query-params page=model.nextPage)}}Next &rarr;{{/link-to}}</li>
               {{/if}}
             </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="sendNotificationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">Send Notification</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    This will send a notification to all players, zombie players, or human players.
+                </p>
+                <div class="form-group">
+                    <label for="notificationTitle">Notification Title</label>
+                    <input type="text" class="form-control" id="notificationTitle" placeholder="Title">
+                    <label for="notificationMessage">Notification Message</label>
+                    <input type="text" class="form-control" id="notificationMessage" placeholder="Message">
+                    <label for="notificationUrl">URL</label>
+                    <input type="text" class="form-control" id="notificationUrl" placeholder="URL">
+                    <span class="help-block">If left unspecified, the notification will lead to the status page.</span>
+                    <label for="notificationTeam">Send to...</label>
+                    <select id="notificationTeam" class="form-control">
+                        <option value="invalid" selected="selected">Select an Option</option>
+                        <option value="all">All Players</option>
+                        <option value="human">Humans</option>
+                        <option value="zombie">Zombies</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" id="sendNotificationButton" class="btn btn-danger" {{action 'sendNotification'}}>Send</button>
+            </div>
         </div>
     </div>
 </div>

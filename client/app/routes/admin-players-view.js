@@ -108,23 +108,39 @@ export default Ember.Route.extend({
       Ember.$('#sendNotificationnModal button').hide();
       Ember.$('#notificationTitle').prop('disabled', true);
       Ember.$('#notificationMessage').prop('disabled', true);
-      this.get('ajax').post('/admin/users/' + id + '/notification', {
+      Ember.$('#notificationUrl').prop('disabled', true);
+
+      var url = Ember.$('#notificationUrl').val().trim();
+      if (url.length === 0)
+        url = undefined;
+
+      this.get('ajax').post('/admin/users/' + id + '/notify', {
         data: {
           apikey: this.get('user').getApiKey(),
           title: Ember.$('#notificationTitle').val(),
-          message: Ember.$('#notificationMessage').val()
+          message: Ember.$('#notificationMessage').val(),
+          url: url
         }
       }).then(() => {
         Ember.$("#sendNotificationModal").modal('hide');
         Ember.$("#sendNotificationModal button").show();
+
         Ember.$('#notificationTitle').prop('disabled', false);
+        Ember.$('#notificationTitle').val('');
+
         Ember.$('#notificationMessage').prop('disabled', false);
+        Ember.$('#notificationMessage').val('');
+
+        Ember.$('#notificationUrl').prop('disabled', false);
+        Ember.$('#notificationUrl').val('');
+
         this.get('toast').success("Sent notification.");
       }).catch((err) => {
         this.get('errorHandler').handleError(err, "Unable to send notification. Does the user have any devices registered?");
         Ember.$("#sendNotificationModal button").show();
         Ember.$('#notificationTitle').prop('disabled', false);
         Ember.$('#notificationMessage').prop('disabled', false);
+        Ember.$('#notificationUrl').prop('disabled', false);
       });
     }
   }
