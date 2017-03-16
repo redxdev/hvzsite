@@ -494,6 +494,10 @@ module.exports = {
             return res.negotiate(err);
           }
 
+          users = users.filter(function (user) {
+            return AuthService.hasPermission(user, 'active');
+          });
+
           if (users.length === 0) {
             return res.ok({message: 'No users on that team, notification ignored.'});
           }
