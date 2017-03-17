@@ -87,8 +87,9 @@ export default Ember.Route.extend(ResetScrollMixin, {
       Ember.$('#notificationTeam').prop('disabled', true);
 
       var url = Ember.$('#notificationUrl').val().trim();
-      if (url.length === 0)
+      if (url.length === 0) {
         url = undefined;
+      }
 
       this.get('ajax').post('/admin/notify', {
         data: {
