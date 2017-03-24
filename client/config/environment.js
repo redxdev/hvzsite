@@ -72,7 +72,7 @@ module.exports = function (environment) {
       },
 
       onesignal: {
-        enabled: true,
+        enabled: false,
         config: {
           // This is where your onesignal config goes.
           // The default settings here will only work with a full HTTPS site.
