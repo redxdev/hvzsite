@@ -20,6 +20,12 @@ export default Ember.Route.extend({
         }
       }),
 
+      badgeList: this.get('ajax').request('/admin/badges', {
+        data: {
+          apikey: this.get('user').getApiKey()
+        }
+      }),
+
       localUser: this.get('user').getUserInfo()
     }).then((result) => {
       var player = result.player.user;
@@ -28,6 +34,7 @@ export default Ember.Route.extend({
       return {
         player: player,
         infections: result.infections.infections,
+        badgeList: result.badgeList.badges,
         localUser: result.localUser
       };
     }).catch((err) => {
@@ -142,6 +149,51 @@ export default Ember.Route.extend({
         Ember.$('#notificationTitle').prop('disabled', false);
         Ember.$('#notificationMessage').prop('disabled', false);
         Ember.$('#notificationUrl').prop('disabled', false);
+      });
+    },
+
+    badgesDialog() {
+      Ember.$('#badgesModal').modal();
+    },
+
+    giveBadge(id, badgeId) {
+      Ember.$('.give-badge-button').prop('disabled', true);
+
+      this.get('ajax').put('/admin/users/' + id + '/badge', {
+        data: {
+          apikey: this.get('user').getApiKey(),
+          badgeId: badgeId
+        }
+      }).then(() => {
+        Ember.$('#badgesModal').modal('hide');
+        Ember.$('.give-badge-button').prop('disabled', false);
+
+        this.get('toast').success('Gave badge.');
+        this.refresh();
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, "Unable to give badge.");
+        Ember.$('.give-badge-button').prop('disabled', false);
+      });
+    },
+
+    removeBadge(id, badgeId) {
+      Ember.$('.give-badge-button').prop('disabled', true);
+
+      this.get('ajax').request('/admin/users/' + id + '/badge', {
+        data: {
+          apikey: this.get('user').getApiKey(),
+          badgeId: badgeId
+        },
+        method: 'DELETE'
+      }).then(() => {
+        Ember.$('#badgesModal').modal('hide');
+        Ember.$('.give-badge-button').prop('disabled', false);
+
+        this.get('toast').success('Removed badge.');
+        this.refresh();
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, "Unable to remove badge.");
+        Ember.$('.give-badge-button').prop('disabled', false);
       });
     }
   }

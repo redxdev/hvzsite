@@ -433,6 +433,91 @@ module.exports = {
     });
   },
 
+  listBadges: function (req, res) {
+    var badges = [];
+    for (var id in sails.config.badges.registry) {
+      if (sails.config.badges.registry.hasOwnProperty(id)) {
+        var badge = sails.config.badges.registry[id];
+        if (badge.access !== 'internal' && AuthService.hasPermission(req.user, badge.access)) {
+          badges.push(badge);
+        }
+      }
+    }
+
+    return res.ok({badges: badges});
+  },
+
+  addBadge: function (req, res) {
+    var id = req.param('id');
+    var badgeId = req.param('badgeId');
+    if (sails.config.badges.registry[badgeId] === undefined) {
+      return res.badRequest({message: 'Unknown badge type ' + badgeId});
+    }
+
+    User.findOne({id: id}).exec(function (err, user) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (user === undefined) {
+        return res.notFound({message: 'Unknown user id ' + id});
+      }
+
+      var badge = sails.config.badges.registry[badgeId];
+      if (badge.access === 'internal') {
+        return res.badRequest({message: 'Badge ' + badgeId + ' is an internal badge, it cannot be added manually'});
+      }
+
+      if (!AuthService.hasPermission(req.user, badge.access)) {
+        return res.forbidden({message: 'You do not have permission to give the badge ' + badgeId + ' (you are: ' + req.user.access + ', you need: ' + badge.access + ')'});
+      }
+
+      user.addBadge(badgeId);
+
+      user.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info(user.email + ' was given badge ' + badgeId + ' by ' + req.user.email);
+
+        res.ok({user: user.getPublicData()});
+      });
+    });
+  },
+
+  removeBadge: function (req, res) {
+    var id = req.param('id');
+    var badgeId = req.param('badgeId');
+
+    User.findOne({id: id}).exec(function (err, user) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (user === undefined) {
+        return res.notFound({message: 'Unknown user id ' + id});
+      }
+
+      var idx = user.badges.indexOf(badgeId);
+      if (idx === -1) {
+        return res.badRequest({message: 'User does not have badge ' + badgeId});
+      }
+
+      user.badges.splice(idx, 1);
+
+      user.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info(user.email + ' had badge ' + badgeId + ' removed by ' + req.user.email);
+
+        res.ok({user: user.getPublicData()});
+      });
+    });
+  },
+
   sendNotification: function (req, res) {
     var id = req.param('id');
     User.findOne({id: id}).exec(function (err, user) {

@@ -26,6 +26,8 @@ for (var id in registry) {
       sails.log.warn("Badge " + id + " is missing an access specifier, defaulting to 'internal'");
       badge.access = 'internal';
     }
+
+    badge.id = id;
   }
 }
 

@@ -16,6 +16,7 @@
               {{/if}}
 
                 <li>{{#link-to 'admin-players-avatar' model.player.id}}Avatar{{/link-to}}</li>
+                <li><a href='#' {{action 'badgesDialog'}}>Badges</a></li>
 
               {{#if model.localUser.isAdmin}}
                   <li>{{#link-to 'admin-players-edit' model.player.id}}Edit{{/link-to}}</li>
@@ -147,6 +148,89 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" id="sendNotificationButton" class="btn btn-danger" {{action 'sendNotification' model.player.id}}>Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="badgesModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">Badges</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Give Badge</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Icon</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each model.badgeList as |badge|}}
+                            <tr>
+                                <td>
+                                    <img class="game-badge with-background"
+                                        alt="{{badge.name}} badge"
+                                        src="images/badges/{{badge.image}}">
+                                </td>
+                                <td>{{badge.name}}</td>
+                                <td>{{badge.description}}</td>
+                                <td>
+                                    <button type="button"
+                                            class="btn btn-primary give-badge-button"
+                                            data-dismiss="modal"
+                                            {{action 'giveBadge' model.player.id badge.id}}>
+                                            Give
+                                    </button>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+
+                <h4>Remove Badge</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Icon</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>-</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each model.player.badges as |badge|}}
+                            <tr>
+                                <td>
+                                    <img class="game-badge with-background"
+                                        alt="{{badge.name}} badge"
+                                        src="images/badges/{{badge.image}}">
+                                </td>
+                                <td>{{badge.name}}</td>
+                                <td>{{badge.description}}</td>
+                                <td>
+                                    <button type="button"
+                                            class="btn btn-danger give-badge-button"
+                                            data-dismiss="modal"
+                                            {{action 'removeBadge' model.player.id badge.id}}>
+                                            Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>

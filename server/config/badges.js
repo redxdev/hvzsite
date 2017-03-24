@@ -2,6 +2,14 @@ module.exports.badges = {
   enableKillstreaks: true,
 
   registry: {
+    // Manual badges
+    test: {
+      name: 'Test',
+      description: 'If you see this, it\'s probably a test',
+      image: 'test.png',
+      access: 'superadmin'
+    },
+
     // Automated badges
     infected: {
       name: 'Infected',
