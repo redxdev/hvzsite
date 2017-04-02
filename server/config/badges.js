@@ -5,7 +5,7 @@ module.exports.badges = {
     // Manual badges
     test: {
       name: 'Test',
-      description: 'If you see this, it\'s probably a test',
+      description: 'Test badge, please ignore.',
       image: 'test.png',
       access: 'superadmin'
     },
