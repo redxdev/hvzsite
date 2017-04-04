@@ -96,6 +96,11 @@ module.exports = {
     }
 
     user.notificationKeys.push(key);
+
+    if (user.notificationKeys.length >= 15) {
+      user.notificationKeys.shift(); // lots of devices, let's remove the oldest one.
+    }
+
     user.save(function (err) {
       if (err) {
         return res.negotiate(err);
