@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import config from '../config/environment';
 
 /* globals CKEDITOR */
 export default Ember.Route.extend({
@@ -25,7 +26,7 @@ export default Ember.Route.extend({
   actions: {
     didTransition() {
       Ember.run.scheduleOnce('afterRender', this, () => {
-        Ember.$.getScript('//cdn.ckeditor.com/4.5.8/standard/ckeditor.js', () => {
+        Ember.$.getScript(config.APP.ckeditorScript, () => {
           CKEDITOR.replace('ruleBody');
         });
       });
