@@ -20,7 +20,7 @@ module.exports = function (environment) {
 
       ckeditor: {
         script: '//cdn.ckeditor.com/4.6.2/standard-all/ckeditor.js',
-        extraPlugins: 'embed'
+        extraPlugins: 'embed,autoembed,autogrow,autolink,copyformatting,image2,fakeobjects,justify,tableresize'
       },
 
       map: {
