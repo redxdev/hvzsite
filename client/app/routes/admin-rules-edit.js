@@ -26,7 +26,7 @@ export default Ember.Route.extend({
   actions: {
     didTransition() {
       Ember.run.scheduleOnce('afterRender', this, () => {
-        Ember.$.getScript(config.APP.ckeditorScript, () => {
+        Ember.$.getScript(config.APP.ckeditor.script, () => {
           CKEDITOR.replace('ruleBody');
         });
       });

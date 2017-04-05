@@ -18,7 +18,10 @@ module.exports = function (environment) {
       loginMethod: "google",
       contactEmail: 'hvz@rit.edu',
 
-      ckeditorScript: '//cdn.ckeditor.com/4.6.2/standard/ckeditor.js',
+      ckeditor: {
+        script: '//cdn.ckeditor.com/4.6.2/standard-all/ckeditor.js',
+        extraPlugins: 'embed'
+      },
 
       map: {
         center: {latitude: 43.0856756, longitude: -77.6705275},
