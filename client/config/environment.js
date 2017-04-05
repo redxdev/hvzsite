@@ -21,7 +21,7 @@ module.exports = function (environment) {
       ckeditor: {
         script: '//cdn.ckeditor.com/4.6.2/standard-all/ckeditor.js',
         extraPlugins: 'embed,autoembed,autogrow,autolink,copyformatting,image2,fakeobjects,justify,tableresize'
-      },
+      }, 
 
       map: {
         center: {latitude: 43.0856756, longitude: -77.6705275},
