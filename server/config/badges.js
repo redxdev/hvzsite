@@ -17,9 +17,16 @@ module.exports.badges = {
       access: 'admin'
     },
 
+    autograph: {
+      name: 'Can I Have Your Autograph?',
+      description: 'Got signatures from mods on Tuesday during the pre-weeklong events.',
+      image: 'star.png',
+      access: 'admin'
+    },
+
     selfie: {
       name: 'Let Me Take a Selfie',
-      description: 'Completed the selfie challenge on Wednesday during the pre-weeklong events.',
+      description: 'Completed the selfie challenge on Monday during the pre-weeklong events.',
       image: 'camera.png',
       access: 'admin'
     },
