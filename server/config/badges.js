@@ -10,6 +10,41 @@ module.exports.badges = {
       access: 'superadmin'
     },
 
+    stalker: {
+      name: '#1 Stalker',
+      description: 'Got the most autographs on Tuesday during the pre-weeklong events.',
+      image: 'numberone.png',
+      access: 'admin'
+    },
+
+    selfie: {
+      name: 'Let Me Take a Selfie',
+      description: 'Completed the selfie challenge on Wednesday during the pre-weeklong events.',
+      image: 'camera.png',
+      access: 'admin'
+    },
+
+    banjo: {
+      name: 'Banjo?',
+      description: 'Actually brought a banjo to the Tiger statue during the pre-weeklong events.',
+      image: 'banjo.png',
+      access: 'admin'
+    },
+
+    ispy: {
+      name: 'I Spy With My Little Eye',
+      description: 'Found most of the items on Thursday during the pre-weeklong events.',
+      image: 'spyglass.png',
+      access: 'admin'
+    },
+
+    codebreaker: {
+      name: 'Code Breaker',
+      description: 'Solved the cryptogram and completed the objective for Wednesday during the pre-weeklong events.',
+      image: 'lock.png',
+      access: 'admin'
+    },
+
     // Automated badges
     infected: {
       name: 'Infected',
