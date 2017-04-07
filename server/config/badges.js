@@ -52,6 +52,13 @@ module.exports.badges = {
       access: 'admin'
     },
 
+    tent: {
+      name: 'Stuck in a Tent',
+      description: "Welcome to the party! We'll be here all night.",
+      image: 'tent.png',
+      access: 'admin'
+    },
+
     // Automated badges
     infected: {
       name: 'Infected',
