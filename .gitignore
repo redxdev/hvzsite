@@ -11,6 +11,7 @@
 /client/config/environment.js
 *~
 *#
+npm-debug.log
 .DS_STORE
 .netbeans
 nbproject
