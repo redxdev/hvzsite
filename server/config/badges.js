@@ -59,6 +59,13 @@ module.exports.badges = {
       access: 'admin'
     },
 
+    boulder: {
+      name: "It's not a boulder",
+      description: 'Visited the freshly painted Greek Rock on Friday during the pre-weeklong events.',
+      image: 'boulder.png',
+      access: 'admin'
+    },
+
     // Automated badges
     infected: {
       name: 'Infected',
