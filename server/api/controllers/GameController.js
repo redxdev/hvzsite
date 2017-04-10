@@ -232,6 +232,9 @@ module.exports = {
               av.save(),
               zombie.save(),
               function () {
+                NotificationService.sendToUser(zombie, "Antivirus", "You have been brought back to life by an antivirus!");
+                NotificationService.updateTags(zombie, {team: zombie.team});
+                
                 sails.log.info(zombie.email + " has used an antivirus");
 
                 res.ok({
