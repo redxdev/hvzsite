@@ -49,3 +49,16 @@ will result in a failure if the user is not logged in, but this can be safely ig
 
 There is an endpoint to retrieve a user's api key at `/api/v2/auth/apikey`, but it can only be
 accessed if the user is already logged in through google auth.
+
+## Using API Keys
+
+If you have access to a user's api key, add it as a parameter called `apikey` either in the query string or
+as form data if you're using `POST` or another similar method.
+
+Setting the `apikey` parameter will, if the key is valid, update the user's session such that the key does
+not need to be given in subsequent requests. That said, you should always provide it just in case, especially
+if you are using multiple keys.
+
+Most routes take the `apikey` parameter. The few that don't will _not_ have an `apikey` policy set in
+`server/config/policies.js` and will not update the user's session. Basically, always set `apikey` when
+possible.
