@@ -29,7 +29,8 @@ module.exports.policies = {
   },
 
   FeedController: {
-    get: ['apikey', 'isActive']
+    get: ['apikey', 'isActive'],
+    view: ['apikey', 'isActive']
   },
 
   ContentController: {

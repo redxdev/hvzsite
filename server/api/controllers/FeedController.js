@@ -2,7 +2,7 @@ var Promise = require('bluebird');
 
 module.exports = {
 	get: function (req, res) {
-        Feed.Find({relevantUser: req.user}, function (err, entries) {
+        Feed.find({relevantUser: req.user.id}, function (err, entries) {
             if (err)
                 return res.negotiate(err);
             
@@ -17,7 +17,7 @@ module.exports = {
                 Promise.all(promises).then(function (results) {
                     res.ok({
                         feed: results
-                    })
+                    });
                 });
             }
             else {
@@ -30,6 +30,15 @@ module.exports = {
                     feed: results
                 });
             }
+        });
+    },
+
+    view: function (req, res) {
+        Feed.update({relevantUser: req.user.id}, {viewed: true}, function (err) {
+            if (err)
+                return err.negotiate(err);
+
+            return res.ok();
         });
     }
 };

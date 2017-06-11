@@ -72,6 +72,7 @@ module.exports.routes = {
 
   // FeedController
   'get /api/v2/feed': 'FeedController.get',
+  'post /api/v2/feed/view': 'FeedController.view',
 
   // AdminUserController
   'get /api/v2/admin/users': 'AdminUserController.list',
