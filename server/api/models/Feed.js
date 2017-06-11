@@ -17,6 +17,9 @@ If the type is 'e' (error), then the type is unknown and should
 either show an error message or be discarded.
 */
 
+var Promise = require('bluebird');
+var _ = require('lodash');
+
 module.exports = {
 
   attributes: {
@@ -26,6 +29,11 @@ module.exports = {
 
     message: {
       type: 'array'
+    },
+
+    viewed: {
+      type: 'boolean',
+      defaultsTo: false
     },
 
     getMessageDebug: function () {
@@ -44,6 +52,52 @@ module.exports = {
               break;
           }
         }
+      });
+
+      return result;
+    },
+
+    getMessageString: function () {
+      var promises = [];
+      var result = [];
+      for (var i = 0; i < this.message.length; ++i) {
+        var value = this.message[i];
+        result[i] = value;
+        if (_.isString(value)) {
+          continue;
+        }
+
+        var index = i;
+        promises.push(new Promise(function (resolve, reject) {
+          switch (value.t) {
+            default:
+              reject("Invalid Feed message object " + value.t);
+              break;
+            
+            case 'u':
+              if (value.i === (_.isObject(this.relevantUser) ? this.relevantUser.id : this.relevantUser)) {
+                result[index] = this.relevantUser.name;
+                resolve();
+              }
+              else {
+                User.findOne({id: value.i}, function (err, user) {
+                  if (err)
+                    reject(err);
+
+                  if (!user)
+                    reject("Invalid user for Feed message object " + value.i);
+
+                  result[index] = user.name;
+                  resolve();
+                });
+              }
+              break;
+          }
+        }));
+      }
+
+      return Promise.all(promises).then(function () {
+        return result.join("");
       });
     }
   },

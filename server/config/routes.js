@@ -70,6 +70,9 @@ module.exports.routes = {
   'get /api/v2/avatar/:id': 'ProfileController.avatar',
   'post /api/v2/profile/notificationKey': 'ProfileController.addNotificationKey',
 
+  // FeedController
+  'get /api/v2/feed': 'FeedController.get',
+
   // AdminUserController
   'get /api/v2/admin/users': 'AdminUserController.list',
   'get /api/v2/admin/users/:id': 'AdminUserController.get',

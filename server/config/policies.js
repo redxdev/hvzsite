@@ -28,6 +28,10 @@ module.exports.policies = {
     addNotificationKey: ['apikey', 'isActive']
   },
 
+  FeedController: {
+    get: ['apikey', 'isActive']
+  },
+
   ContentController: {
     missions: ['apikey'], // isActive is handled by the controller itself
     polls: ['apikey'], // isActive is handled by the controller itself
