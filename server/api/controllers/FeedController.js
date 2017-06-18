@@ -10,7 +10,7 @@ module.exports = {
                 var promises = [];
                 entries.forEach(function (entry) {
                     promises.push(entry.getMessageString().then(function (message) {
-                        return {viewed: entry.viewed, message: message};
+                        return {viewed: entry.viewed, message: message, image: entry.image};
                     }));
                 });
 
@@ -23,7 +23,7 @@ module.exports = {
             else {
                 var results = [];
                 entries.forEach(function (entry) {
-                    results.push({viewed: entry.viewed, message: entry.message});
+                    results.push({viewed: entry.viewed, message: entry.message, image: entry.image});
                 });
 
                 res.ok({

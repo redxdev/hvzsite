@@ -12,11 +12,12 @@ function addMultiple(opts) {
     });
 }
 
-function add(relevantUser, message) {
+function add(relevantUser, message, image) {
     return new Promise(function (resolve, reject) {
         Feed.create({
             relevantUser: relevantUser,
-            message: message
+            message: message,
+            image: image
         }, function (err, entry) {
             if (err) {
                 reject(err);
@@ -35,5 +36,14 @@ module.exports = {
             return {t: 'u', i: userOrId.id};
         else
             return {t: 'u', i: userOrId};
+    },
+    userImage: function (userOrId) {
+        var id;
+        if (_.isObject(userOrId))
+            id = userOrId.id;
+        else
+            id = userOrId;
+
+        return sails.config.hvz.url + 'api/v2/avatar/' + id;
     }
 }

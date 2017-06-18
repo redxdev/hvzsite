@@ -36,6 +36,11 @@ module.exports = {
       defaultsTo: false
     },
 
+    image: {
+      type: 'string',
+      defaultsTo: null
+    },
+
     getMessageDebug: function () {
       var result = "";
       this.message.forEach(function (el) {

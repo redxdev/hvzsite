@@ -69,6 +69,42 @@
                       {{/if}}
                     </ul>
                 </li>
+
+              {{#if model.localUser.loggedIn}}
+                <li class="dropdown dropdown-notifications">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i data-count="2" class="glyphicon glyphicon-bell notification-icon"></i>
+                    </a>
+
+                    <div class="dropdown-container dropdown-position-bottomright">
+                        <div class="dropdown-toolbar">
+                            <div class="dropdown-toolbar-actions">
+                                <a href="#">Mark all as read</a>
+                            </div>
+                            <h3 class="dropdown-toolbar-title">Notifications</h3>
+                        </div>
+
+                        <div class="dropdown-menu">
+                            <li class="notification">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <div class="media-object">
+                                            <img src="http://localhost:1337/api/v2/avatar/1" class="img-circle notification-img" alt="Notification" />
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <strong class="notification-title"><a href="#">Sam Bloomberg</a> did a thing.</strong>
+                                        <p class="notification-desc">Something something brains...</p>
+                                        <div class="notification-meta">
+                                            <small class="timestamp" title="5/26/1995">22 years ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </li>
+              {{/if}}
             </ul>
         </div>
     </div>
