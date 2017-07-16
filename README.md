@@ -103,3 +103,7 @@ make use of Ember's model system or components very well, but there are plans to
 If the database model changes in sails, running in production will _not_ automatically apply the changes. You will have
 to either manually apply changes or let sails try to alter it (possibly destroying data!!!) by running the server
 in development mode briefly.
+
+## Additional Credits
+
+* Notification Dropdown: https://bootsnipp.com/snippets/depAz

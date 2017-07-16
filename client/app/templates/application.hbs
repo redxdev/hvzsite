@@ -71,38 +71,26 @@
                 </li>
 
               {{#if model.localUser.loggedIn}}
-                <li class="dropdown dropdown-notifications">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i data-count="2" class="glyphicon glyphicon-bell notification-icon"></i>
-                    </a>
-
-                    <div class="dropdown-container dropdown-position-bottomright">
-                        <div class="dropdown-toolbar">
-                            <div class="dropdown-toolbar-actions">
-                                <a href="#">Mark all as read</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-bell"></span></a>
+                    <ul class="dropdown-menu notify-drop">
+                        <div class="notify-drop-title">
+                            <div class="row">
+                                <div class="col-xs-6">Notifications</div>
                             </div>
-                            <h3 class="dropdown-toolbar-title">Notifications</h3>
                         </div>
-
-                        <div class="dropdown-menu">
-                            <li class="notification">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="media-object">
-                                            <img src="http://localhost:1337/api/v2/avatar/1" class="img-circle notification-img" alt="Notification" />
-                                        </div>
-                                    </div>
-                                    <div class="media-body">
-                                        <strong class="notification-title"><a href="#">Sam Bloomberg</a> did a thing.</strong>
-                                        <p class="notification-desc">Something something brains...</p>
-                                        <div class="notification-meta">
-                                            <small class="timestamp" title="5/26/1995">22 years ago</small>
-                                        </div>
-                                    </div>
+                        <div class="drop-content">
+                            <li>
+                                <div class="col-xs-3"><div class="notify-image"><img src="http://placehold.it/45x45" alt=""></div></div>
+                                <div class="col-xs-9 no-padding">
+                                    This is a notification!
                                 </div>
                             </li>
                         </div>
-                    </div>
+                        <div class="notify-drop-footer text-center">
+                            <a href="#"><span class="glyphicon glyphicon-eye-open"></span> Mark all as Read</a>
+                        </div>
+                    </ul>
                 </li>
               {{/if}}
             </ul>

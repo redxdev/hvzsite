@@ -29,12 +29,6 @@ module.exports = function(defaults) {
   // bootswatch
   app.import('bower_components/bootswatch/cyborg/bootstrap.css');
 
-  // bootstrap-dropmenu
-  app.import('bower_components/bootstrap-dropmenu/dist/stylesheets/bootstrap-dropmenu.css');
-
-  // bootstrap-notifications
-  app.import('bower_components/bootstrap-notifications/dist/stylesheets/bootstrap-notifications.css');
-
   // jQuery Countdown
   app.import('bower_components/jquery.countdown/dist/jquery.countdown.js');
 
