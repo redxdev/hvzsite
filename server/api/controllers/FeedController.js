@@ -2,7 +2,7 @@ var Promise = require('bluebird');
 
 module.exports = {
 	get: function (req, res) {
-        Feed.find({relevantUser: req.user.id}, function (err, entries) {
+        Feed.find({relevantUser: req.user.id, sort: {createdAt: -1}}, function (err, entries) {
             if (err)
                 return res.negotiate(err);
             
@@ -38,7 +38,7 @@ module.exports = {
             if (err)
                 return err.negotiate(err);
 
-            return res.ok();
+            return res.ok({message: "All notifications have been marked as viewed."});
         });
     }
 };

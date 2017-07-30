@@ -84,4 +84,6 @@ POST http://127.0.0.1/api/v2/feed/view?apikey=somekey
 
 #### Response
 
-None
+    {
+        "message": "All notifications have been marked as viewed."
+    }

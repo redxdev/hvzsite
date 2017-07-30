@@ -45,5 +45,9 @@ module.exports = {
             id = userOrId;
 
         return sails.config.hvz.url + 'api/v2/avatar/' + id;
+    },
+    badgeImage: function (id) {
+        var img = BadgeRegistry.getBadge(id).image;
+        return sails.config.hvz.url + "images/badges/" + img;
     }
 }

@@ -71,8 +71,14 @@
                 </li>
 
               {{#if model.localUser.loggedIn}}
+                <!-- Notifications -->
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="glyphicon glyphicon-bell"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <span class="glyphicon glyphicon-bell"></span>
+                        {{#if model.notifications.unread}}
+                            <span class="badge badge-notify">{{model.notifications.unread}}</span>
+                        {{/if}}
+                    </a>
                     <ul class="dropdown-menu notify-drop">
                         <div class="notify-drop-title">
                             <div class="row">
@@ -80,15 +86,31 @@
                             </div>
                         </div>
                         <div class="drop-content">
-                            <li>
-                                <div class="col-xs-3"><div class="notify-image"><img src="http://placehold.it/45x45" alt=""></div></div>
-                                <div class="col-xs-9 no-padding">
-                                    This is a notification!
-                                </div>
-                            </li>
+                            {{#each model.notifications.feed as |feed|}}
+                                <li class="{{feed.class}}">
+                                    <div class="col-xs-3">
+                                        <div class="notify-image">
+                                            {{#if feed.image}}
+                                                <img src="{{feed.image}}" alt="" width="45" height="45">
+                                            {{else}}
+                                                <img src="https://placehold.it/45x45" alt=""  width="45" height="45">
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-9 no-padding">
+                                        {{feed.message}}
+                                    </div>
+                                </li>
+                            {{else}}
+                                <li>
+                                    <div class="col-xs-9 no-padding text-center">
+                                        You don't have any notifications!
+                                    </div>
+                                </li>
+                            {{/each}}
                         </div>
                         <div class="notify-drop-footer text-center">
-                            <a href="#"><span class="glyphicon glyphicon-eye-open"></span> Mark all as Read</a>
+                            <a href="#" {{action 'notificationsViewed'}}><span class="glyphicon glyphicon-eye-open"></span> Mark all as Read</a>
                         </div>
                     </ul>
                 </li>
