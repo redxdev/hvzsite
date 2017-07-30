@@ -1,0 +1,10 @@
+{
+  "scores": {
+    "humans": 1,
+    "zombies": 1,
+    "winners": [
+      "Foo Bar"
+    ]
+  },
+  "missions": []
+}
