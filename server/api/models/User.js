@@ -18,7 +18,7 @@ module.exports = {
 
     apiKey: {
       type: 'string',
-      size: 32,
+      size: 64,
       unique: true,
       index: true
     },
@@ -97,6 +97,11 @@ module.exports = {
       defaultsTo: null
     },
 
+    followers: {
+      type: 'array',
+      defaultsTo: []
+    },
+
     getPublicData: function () {
       return {
         id: this.id,
@@ -107,7 +112,8 @@ module.exports = {
         badges: BadgeRegistry.getBadges(this.badges),
         clan: this.clan,
         access: this.access,
-        hasAvatar: this.avatarPath !== null
+        hasAvatar: this.avatarPath !== null,
+        followers: this.followers
       };
     },
 
@@ -130,7 +136,8 @@ module.exports = {
         maxFailures: this.maxFailures,
         usedAV: this.usedAV,
         oz: this.oz,
-        hasAvatar: this.avatarPath !== null
+        hasAvatar: this.avatarPath !== null,
+        followers: this.followers
       }
     },
 

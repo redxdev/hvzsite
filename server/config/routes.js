@@ -66,6 +66,8 @@ module.exports.routes = {
   // ProfileController
   'get /api/v2/profile': 'ProfileController.mine',
   'get /api/v2/profile/:id': 'ProfileController.other',
+  'post /api/v2/profile/:id/follow': 'ProfileController.follow',
+  'post /api/v2/profile/:id/unfollow': 'ProfileController.unfollow',
   'post /api/v2/profile/clan': 'ProfileController.setClan',
   'get /api/v2/avatar/:id': 'ProfileController.avatar',
   'post /api/v2/profile/notificationKey': 'ProfileController.addNotificationKey',

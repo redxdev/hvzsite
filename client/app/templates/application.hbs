@@ -98,13 +98,23 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-9 no-padding">
-                                        {{feed.message}}
+                                        <p>
+                                            {{#each feed.message as |part|}}
+                                                {{#if part.string}}
+                                                    {{part.value}}
+                                                {{else if part.user}}
+                                                    {{#link-to "player" part.id}}{{part.value}}{{/link-to}}
+                                                {{else}}
+                                                    NR?
+                                                {{/if}}
+                                            {{/each}}
+                                        </p>
                                     </div>
                                 </li>
                             {{else}}
                                 <li>
                                     <div class="col-xs-9 no-padding text-center">
-                                        You don't have any notifications!
+                                        <p><strong>You don't have any notifications!</strong></p>
                                     </div>
                                 </li>
                             {{/each}}

@@ -4,7 +4,7 @@ var Promise = require('bluebird');
 module.exports = {
   apiKey: function () {
     return new Promise(function (resolve, reject) {
-      var result = randomstring.generate({length: 32, charset: "alphanumeric"});
+      var result = randomstring.generate({length: 64, charset: "alphanumeric"});
       User.findOne({apiKey: result}, function (err, found) {
         if (err) {
           reject(err);
