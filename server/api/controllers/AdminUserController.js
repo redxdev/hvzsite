@@ -348,10 +348,16 @@ module.exports = {
         if (oz) {
           NotificationService.sendToUser(user, "Infected", "You are an OZ! Go out there and eat some brains!");
           FeedService.add(user, ["You are an OZ! Go out there and eat some brains!"], FeedService.badgeImage("oz"));
+          user.followers.forEach(function (followerId) {
+            FeedService.add(followerId, [FeedService.user(user), " has been infected!"], FeedService.badgeImage('infected'));
+          });
         }
         else {
           NotificationService.sendToUser(user, "Infected", "You have been infected! Welcome to the horde.");
           FeedService.add(user, ["You have been infected! Welcome to the horde."], FeedService.badgeImage("infected"));
+          user.followers.forEach(function (followerId) {
+            FeedService.add(followerId, [FeedService.user(user), " has been become an OZ!"], FeedService.badgeImage('infected'));
+          });
         }
 
         
@@ -387,6 +393,10 @@ module.exports = {
         }
 
         NotificationService.updateTags(user, {team: user.team});
+        FeedService.add(user, ["You have been healed! Welcome to the realm of the living."], FeedService.badgeImage("antivirus"));
+        user.followers.forEach(function (followerId) {
+          FeedService.add(followerId, [FeedService.user(user), " has been healed!"], FeedService.badgeImage('antivirus'));
+        });
 
         sails.log.info(user.email + ' was healed by ' + req.user.email);
 

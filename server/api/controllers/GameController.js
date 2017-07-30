@@ -114,6 +114,10 @@ module.exports = {
                         NotificationService.updateTags(human, {team: human.team});
                         FeedService.add(human, ["You have been infected by ", FeedService.user(zombie), "! Welcome to the horde."], FeedService.badgeImage('infected'));
 
+                        human.followers.forEach(function (followerId) {
+                          FeedService.add(followerId, [FeedService.user(human), " was infected by ", FeedService.user(zombie), "!"], FeedService.badgeImage('infected'));
+                        });
+
                         sails.log.info(zombie.email + " infected " + human.email);
 
                         res.ok({
@@ -236,6 +240,21 @@ module.exports = {
                 NotificationService.sendToUser(zombie, "Antivirus", "You have been brought back to life by an antivirus!");
                 NotificationService.updateTags(zombie, {team: zombie.team});
                 FeedService.add(zombie, ["You have been brought back to life by an antivirus!"], FeedService.badgeImage('antivirus'));
+
+                var notify = [];
+                zombie.followers.forEach(function (followerId) {
+                  FeedService.add(followerId, [FeedService.user(zombie), " has used an antivirus!"], FeedService.badgeImage('antivirus'));
+                  notify.push(new Promise(function (resolve, reject) {
+                    User.findOne({id: followerId}, function (err, found) {
+                      if (err)
+                        reject(err);
+                      else if (!found)
+                        reject();
+                      else
+                        resolve(found);
+                    });
+                  }));
+                });
                 
                 sails.log.info(zombie.email + " has used an antivirus");
 

@@ -14,10 +14,25 @@ export default Ember.Route.extend({
         }
       }).then((inf) => {
         result.profile.avatar = config.APP.apiURL + '/api/v2/avatar/' + result.profile.id;
-        return {
-          profile: result.profile,
-          infections: inf.infections
-        };
+        if (this.get('user').isLoggedIn()) {
+          return this.get('user').getUserInfo().then((user) => {
+            if (user.profile !== null) {
+              result.profile.following = result.profile.followers.indexOf(user.profile.id) >= 0;
+            }
+
+            return {
+              profile: result.profile,
+              localUser: user,
+              infections: inf.infections
+            };
+          });
+        }
+        else {
+          return {
+            profile: result.profile,
+            infections: inf.infections
+          };
+        }
       });
     }).catch((err) => {
       this.get('errorHandler').handleError(err, 'Unable to retrieve profile.');
@@ -28,7 +43,9 @@ export default Ember.Route.extend({
           "team": "unknown",
           "humansTagged": 0,
           "badges": [],
-          "clan": "?"
+          "clan": "?",
+          "followers": [],
+          "following": false
         },
         infections: []
       };

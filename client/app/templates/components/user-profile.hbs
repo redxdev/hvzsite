@@ -7,7 +7,16 @@
           {{else}}
               <img src="images/no-avatar.png" alt="avatar" class="avatar">
           {{/if}}
-            <h3>{{profile.name}}</h3>
+            <h3>
+                {{profile.name}}
+                {{#if localUser}}
+                    {{#if profile.following}}
+                        <a class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Stop receiving notifications about this player." {{action 'unfollow' profile.id}}>Unfollow</a>
+                    {{else}}
+                        <a class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Receive notifications when this player is infected or uses an antivirus." {{action 'follow' profile.id}}>Follow</a>
+                    {{/if}}
+                {{/if}}
+            </h3>
           {{#if profile.email}}
               <p><strong>Email:</strong> {{profile.email}}</p>
           {{/if}}

@@ -31,6 +31,61 @@ module.exports = {
     });
   },
 
+  follow: function (req, res) {
+    var id = req.param("id");
+    User.findOne({id: id}).exec(function (err, found) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (found == null || !AuthService.hasPermission(found, 'player')) {
+        return res.notFound({message: "Unknown user id " + id});
+      }
+
+      if (found.followers.indexOf(req.user.id) >= 0) {
+        return res.badRequest({message: "You are already following " + found.name + "!"});
+      }
+
+      found.followers.push(req.user.id);
+      found.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info(req.user.email + " is now following " + found.email);
+        res.ok({message: "You are now following " + found.name});
+      });
+    });
+  },
+
+  unfollow: function (req, res) {
+    var id = req.param("id");
+    User.findOne({id: id}).exec(function (err, found) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (found == null || !AuthService.hasPermission(found, 'player')) {
+        return res.notFound({message: "Unknown user id " + id});
+      }
+
+      var index = found.followers.indexOf(req.user.id);
+      if (index < 0) {
+        return res.badRequest({message: "You aren't following " + found.name + "!"});
+      }
+
+      found.followers.splice(index, 1);
+      found.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info(req.user.email + " unfollowed " + found.email);
+        res.ok({message: "You are no longer following " + found.name});
+      });
+    });
+  },
+
   setClan: function (req, res) {
     if (req.param('name') === undefined) {
       return res.badRequest({message: "'name' parameter not specified"});
