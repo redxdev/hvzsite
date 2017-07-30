@@ -72,7 +72,6 @@ module.exports = {
           continue;
         }
 
-        var index = i;
         promises.push(new Promise(function (resolve, reject) {
           switch (value.t) {
             default:
@@ -81,10 +80,11 @@ module.exports = {
             
             case 'u':
               if (value.i === (_.isObject(this.relevantUser) ? this.relevantUser.id : this.relevantUser)) {
-                result[index] = this.relevantUser.name;
+                result[i] = this.relevantUser.name;
                 resolve();
               }
               else {
+                var index = i;
                 User.findOne({id: value.i}, function (err, user) {
                   if (err)
                     reject(err);

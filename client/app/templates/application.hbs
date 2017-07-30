@@ -98,7 +98,17 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-9 no-padding">
-                                        <p>{{feed.message}}</p>
+                                        <p>
+                                            {{#each feed.message as |part|}}
+                                                {{#if part.string}}
+                                                    {{part.value}}
+                                                {{else if part.user}}
+                                                    {{#link-to "player" part.id}}{{part.value}}{{/link-to}}
+                                                {{else}}
+                                                    NR?
+                                                {{/if}}
+                                            {{/each}}
+                                        </p>
                                     </div>
                                 </li>
                             {{else}}

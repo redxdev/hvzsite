@@ -26,13 +26,14 @@ export default Ember.Route.extend({
           inPast: val < new Date()
         };
       }),
-      notifications: this.get('ajax').request('/feed?stringify', {
+      notifications: this.get('ajax').request('/feed', {
         data: {
           apikey: this.get('user').getApiKey()
         }
       }).then((results) => {
         var unread = 0;
         var feed = results.feed;
+        var promises = [];
         feed.forEach((f) => {
           if (f.viewed === false) {
             ++unread;
@@ -42,12 +43,17 @@ export default Ember.Route.extend({
             f.class = "viewed"
           }
 
-          f.message = this.get('notificationParser').parseMessage(f.message);
+          promises.push(this.get('notificationParser').parseMessage(f.message).then((message) => {
+            f.message = message;
+          }));
         });
-        return {
-          unread: unread,
-          feed: feed
-        };
+
+        return Ember.RSVP.Promise.all(promises).then(() => {
+          return {
+            unread: unread,
+            feed: feed
+          };
+        });
       })
     }).catch((err) => {
       this.get('errorHandler').handleError(err);
