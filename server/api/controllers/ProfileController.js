@@ -33,6 +33,10 @@ module.exports = {
 
   follow: function (req, res) {
     var id = req.param("id");
+    if (id === req.user.id) {
+      return res.badRequest({message: "You cannot follow yourself!"});
+    }
+
     User.findOne({id: id}).exec(function (err, found) {
       if (err) {
         return res.negotiate(err);
@@ -60,6 +64,10 @@ module.exports = {
 
   unfollow: function (req, res) {
     var id = req.param("id");
+    if (id === req.user.id) {
+      return res.badRequest({message: "You cannot unfollow yourself!"});
+    }
+
     User.findOne({id: id}).exec(function (err, found) {
       if (err) {
         return res.negotiate(err);
