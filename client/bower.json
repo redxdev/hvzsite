@@ -1,15 +1,13 @@
 {
   "name": "hvzsite-client",
   "dependencies": {
-    "ember": "~2.4.1",
-    "ember-cli-shims": "0.1.0",
-    "ember-cli-test-loader": "0.2.2",
+    "ember": "~2.13.3",
     "ember-qunit-notifications": "0.1.0",
-    "bootstrap": "^3.3.6",
-    "jquery.countdown": "^2.1.0",
+    "bootstrap": "^3.3.7",
+    "jquery.countdown": "^2.2.0",
     "toastr": "^2.1.2",
     "pace": "^1.0.2",
-    "bootswatch": "~v3.3.6",
+    "bootswatch": "^v3.3.7",
     "webcamjs": "~1.0.6"
   }
 }
