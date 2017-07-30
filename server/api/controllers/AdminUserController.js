@@ -347,9 +347,11 @@ module.exports = {
 
         if (oz) {
           NotificationService.sendToUser(user, "Infected", "You are an OZ! Go out there and eat some brains!");
+          FeedService.add(user, ["You are an OZ! Go out there and eat some brains!"], FeedService.badgeImage("oz"));
         }
         else {
           NotificationService.sendToUser(user, "Infected", "You have been infected! Welcome to the horde.");
+          FeedService.add(user, ["You have been infected! Welcome to the horde."], FeedService.badgeImage("infected"));
         }
 
         

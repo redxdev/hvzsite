@@ -4,10 +4,14 @@
     "ember": "~2.13.3",
     "ember-qunit-notifications": "0.1.0",
     "bootstrap": "^3.3.7",
+    "jquery": "^2.2.2",
     "jquery.countdown": "^2.2.0",
     "toastr": "^2.1.2",
     "pace": "^1.0.2",
     "bootswatch": "^v3.3.7",
     "webcamjs": "~1.0.6"
+  },
+  "resolutions": {
+    "jquery": "~2.2.4"
   }
 }

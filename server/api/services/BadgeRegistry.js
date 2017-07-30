@@ -41,6 +41,7 @@ function applyKillstreak(recent, streak, badge, zombie) {
 
   if (available.length >= streak) {
     zombie.addBadge(badge);
+    FeedService.add(zombie, ["You're on a killstreak!"], FeedService.badgeImage(badge));
 
     available.forEach(function (infection) {
       var streaks = infection.killstreaks;
@@ -54,6 +55,10 @@ function applyKillstreak(recent, streak, badge, zombie) {
 }
 
 module.exports = {
+  getBadge: function (id) {
+    return registry[id];
+  },
+
   getBadges: function(badges) {
     return badges.map(function (badge) {
       return registry[badge];

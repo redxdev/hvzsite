@@ -112,6 +112,7 @@ module.exports = {
                       function() {
                         NotificationService.sendToUser(human, "Infected", "You have been infected by " + zombie.name + "! Welcome to the horde.");
                         NotificationService.updateTags(human, {team: human.team});
+                        FeedService.add(human, ["You have been infected by ", FeedService.user(zombie), "! Welcome to the horde."], FeedService.badgeImage('infected'));
 
                         sails.log.info(zombie.email + " infected " + human.email);
 
@@ -234,6 +235,7 @@ module.exports = {
               function () {
                 NotificationService.sendToUser(zombie, "Antivirus", "You have been brought back to life by an antivirus!");
                 NotificationService.updateTags(zombie, {team: zombie.team});
+                FeedService.add(zombie, ["You have been brought back to life by an antivirus!"], FeedService.badgeImage('antivirus'));
                 
                 sails.log.info(zombie.email + " has used an antivirus");
 

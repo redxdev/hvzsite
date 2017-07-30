@@ -5,6 +5,7 @@ export default Ember.Route.extend({
   user: Ember.inject.service(),
   ajax: Ember.inject.service(),
   errorHandler: Ember.inject.service(),
+  notificationParser: Ember.inject.service(),
 
   beforeModel() {
     return this.get('intl').setLocale('en-us');
@@ -18,11 +19,34 @@ export default Ember.Route.extend({
           return result.posts[0];
         }
       }),
-      date: this.get('ajax').request('/status/dates').then(function (dates) {
+      date: this.get('ajax').request('/status/dates').then((dates) => {
         var val = new Date(dates.next);
         return {
           value: val,
           inPast: val < new Date()
+        };
+      }),
+      notifications: this.get('ajax').request('/feed?stringify', {
+        data: {
+          apikey: this.get('user').getApiKey()
+        }
+      }).then((results) => {
+        var unread = 0;
+        var feed = results.feed;
+        feed.forEach((f) => {
+          if (f.viewed === false) {
+            ++unread;
+            f.class = "unviewed"
+          }
+          else {
+            f.class = "viewed"
+          }
+
+          f.message = this.get('notificationParser').parseMessage(f.message);
+        });
+        return {
+          unread: unread,
+          feed: feed
         };
       })
     }).catch((err) => {
@@ -57,6 +81,18 @@ export default Ember.Route.extend({
 
     openAnnouncement(id) {
       this.transitionTo('news', id);
+    },
+
+    notificationsViewed() {
+      this.get('ajax').post('/feed/view', {
+        data: {
+          apikey: this.get('user').getApiKey()
+        }
+      }).then(() => {
+        this.refresh();
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, "Unable to mark your notifications as viewed.", true);
+      });
     }
   }
 });
