@@ -38,7 +38,7 @@ export default Ember.Route.extend({
           poll.inPast = false;
         }
 
-        if (poll.inPast || poll.vote !== undefined) {
+        if (poll.inPast) {
           poll.closed = true;
         }
         else {

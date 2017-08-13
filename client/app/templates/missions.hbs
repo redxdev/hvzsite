@@ -70,7 +70,12 @@
                         {{else}}
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="poll-{{mission.id}}-option" value="{{option.value}}">
+                                  {{#if (eq mission.vote option.value)}}
+                                      <input type="radio" name="poll-{{mission.id}}-option" value="{{option.value}}"
+                                             checked>
+                                  {{else}}
+                                      <input type="radio" name="poll-{{mission.id}}-option" value="{{option.value}}">
+                                  {{/if}}
                                   {{option.text}}
                                 </label>
                             </div>

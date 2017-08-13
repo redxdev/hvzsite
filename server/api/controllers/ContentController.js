@@ -318,6 +318,10 @@ module.exports = {
       if (poll.endDate <= new Date()) {
         return res.badRequest({message: 'That poll has ended.'});
       }
+      
+      if (option < 0 || option >= poll.options.length) {
+        return res.badRequest({message: 'Invalid option index'});
+      }
 
       Vote.findOne({user: req.user.id, poll: poll.id}).exec(function (err, vote) {
         if (err) {
@@ -325,31 +329,43 @@ module.exports = {
         }
 
         if (vote !== undefined) {
-          return res.badRequest({message: 'You have already voted in this poll.'});
-        }
-
-        if (option < 0 || option >= poll.options.length) {
-          return res.badRequest({message: 'Invalid option index'});
-        }
-
-        Vote.create({user: req.user.id, poll: poll.id, option: option}).exec(function (err, vote) {
-          if (err) {
-            return res.negotiate(err);
-          }
-
-          if (vote === undefined) {
-            return res.serverError({message: 'Unable to create vote object'});
-          }
-
-          sails.log.info("User " + req.user.email + " voted for option #" + option + " on poll #" + poll.id);
-
-          return res.ok({
-            vote: {
-              poll: poll.id,
-              option: vote.option
+          // update the vote, rather than creating a new one
+          vote.option = option;
+          vote.save(function (err) {
+            if (err) {
+              return res.negotiate(err);
             }
+
+            sails.log.info("User " + req.user.email + " changed their vote to option #" + option + " on poll #" + poll.id);
+
+            return res.ok({
+              vote: {
+                poll: poll.id,
+                option: vote.option
+              }
+            });
           });
-        });
+        }
+        else {
+          Vote.create({user: req.user.id, poll: poll.id, option: option}).exec(function (err, vote) {
+            if (err) {
+              return res.negotiate(err);
+            }
+
+            if (vote === undefined) {
+              return res.serverError({message: 'Unable to create vote object'});
+            }
+
+            sails.log.info("User " + req.user.email + " voted for option #" + option + " on poll #" + poll.id);
+
+            return res.ok({
+              vote: {
+                poll: poll.id,
+                option: vote.option
+              }
+            });
+          });
+        }
       });
     });
   }
