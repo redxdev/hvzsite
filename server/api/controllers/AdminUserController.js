@@ -344,26 +344,46 @@ module.exports = {
         }
 
         sails.log.info(user.email + ' was infected by ' + req.user.email);
+        NotificationService.updateTags(user, {team: user.team});
 
         if (oz) {
           NotificationService.sendToUser(user, "Infected", "You are an OZ! Go out there and eat some brains!");
           FeedService.add(user, ["You are an OZ! Go out there and eat some brains!"], FeedService.badgeImage("oz"));
-          user.followers.forEach(function (followerId) {
-            FeedService.add(followerId, [FeedService.user(user), " has been infected!"], FeedService.badgeImage('infected'));
+          Follower.find({user: user.id}).populate('follower').exec(function (err, followers) {
+            if (err) {
+              sails.log.error(err);
+            }
+            else if (followers) {
+              var notify = [];
+              followers.forEach(function (follower) {
+                FeedService.add(follower.follower.id, [FeedService.user(user), " has become an OZ!"], FeedService.badgeImage('infected'));
+                notify.push(follower.follower);
+              });
+              NotificationService.sendToUsers(notify, "Infection", user.name + " has become an OZ!");
+            }
+
+            res.ok({user: user.getPublicData()});
           });
         }
         else {
           NotificationService.sendToUser(user, "Infected", "You have been infected! Welcome to the horde.");
           FeedService.add(user, ["You have been infected! Welcome to the horde."], FeedService.badgeImage("infected"));
-          user.followers.forEach(function (followerId) {
-            FeedService.add(followerId, [FeedService.user(user), " has been become an OZ!"], FeedService.badgeImage('infected'));
+          Follower.find({user: user.id}).populate('follower').exec(function (err, followers) {
+            if (err) {
+              sails.log.error(err);
+            }
+            else if (followers) {
+              var notify = [];
+              followers.forEach(function (follower) {
+                FeedService.add(follower.follower.id, [FeedService.user(user), " has been infected!"], FeedService.badgeImage('infected'));
+                notify.push(follower.follower);
+              });
+              NotificationService.sendToUsers(notify, "Infection", user.name + " has been infected!");
+            }
+
+            res.ok({user: user.getPublicData()});
           });
         }
-
-        
-        NotificationService.updateTags(user, {team: user.team});
-
-        res.ok({user: user.getPublicData()});
       });
     });
   },
@@ -394,13 +414,23 @@ module.exports = {
 
         NotificationService.updateTags(user, {team: user.team});
         FeedService.add(user, ["You have been healed! Welcome to the realm of the living."], FeedService.badgeImage("antivirus"));
-        user.followers.forEach(function (followerId) {
-          FeedService.add(followerId, [FeedService.user(user), " has been healed!"], FeedService.badgeImage('antivirus'));
-        });
-
         sails.log.info(user.email + ' was healed by ' + req.user.email);
 
-        res.ok({user: user.getPublicData()});
+        Follower.find({user: user.id}).populate('follower').exec(function (err, followers) {
+          if (err) {
+            sails.log.error(err);
+          }
+          else if (followers) {
+            var notify = [];
+            followers.forEach(function (follower) {
+              FeedService.add(follower.follower.id, [FeedService.user(user), " has been healed!"], FeedService.badgeImage('infected'));
+              notify.push(follower.follower);
+            });
+            NotificationService.sendToUsers(notify, "Healed", user.name + " has been healed!");
+          }
+
+          res.ok({user: user.getPublicData()});
+        });
       });
     });
   },
@@ -431,14 +461,23 @@ module.exports = {
             return res.negotiate(err);
           }
 
-          User.destroy({id: user.id}).exec(function (err) {
+          Follower.destroy({or: [
+            {user: user.id},
+            {follower: user.id}
+          ]}, function (err) {
             if (err) {
               return res.negotiate(err);
             }
-
-            sails.log.info("User " + user.email + " was deleted by " + req.user.email);
-
-            return res.ok({user: user.getPublicData()});
+            
+            User.destroy({id: user.id}).exec(function (err) {
+              if (err) {
+                return res.negotiate(err);
+              }
+  
+              sails.log.info("User " + user.email + " was deleted by " + req.user.email);
+  
+              return res.ok({user: user.getPublicData()});
+            });
           });
         });
       });

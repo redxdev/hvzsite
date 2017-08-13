@@ -11,8 +11,20 @@ module.exports = {
 
     profile.humanIds = humanIds;
 
-    res.ok({
-      profile: profile
+    Follower.find({user: req.user.id}).exec(function (err, followers) {
+      if (err)
+        return res.negotiate(err);
+
+      profile.followers = [];
+      if (followers) {
+        followers.forEach(function (follower) {
+          profile.followers.push(follower.follower);
+        });
+      }
+      
+      res.ok({
+        profile: profile
+      });
     });
   },
 
@@ -27,13 +39,31 @@ module.exports = {
         return res.notFound({message: "Unknown user id " + id});
       }
 
-      res.ok({profile: found.getPublicData()});
+      if (req.user != null && req.user.id != id) {
+        var profile = found.getPublicData();
+        Follower.findOne({user: found.id, follower: req.user.id}).exec(function (err, follower) {
+          if (err)
+            return res.negotiate(err);
+
+          if (follower == null) {
+            profile.following = false;
+          }
+          else {
+            profile.following = true;
+          }
+
+          res.ok({profile: profile});
+        });
+      }
+      else {
+        res.ok({profile: found.getPublicData()});
+      }
     });
   },
 
   follow: function (req, res) {
     var id = req.param("id");
-    if (id === req.user.id) {
+    if (id == req.user.id) {
       return res.badRequest({message: "You cannot follow yourself!"});
     }
 
@@ -46,18 +76,13 @@ module.exports = {
         return res.notFound({message: "Unknown user id " + id});
       }
 
-      if (found.followers.indexOf(req.user.id) >= 0) {
-        return res.badRequest({message: "You are already following " + found.name + "!"});
-      }
-
-      found.followers.push(req.user.id);
-      found.save(function (err) {
+      Follower.findOrCreate({user: id, follower: req.user.id}, {user: id, follower: req.user.id}).exec(function (err, follower) {
         if (err) {
           return res.negotiate(err);
         }
 
         sails.log.info(req.user.email + " is now following " + found.email);
-        res.ok({message: "You are now following " + found.name});
+        return res.ok({message: "You are now following " + found.name});
       });
     });
   },
@@ -77,19 +102,22 @@ module.exports = {
         return res.notFound({message: "Unknown user id " + id});
       }
 
-      var index = found.followers.indexOf(req.user.id);
-      if (index < 0) {
-        return res.badRequest({message: "You aren't following " + found.name + "!"});
-      }
-
-      found.followers.splice(index, 1);
-      found.save(function (err) {
+      Follower.findOne({user: id, follower: req.user.id}).exec(function (err, follower) {
         if (err) {
           return res.negotiate(err);
         }
 
-        sails.log.info(req.user.email + " unfollowed " + found.email);
-        res.ok({message: "You are no longer following " + found.name});
+        if (follower == null)
+          return res.badRequest({message: "You aren't following " + found.name + "!"});
+
+        Follower.destroy({id: follower.id}, function (err) {
+          if (err) {
+            return res.negotiate(err);
+          }
+          
+          sails.log.info(req.user.email + " unfollowed " + found.email);
+          res.ok({message: "You are no longer following " + found.name});
+        });
       });
     });
   },

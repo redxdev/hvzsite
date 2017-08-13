@@ -114,34 +114,26 @@ module.exports = {
                         NotificationService.updateTags(human, {team: human.team});
                         FeedService.add(human, ["You have been infected by ", FeedService.user(zombie), "! Welcome to the horde."], FeedService.badgeImage('infected'));
 
-                        var notify = [];
-                        human.followers.forEach(function (followerId) {
-                          FeedService.add(followerId, [FeedService.user(human), " was infected by ", FeedService.user(zombie), "!"], FeedService.badgeImage('infected'));
-                          notify.push(new Promise(function (resolve, reject) {
-                            User.findOne({id: followerId}, function (err, found) {
-                              if (err)
-                                reject(err);
-                              else if (!found)
-                                reject();
-                              else
-                                resolve(found);
+                        Follower.find({user: human.id}).populate('follower').exec(function (err, followers) {
+                          if (err) {
+                            sails.log.error("There was a problem notifying followers of " + human.email);
+                            sails.log.error(err);
+                          }
+                          else if (followers) {
+                            var notify = [];
+                            followers.forEach(function (follower) {
+                              FeedService.add(follower.follower.id, [FeedService.user(human), " was infected by ", FeedService.user(zombie), "!"], FeedService.badgeImage('infected'));
+                              notify.push(follower.follower);
                             });
-                          }));
-                        });
-
-                        Promise.all(notify).then(function (followers) {
-                          NotificationService.sendToUsers(followers, "Infected", human.name + " was infected by " + zombie.name + "!", sails.config.hvz.url + "player/" + human.id);
-                        })
-                        .catch(function (err) {
-                          sails.log.error("There was a problem notifying followers of " + human.email);
-                          sails.log.error(err)
-                        }); 
-
-                        sails.log.info(zombie.email + " infected " + human.email);
-
-                        res.ok({
-                          human: human.getPublicData(),
-                          zombie: zombie.getPublicData()
+                            NotificationService.sendToUsers(notify, "Infection", human.name + " was infected by " + zombie.name + "!");
+                          }
+                          
+                          sails.log.info(zombie.email + " infected " + human.email);
+  
+                          res.ok({
+                            human: human.getPublicData(),
+                            zombie: zombie.getPublicData()
+                          });
                         });
                       }
                     ).catch(function (err) {
@@ -260,33 +252,25 @@ module.exports = {
                 NotificationService.updateTags(zombie, {team: zombie.team});
                 FeedService.add(zombie, ["You have been brought back to life by an antivirus!"], FeedService.badgeImage('antivirus'));
 
-                var notify = [];
-                zombie.followers.forEach(function (followerId) {
-                  FeedService.add(followerId, [FeedService.user(zombie), " has used an antivirus!"], FeedService.badgeImage('antivirus'));
-                  notify.push(new Promise(function (resolve, reject) {
-                    User.findOne({id: followerId}, function (err, found) {
-                      if (err)
-                        reject(err);
-                      else if (!found)
-                        reject();
-                      else
-                        resolve(found);
+                Follower.find({user: zombie.id}).populate('follower').exec(function (err, followers) {
+                  if (err) {
+                    sails.log.error("There was a problem notifying followers of " + zombie.email);
+                    sails.log.error(err);
+                  }
+                  else if (followers) {
+                    var notify = [];
+                    followers.forEach(function (follower) {
+                      FeedService.add(follower.follower.id, [FeedService.user(zombie), " has used an antivirus!"], FeedService.badgeImage('antivirus'));
+                      notify.push(follower.follower);
                     });
-                  }));
-                });
+                    NotificationService.sendToUsers(notify, "Antivirus", zombie.name + " has used an antivirus!");
+                  }
+                  
+                  sails.log.info(zombie.email + " used an antivirus");
 
-                Promise.all(notify).then(function (followers) {
-                  NotificationService.sendToUsers(followers, "Antivirus", zombie.name + " has used an antivirus!", {url: sails.config.hvz.url + "player/" + zombie.id});
-                })
-                .catch(function (err) {
-                  sails.log.error("There was a problem notifying followers of " + zombie.email);
-                  sails.log.error(err)
-                });
-                
-                sails.log.info(zombie.email + " has used an antivirus");
-
-                res.ok({
-                  zombie: zombie.getPublicData()
+                  res.ok({
+                    zombie: zombie.getPublicData()
+                  });
                 });
               }
             ).catch(function (err) {

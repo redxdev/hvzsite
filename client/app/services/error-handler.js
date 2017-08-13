@@ -14,12 +14,18 @@ export default Ember.Service.extend({
       if (error instanceof errors.AjaxError &&
         !(error instanceof errors.UnauthorizedError) &&
         !(error instanceof errors.ForbiddenError)) {
-        error.errors.forEach((err) => {
-          if (err.detail && err.detail.message) {
-            this.get('toast').error(err.detail.message, error.message);
-            needsDefault = false;
-          }
-        });
+        if (error.payload && error.payload.message) {
+          this.get('toast').error(error.payload.message);
+          needsDefault = false;
+        }
+        else {
+          error.errors.forEach((err) => {
+            if (err.detail && err.detail.message) {
+              this.get('toast').error(err.detail.message, error.message);
+              needsDefault = false;
+            }
+          });
+        }
       }
     }
 

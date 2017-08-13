@@ -9,7 +9,7 @@
           {{/if}}
             <h3>
                 {{profile.name}}
-                {{#if localUser}}
+                {{#if profile.canFollow}}
                     {{#if profile.following}}
                         <a class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Stop receiving notifications about this player." {{action 'unfollow' profile.id}}>Unfollow</a>
                     {{else}}

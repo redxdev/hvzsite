@@ -24,6 +24,7 @@ module.exports.policies = {
 
   ProfileController: {
     mine: ['apikey', 'isActive'],
+    other: ['apikey'],
     follow: ['apikey', 'isActive'],
     unfollow: ['apikey', 'isActive'],
     setClan: ['apikey', 'isActive'],

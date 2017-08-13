@@ -7,32 +7,28 @@ export default Ember.Route.extend({
   errorHandler: Ember.inject.service(),
 
   model(params) {
-    return this.get('ajax').request('/profile/' + params.playerId).then((result) => {
+    return this.get('ajax').request('/profile/' + params.playerId, {
+      data: {
+        apikey: this.get('user').getApiKey()
+      }
+    }).then((result) => {
       return this.get('ajax').request('/status/infections', {
         data: {
           zombie: result.profile.id
         }
       }).then((inf) => {
         result.profile.avatar = config.APP.apiURL + '/api/v2/avatar/' + result.profile.id;
-        if (this.get('user').isLoggedIn()) {
-          return this.get('user').getUserInfo().then((user) => {
-            if (user.profile !== null) {
-              result.profile.following = result.profile.followers.indexOf(user.profile.id) >= 0;
-            }
-
-            return {
-              profile: result.profile,
-              localUser: user,
-              infections: inf.infections
-            };
-          });
+        if (result.profile.following === undefined) {
+          result.profile.canFollow = false;
         }
         else {
-          return {
-            profile: result.profile,
-            infections: inf.infections
-          };
+          result.profile.canFollow = true;
         }
+
+        return {
+          profile: result.profile,
+          infections: inf.infections
+        };
       });
     }).catch((err) => {
       this.get('errorHandler').handleError(err, 'Unable to retrieve profile.');
@@ -45,7 +41,8 @@ export default Ember.Route.extend({
           "badges": [],
           "clan": "?",
           "followers": [],
-          "following": false
+          "following": false,
+          "canFollow": false
         },
         infections: []
       };

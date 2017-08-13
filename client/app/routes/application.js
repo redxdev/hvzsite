@@ -26,7 +26,7 @@ export default Ember.Route.extend({
           inPast: val < new Date()
         };
       }),
-      notifications: this.get('ajax').request('/feed', {
+      notifications: !this.get('user').isLoggedIn() ? [] : this.get('ajax').request('/feed', {
         data: {
           apikey: this.get('user').getApiKey()
         }
