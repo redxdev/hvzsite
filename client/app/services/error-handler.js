@@ -18,13 +18,16 @@ export default Ember.Service.extend({
           this.get('toast').error(error.payload.message);
           needsDefault = false;
         }
-        else {
+        else if (error.errors) {
           error.errors.forEach((err) => {
             if (err.detail && err.detail.message) {
               this.get('toast').error(err.detail.message, error.message);
               needsDefault = false;
             }
           });
+        }
+        else {
+          this.get('toast').error('Woah, something went wrong!');
         }
       }
     }
