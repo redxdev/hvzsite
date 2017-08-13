@@ -45,6 +45,7 @@ export default Ember.Route.extend({
 
           promises.push(this.get('notificationParser').parseMessage(f.message).then((message) => {
             f.message = message;
+            f.time = new Date(f.time);
           }));
         });
 

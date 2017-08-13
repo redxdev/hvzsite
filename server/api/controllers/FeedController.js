@@ -18,6 +18,8 @@ module.exports = {
                     res.ok({
                         feed: results
                     });
+                }).catch(function (err) {
+                    res.negotiate(err);
                 });
             }
             else {

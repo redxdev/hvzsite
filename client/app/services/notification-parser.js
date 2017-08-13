@@ -36,7 +36,12 @@ export default Ember.Service.extend({
               id: part.i
             });
           }).catch((err) => {
-            reject(err);
+            console.log(err);
+            resolve({
+              user: true,
+              value: 'Unknown',
+              id: 0
+            });
           });
         }));
         break;

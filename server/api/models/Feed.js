@@ -63,6 +63,7 @@ module.exports = {
     },
 
     getMessageString: function () {
+      var self = this;
       var promises = [];
       var result = [];
       for (var i = 0; i < this.message.length; ++i) {
@@ -87,10 +88,13 @@ module.exports = {
                 var index = i;
                 User.findOne({id: value.i}, function (err, user) {
                   if (err)
-                    reject(err);
+                    return reject(err);
 
-                  if (!user)
-                    reject("Invalid user for Feed message object " + value.i);
+                  if (!user) {
+                    sails.log.error('Invalid user at index #' + index + ' on feed message #' + self.id);
+                    result[index] = 'Unknown';
+                    return resolve();
+                  }
 
                   result[index] = user.name;
                   resolve();

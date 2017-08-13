@@ -50,7 +50,8 @@ Normal response:
             {"t": "u", "i": 1},
             " did a thing!"
         ],
-        "image": null
+        "image": null,
+        "time": "2017-08-13T22:54:34.072Z"
       }
     }
 
