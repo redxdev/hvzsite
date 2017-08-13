@@ -66,6 +66,10 @@ Stringified response:
 
 ## POST /feed/view
 
+_API key required_
+
+_Minimum access:_ `player`
+
 Marks all of your notifications as viewed.
 
 ### Parameters
