@@ -62,21 +62,48 @@
       </div>
   {{/if}}
     <div class="row">
-        <div class="col-sm-8 col-sm-offset-2 text-center">
-            <h1 class="header-text">
-              {{profile.humansTagged}}
-              {{t 'hvz.tags' numTags=profile.humansTagged}}
-            </h1>
-          {{#each infections as |infection|}}
-              <p>
-                {{#link-to 'player' infection.human.id}}<strong>{{infection.human.name}}</strong>{{/link-to}}
-                  <span title="{{format-time infection.time hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}"
-                        class="hover-text">
-                      <em>{{format-relative infection.time}}</em>
-                  </span>
-              </p>
-          {{/each}}
-        </div>
+        {{#if profileForSelf}}
+            <div class="col-md-4 col-md-offset-1 text-center">
+                <h1 class="header-text">
+                {{profile.humansTagged}}
+                {{t 'hvz.tags' numTags=profile.humansTagged}}
+                </h1>
+            {{#each infections as |infection|}}
+                <p>
+                    {{#link-to 'player' infection.human.id}}<strong>{{infection.human.name}}</strong>{{/link-to}}
+                    <span title="{{format-time infection.time hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}"
+                            class="hover-text">
+                        <em>{{format-relative infection.time}}</em>
+                    </span>
+                </p>
+            {{/each}}
+            </div>
+            <div class="col-md-4 col-md-offset-1 text-center">
+                <h1 class="header-text">
+                    {{profile.followers.length}}
+                    {{t 'hvz.followers' numFollowers=profile.followers.length}}
+                </h1>
+                {{#each profile.followers as |follower|}}
+                    <p>{{#link-to 'player' follower.id}}<strong>{{follower.name}}</strong>{{/link-to}}</p>
+                {{/each}}
+            </div>
+        {{else}}
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <h1 class="header-text">
+                {{profile.humansTagged}}
+                {{t 'hvz.tags' numTags=profile.humansTagged}}
+                </h1>
+            {{#each infections as |infection|}}
+                <p>
+                    {{#link-to 'player' infection.human.id}}<strong>{{infection.human.name}}</strong>{{/link-to}}
+                    <span title="{{format-time infection.time hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}"
+                            class="hover-text">
+                        <em>{{format-relative infection.time}}</em>
+                    </span>
+                </p>
+            {{/each}}
+            </div>
+        {{/if}}
     </div>
 </div>
 

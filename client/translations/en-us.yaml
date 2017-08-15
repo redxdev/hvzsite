@@ -15,3 +15,7 @@ hvz:
     {numTags, plural,
       =1 {tag}
       other {tags}}
+  followers: >
+    {numFollowers, plural,
+      =1 {follower}
+      other {followers}}

@@ -14,10 +14,17 @@ export default Ember.Route.extend({
         }
       }).then((inf) => {
         result.profile.avatar = config.APP.apiURL + '/api/v2/avatar/' + result.profile.id;
-        return {
-          profile: result.profile,
-          infections: inf.infections
-        };
+        var profiles = [];
+        result.profile.followers.forEach((id) => {
+          profiles.push(this.get('ajax').request('/profile/' + id).then((r) => r.profile));
+        });
+        return Ember.RSVP.Promise.all(profiles).then((followers) => {
+          result.profile.followers = followers;
+          return {
+            profile: result.profile,
+            infections: inf.infections
+          }
+        });
       });
     }).catch((err) => {
       this.get('errorHandler').handleError(err, 'Unable to retrieve your profile.');
