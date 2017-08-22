@@ -60,6 +60,7 @@ Router.map(function() {
   this.route('missions');
   this.route('rules');
   this.route('infect');
+  this.route('qr', {path: '/q/:code'});
   this.route('antivirus');
   this.route('contact');
   this.route('credits');

@@ -668,7 +668,7 @@ module.exports = {
       return res.view('loginKey', {
         qr: qrcode(
           sails.config.hvz.url + "setkey?key=" + user.apiKey,
-          {size: 300}
+          {size: 300, typeNumber: 2}
         )
       });
     });
@@ -710,7 +710,7 @@ module.exports = {
           }
 
           user.qrcode = qrcode(
-            sails.config.hvz.url + "infect?zombie=" + user.zombieId + "&human=" + user.humanIds[1].idString,
+            sails.config.hvz.url + "q/" + user.humanIds[1].idString + user.zombieId,
             {size: 100});
 
           return user;
