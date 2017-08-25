@@ -314,7 +314,6 @@ module.exports = {
   // this will not create an InfectionSpread entry, and can optionally OZ the player
   infect: function (req, res) {
     var id = req.param('id');
-    var oz = req.param('oz');
 
     User.findOne({id: id}).exec(function (err, user) {
       if (err) {
@@ -330,13 +329,7 @@ module.exports = {
       }
 
       user.team = 'zombie';
-      if (oz) {
-        user.addBadge('oz');
-        user.oz = true;
-      }
-      else {
-        user.addBadge('infected');
-      }
+      user.addBadge('infected');
 
       user.save(function (err) {
         if (err) {
@@ -344,45 +337,59 @@ module.exports = {
         }
 
         sails.log.info(user.email + ' was infected by ' + req.user.email);
+
         NotificationService.updateTags(user, {team: user.team});
+        NotificationService.sendToUser(user, "Infected", "You have been infected! Welcome to the horde.");
+        FeedService.add(user, ["You have been infected! Welcome to the horde."], FeedService.badgeImage("infected"));
+        Follower.find({user: user.id}).populate('follower').exec(function (err, followers) {
+          if (err) {
+            sails.log.error(err);
+          }
+          else if (followers) {
+            var notify = [];
+            followers.forEach(function (follower) {
+              FeedService.add(follower.follower.id, [FeedService.user(user), " has been infected!"], FeedService.badgeImage('infected'));
+              notify.push(follower.follower);
+            });
+            NotificationService.sendToUsers(notify, "Infection", user.name + " has been infected!");
+          }
 
-        if (oz) {
-          NotificationService.sendToUser(user, "Infected", "You are an OZ! Go out there and eat some brains!");
-          FeedService.add(user, ["You are an OZ! Go out there and eat some brains!"], FeedService.badgeImage("oz"));
-          Follower.find({user: user.id}).populate('follower').exec(function (err, followers) {
-            if (err) {
-              sails.log.error(err);
-            }
-            else if (followers) {
-              var notify = [];
-              followers.forEach(function (follower) {
-                FeedService.add(follower.follower.id, [FeedService.user(user), " has become an OZ!"], FeedService.badgeImage('infected'));
-                notify.push(follower.follower);
-              });
-              NotificationService.sendToUsers(notify, "Infection", user.name + " has become an OZ!");
-            }
+          res.ok({user: user.getPublicData()});
+        });
+      });
+    });
+  },
 
-            res.ok({user: user.getPublicData()});
-          });
+  oz: function (req, res) {
+    var id = req.param('id');
+    
+    User.findOne({id: id}).exec(function (err, user) {
+      if (err) {
+        return res.negotiate(err);
+      }
+
+      if (user === undefined) {
+        return res.notFound({message: 'Unknown user id ' + id});
+      }
+
+      if (user.team === 'zombie') {
+        return res.badRequest({message: 'User is already a zombie'});
+      }
+
+      user.oz = !user.oz;
+
+      user.save(function (err) {
+        if (err) {
+          return res.negotiate(err);
+        }
+
+        sails.log.info(user.email + ' had OZ toggled by ' + req.user.email);
+
+        if (user.oz) {
+          res.ok({message: 'User is marked as an OZ and will be infected when the game is started.'});
         }
         else {
-          NotificationService.sendToUser(user, "Infected", "You have been infected! Welcome to the horde.");
-          FeedService.add(user, ["You have been infected! Welcome to the horde."], FeedService.badgeImage("infected"));
-          Follower.find({user: user.id}).populate('follower').exec(function (err, followers) {
-            if (err) {
-              sails.log.error(err);
-            }
-            else if (followers) {
-              var notify = [];
-              followers.forEach(function (follower) {
-                FeedService.add(follower.follower.id, [FeedService.user(user), " has been infected!"], FeedService.badgeImage('infected'));
-                notify.push(follower.follower);
-              });
-              NotificationService.sendToUsers(notify, "Infection", user.name + " has been infected!");
-            }
-
-            res.ok({user: user.getPublicData()});
-          });
+          res.ok({message: 'User is no longer marked as an OZ.'});
         }
       });
     });

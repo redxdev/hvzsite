@@ -33,10 +33,7 @@
           {{#if model.localUser.isAdmin}}
             {{#if (eq model.player.team 'human')}}
                 <div class="btn-group" id="infectGroup">
-                    <button type="button" class="btn btn-danger" {{action 'infect' model.player.id true}}>
-                        OZ
-                    </button>
-                    <button type="button" class="btn btn-success" {{action 'infect' model.player.id false}}>
+                    <button type="button" class="btn btn-success" {{action 'infect' model.player.id}}>
                         Infect
                     </button>
                 </div>
@@ -50,6 +47,20 @@
           {{/if}}
             <p><strong>Clan:</strong> {{model.player.clan}}</p>
             <p><strong>Access:</strong> {{model.player.access}}</p>
+
+            <p>
+                <strong>OZ Status:</strong>
+                {{#if model.player.oz}}<span class="glyphicon glyphicon-ok"></span>
+                {{else}}<span class="glyphicon glyphicon-remove"></span>
+                {{/if}}
+            </p>
+
+            {{#if model.localUser.isAdmin}}
+                <button type="button" id="oz-toggle-button" class="btn btn-danger" {{action 'oz' model.player.id}}>
+                    Toggle OZ
+                </button>
+                <div class="vertical-space-sm"></div>
+            {{/if}}
 
           {{hvz-badges badges=model.player.badges}}
         </div>

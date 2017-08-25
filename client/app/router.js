@@ -66,6 +66,8 @@ Router.map(function() {
   this.route('credits');
   this.route('apikey', {path: '/setkey'});
 
+  this.route('admin-game', {path: '/admin/game'});
+
   this.route('admin-players', {path: '/admin/players'});
   this.route('admin-players-view', {path: '/admin/players/:playerId'});
   this.route('admin-players-edit', {path: '/admin/players/:playerId/edit'});

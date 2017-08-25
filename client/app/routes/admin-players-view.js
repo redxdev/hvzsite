@@ -5,6 +5,7 @@ export default Ember.Route.extend({
   ajax: Ember.inject.service(),
   user: Ember.inject.service(),
   errorHandler: Ember.inject.service(),
+  toast: Ember.inject.service(),
 
   model(params) {
     return Ember.RSVP.hash({
@@ -61,32 +62,37 @@ export default Ember.Route.extend({
       });
     },
 
-    infect(id, oz) {
+    infect(id) {
       Ember.$('#infectGroup').hide();
 
-      var data = {
-        apikey: this.get('user').getApiKey()
-      };
-
-      if (oz) {
-        data.oz = true;
-      }
-
       this.get('ajax').post('/admin/users/' + id + '/infect', {
-        data: data
+        data: {
+          apikey: this.get('user').getApiKey()
+        }
       }).then(() => {
-        if (oz) {
-          this.get('toast').success('Made player into an OZ');
-        }
-        else {
-          this.get('toast').success('Infected player.');
-        }
+        this.get('toast').success('Infected player.');
 
         Ember.$('#infectGroup').show();
         this.refresh();
       }).catch((err) => {
         this.get('errorHandler').handleError(err, 'Unable to infect player.');
         Ember.$('#infectGroup').show();
+      });
+    },
+
+    oz(id) {
+      Ember.$('oz-toggle-button').hide();
+      this.get('ajax').post('/admin/users/' + id + '/oz', {
+        data: {
+          apikey: this.get('user').getApiKey()
+        }
+      }).then(() => {
+        this.get('toast').success('Toggled OZ. If they are an OZ, they can be infected from the game control panel.');
+        Ember.$('oz-toggle-button').show();
+        this.refresh();
+      }).catch((err) => {
+        this.get('errorHandler').handleError(err, 'Unable to toggle OZ');
+        Ember.$('oz-toggle-button').show();
       });
     },
 

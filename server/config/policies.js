@@ -47,6 +47,11 @@ module.exports.policies = {
     antivirus: ['apikey', 'isActive', 'preventFailed']
   },
 
+  AdminGameController: {
+    infectOZ: ['apikey', 'isAdmin'],
+    stats: ['apikey', 'isAdmin']
+  },
+
   AdminUserController: {
     list: ['apikey', 'isModerator'],
     get: ['apikey', 'isModerator'],
@@ -56,6 +61,7 @@ module.exports.policies = {
     create: ['apikey', 'isAdmin'],
     generateId: ['apikey', 'isModerator'],
     infect: ['apikey', 'isAdmin'],
+    oz: ['apikey', 'isAdmin'],
     heal: ['apikey', 'isAdmin'],
     destroy: ['apikey', 'isAdmin'],
     listBadges: ['apikey', 'isModerator'],

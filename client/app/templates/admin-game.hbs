@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="well col-sm-5 text-center bg-human large-text">
+            <h1><strong>{{model.score.humans}}</strong></h1>
+        {{t 'hvz.humans' numHumans=model.score.humans}}
+        </div>
+        <div class="col-sm-2 text-center large-text">
+            <h1>VS</h1>
+        </div>
+        <div class="well col-sm-5 text-center bg-zombie large-text">
+            <h1><strong>{{model.score.zombies}}</strong></h1>
+        {{t 'hvz.zombies' numZombies=model.score.zombies}}
+        </div>
+    </div>
+    <div class="well col-md-4">
+        <h2>Game Controls</h2>
+        <p>Do not touch any of these unless you know what you are doing!</p>
+
+        <hr>
+        <button id="infect-oz-button" class="btn btn-success" {{action 'infectOZ'}}>
+            Infect OZs
+        </button>
+        <p>This will infect all players marked as OZ, effectively starting the game.</p>
+
+        <hr>
+        <button class="btn btn-primary">
+            Archive
+        </button>
+        <!-- TODO -->
+        <p>This will archive the current game. Only use once the game is over. <strong>This currently doesn't work!</strong></p>
+
+        <hr>
+        <button class="btn btn-danger">
+            Reset Game
+        </button>
+        <p>This will reset the game's database (except for the rules and your user) and setup game dates. <strong>This currently doesn't work!</strong></p>
+    </div>
+</div>

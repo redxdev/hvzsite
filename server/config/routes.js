@@ -76,6 +76,10 @@ module.exports.routes = {
   'get /api/v2/feed': 'FeedController.get',
   'post /api/v2/feed/view': 'FeedController.view',
 
+  // AdminGameController
+  'post /api/v2/admin/game/infectoz': 'AdminGameController.infectOZ',
+  'get /api/v2/admin/game/stats': 'AdminGameController.stats',
+
   // AdminUserController
   'get /api/v2/admin/users': 'AdminUserController.list',
   'get /api/v2/admin/users/:id': 'AdminUserController.get',
@@ -85,6 +89,7 @@ module.exports.routes = {
   'post /api/v2/admin/users': 'AdminUserController.create',
   'post /api/v2/admin/users/:id/generateId': 'AdminUserController.generateId',
   'post /api/v2/admin/users/:id/infect': 'AdminUserController.infect',
+  'post /api/v2/admin/users/:id/oz': 'AdminUserController.oz',
   'post /api/v2/admin/users/:id/heal': 'AdminUserController.heal',
   'delete /api/v2/admin/users/:id': 'AdminUserController.destroy',
   'get /api/v2/admin/badges': 'AdminUserController.listBadges',
