@@ -1,10 +1,11 @@
 import Ember from 'ember';
+import ResetScrollMixin from '../mixins/reset-scroll';
 
 /* jshint ignore:start */
 import config from '../config/environment';
 /* jshint ignore:end */
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ResetScrollMixin, {
   ajax: Ember.inject.service(),
   user: Ember.inject.service(),
   errorHandler: Ember.inject.service(),

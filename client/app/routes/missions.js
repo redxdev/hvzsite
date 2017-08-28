@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ResetScrollMixin from '../mixins/reset-scroll';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ResetScrollMixin, {
   ajax: Ember.inject.service(),
   errorHandler: Ember.inject.service(),
   user: Ember.inject.service(),
@@ -72,11 +73,11 @@ export default Ember.Route.extend({
 
   actions: {
     goToMission(id) {
-      Ember.$('body').scrollTop(Ember.$('#mission-' + id).offset().top);
+      Ember.$('html').scrollTop(Ember.$('#mission-' + id).offset().top);
     },
 
     goToPoll(id) {
-      Ember.$('body').scrollTop(Ember.$('#poll-' + id).offset().top);
+      Ember.$('html').scrollTop(Ember.$('#poll-' + id).offset().top);
     },
 
     submitPoll(id) {

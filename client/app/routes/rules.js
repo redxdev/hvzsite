@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ResetScrollMixin from '../mixins/reset-scroll';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ResetScrollMixin, {
   ajax: Ember.inject.service(),
   errorHandler: Ember.inject.service(),
 
@@ -13,7 +14,7 @@ export default Ember.Route.extend({
 
   actions: {
     goToRule(id) {
-      Ember.$('body').scrollTop(Ember.$('#rule-' + id).offset().top);
+      Ember.$('html').scrollTop(Ember.$('#rule-' + id).offset().top);
     }
   }
 });

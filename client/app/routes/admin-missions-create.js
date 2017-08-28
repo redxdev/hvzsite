@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import config from '../config/environment';
+import ResetScrollMixin from '../mixins/reset-scroll';
 
 /* globals CKEDITOR */
-export default Ember.Route.extend({
+export default Ember.Route.extend(ResetScrollMixin, {
   ajax: Ember.inject.service(),
   toast: Ember.inject.service(),
   errorHandler: Ember.inject.service(),

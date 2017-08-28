@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import config from '../config/environment';
+import ResetScrollMixin from '../mixins/reset-scroll';
 
 var getLatLng = function (obj) {
   return new google.maps.LatLng(obj.latitude, obj.longitude);
@@ -15,7 +16,7 @@ var getLatLngArray = function (arr) {
 };
 
 /* globals google */
-export default Ember.Route.extend({
+export default Ember.Route.extend(ResetScrollMixin, {
   ajax: Ember.inject.service(),
   errorHandler: Ember.inject.service(),
 
