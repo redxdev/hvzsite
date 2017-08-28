@@ -48,8 +48,7 @@ module.exports.policies = {
   },
 
   AdminGameController: {
-    infectOZ: ['apikey', 'isAdmin'],
-    stats: ['apikey', 'isAdmin']
+    infectOZ: ['apikey', 'isAdmin']
   },
 
   AdminUserController: {

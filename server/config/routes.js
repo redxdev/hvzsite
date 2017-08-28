@@ -78,7 +78,6 @@ module.exports.routes = {
 
   // AdminGameController
   'post /api/v2/admin/game/infectoz': 'AdminGameController.infectOZ',
-  'get /api/v2/admin/game/stats': 'AdminGameController.stats',
 
   // AdminUserController
   'get /api/v2/admin/users': 'AdminUserController.list',
