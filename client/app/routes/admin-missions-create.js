@@ -34,7 +34,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
       }
 
       postDate = new Date(postDate);
-      postDate = new Date(postDate.getTime() + postDate.getTimezoneOffset()*60000);
+      postDate = new Date(postDate.getTime() /*+ postDate.getTimezoneOffset()*60000*/);
 
       this.get('ajax').post('/admin/missions', {
         data: {

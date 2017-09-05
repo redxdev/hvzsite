@@ -28,7 +28,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
       }
 
       expirationTime = new Date(expirationTime);
-      expirationTime = new Date(expirationTime.getTime() + expirationTime.getTimezoneOffset()*60000);
+      expirationTime = new Date(expirationTime.getTime() /*+ expirationTime.getTimezoneOffset()*60000*/);
 
       this.get('ajax').post('/admin/antiviruses', {
         data: {
