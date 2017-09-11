@@ -11,7 +11,7 @@ function sendToUsers(users, title, message, options) {
     }
 
     if (users.length === 0) {
-        return new Promise(function (resolve, reject) {reject("No users specified");});
+        return new Promise(function (resolve, reject) {resolve("No users specified");});
     }
 
     var keys = [];
