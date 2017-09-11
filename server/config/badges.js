@@ -10,6 +10,13 @@ module.exports.badges = {
       access: 'superadmin'
     },
 
+    hideandseek: {
+      name: 'Hide and Seek',
+      description: 'Participated in the hide and seek side-mission',
+      image: 'hide.png',
+      access: 'admin'
+    },
+
     // Automated badges
     infected: {
       name: 'Infected',
