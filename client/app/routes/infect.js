@@ -140,9 +140,9 @@ export default Ember.Route.extend(ResetScrollMixin, {
         Ember.$('#humanId').val('');
         Ember.$('#infectButton').show();
       }).catch((err) => {
-        if (err.errors[0] && err.errors[0].detail && err.errors[0].detail.problems) {
+        if (err.payload && err.payload.problems) {
           console.log(err);
-          err.errors[0].detail.problems.forEach((message) => {
+          err.payload.problems.forEach((message) => {
             this.get('toast').error(message);
           });
         }
