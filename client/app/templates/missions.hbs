@@ -53,6 +53,9 @@
                     </div>
                     <h4>{{mission.question}}</h4>
                     <div>
+                    {{#if mission.voted}}
+                        <p>You have already voted in this poll. You may still change your vote until the poll is closed.</p>
+                    {{/if}}
                       {{#each mission.options as |option|}}
                         {{#if mission.closed}}
                             <div class="radio disabled">
@@ -68,9 +71,6 @@
                                 </label>
                             </div>
                         {{else}}
-                            {{#if mission.vote}}
-                                <p>You have already voted in this poll. You may still change your vote until the poll is closed.</p>
-                            {{/if}}
                             <div class="radio">
                                 <label>
                                   {{#if (eq mission.vote option.value)}}

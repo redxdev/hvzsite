@@ -31,6 +31,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
         poll.postDate = new Date(poll.postDate);
         poll.endDate = new Date(poll.endDate);
         poll.type = 'poll';
+        poll.voted = poll.vote !== undefined;
 
         if (poll.endDate < new Date()) {
           poll.inPast = true;
