@@ -68,6 +68,9 @@
                                 </label>
                             </div>
                         {{else}}
+                            {{#if mission.vote}}
+                                <p>You have already voted in this poll. You may still change your vote until the poll is closed.</p>
+                            {{/if}}
                             <div class="radio">
                                 <label>
                                   {{#if (eq mission.vote option.value)}}
