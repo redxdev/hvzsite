@@ -1,7 +1,6 @@
 # Humans vs Zombies
 
-This is the next-generation version of the website used by the Rochester
-Institute of Technology's Humans vs Zombies club.
+This is the website that the [Rochester Institute of Technology's Humans vs Zombies club](https://hvz.rit.edu/) uses to run weeklong games of Humans vs Zombies.
 
 ## Warning
 
@@ -40,12 +39,19 @@ and edit to your liking.
 
 ### Push Notification Support
 
-We use [OneSignal](https://onesignal.com/) for web-push notifications. hvzsite doesn't send any notifications itself,
-but it will prompt users to enable notifications if you want (and it will set the user's `team` tag in OneSignal).
+We use [OneSignal](https://onesignal.com/) for web-push notifications. hvzsite will prompt users to enable notifications if you want (and it will set the user's `team` tag in OneSignal).
+
 We use this to quickly disseminate emergency information or changes to missions. If you want to use it, copy
 `client/public/manifest.json.dist` to `client/public/manifest.json` and edit according to the docs
 [here](https://documentation.onesignal.com/docs/web-push-setup). You can then change the OneSignal settings in
 `client/config/environment.js`.
+
+Other uses of notifications include:
+
+- Notifying a player when they are infected or healed
+- Notifying a player when someone they follow is infected or healed
+
+There's also a built-in notification/feed system which is used whether or not you enable OneSignal - this is also used for some other notifications like receiving a badge.
 
 ### Development
 
@@ -62,6 +68,8 @@ and
     
 This will launch the api server on http://127.0.0.1:1337 and the ember development server on http://127.0.0.1:4200.
 
+_Do not use `ember server` for production environments, see the "Building the Client" section below for information on how to build the client._
+
 ### Building the Client
 
 Run the following command to build the client:
@@ -69,6 +77,8 @@ Run the following command to build the client:
     ember build --environment=production --output-path=../server/assets
 
 Make sure to run this whenever the client changes!
+
+Serve the generated files (which are generated in the `output-path` directory) as static files with whatever web server you prefer.
 
 ### User Accounts
 
