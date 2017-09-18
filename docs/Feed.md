@@ -31,8 +31,6 @@ Currently, the only object supported is a `user` object, which is in the format:
 and strings in the message array should be concatinated in order to build the final
 message.
 
-Images are a path relative to `/images/notifications`.
-
 ### Sample
 
 #### Request
