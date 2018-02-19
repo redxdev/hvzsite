@@ -36,12 +36,21 @@ export default Ember.Route.extend(ResetScrollMixin, {
       postDate = new Date(postDate);
       postDate = new Date(postDate.getTime() /*+ postDate.getTimezoneOffset()*60000*/);
 
+      var endDate = Ember.$('#missionEndDate').val();
+      if(endDate.trim() === '') {
+        this.get('toast').warning("You didn't enter an end time for the mission! Defaulting to the end of time!");
+        endDate = 8640000000000000;
+      }
+      endDate = new Date(endDate);
+      endDate = new Date(endDate.getTime());
+
       this.get('ajax').post('/admin/missions', {
         data: {
           title: title,
           body: body,
           team: team,
           postDate: postDate,
+          endDate: endDate,
           apikey: this.get('user').getApiKey()
         }
       }).then(() => {

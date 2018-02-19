@@ -271,6 +271,10 @@ module.exports = {
     if (postDate === undefined)
       return res.badRequest({message: 'No post date specified.'});
 
+    var endDate = req.param('endDate');
+    if (endDate === undefined)
+      endDate = 8640000000000000;
+    
     var team = req.param('team');
     if (team === undefined)
       return res.badRequest({message: 'No team specified.'});
@@ -282,6 +286,7 @@ module.exports = {
       title: title,
       body: body,
       postDate: new Date(postDate),
+      endDate: new Date(endDate),
       team: team
     }, function (err, mission) {
       if (err) {

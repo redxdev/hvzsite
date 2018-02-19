@@ -162,6 +162,9 @@ module.exports = {
           postDate: {
             '<=': new Date()
           },
+          endDate: {
+            '>=': new Date()
+          },
 
           sort: {postDate: -1}
         })
