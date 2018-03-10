@@ -28,10 +28,16 @@
                   <div class="col-sm-8">
                       <h2>{{mission.title}}</h2>
                       <p>
-                        {{format-time mission.postDate
+                        Post Date: {{format-time mission.postDate
                         hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}
 
                           <em>{{format-relative mission.postDate}}</em>
+                      </p>
+                      <p>
+                      End Date: {{format-time mission.endDate
+                        hour='numeric' minute='numeric' second='numeric' year='numeric' month='numeric' day='numeric'}}
+
+                          <em>{{format-relative mission.endDate}}</em>
                       </p>
                       <p><strong>Team:</strong> {{mission.team}}</p>
                   </div>
