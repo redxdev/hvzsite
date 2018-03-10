@@ -38,8 +38,8 @@ export default Ember.Route.extend(ResetScrollMixin, {
 
       var endDate = Ember.$('#missionEndDate').val();
       if(endDate.trim() === '') {
-        this.get('toast').warning("You didn't enter an end time for the mission! Defaulting to the end of time!");
-        endDate = 8640000000000000;
+        this.get('toast').warning("You didn't enter an end time for the mission! Defaulting to a month!");
+        endDate = new Date().setMonth(new Date().getMonth() + 1);
       }
       endDate = new Date(endDate);
       endDate = new Date(endDate.getTime());

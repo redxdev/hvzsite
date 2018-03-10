@@ -41,6 +41,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="missionPostDate">End Date</label>
+                    <input type="datetime-local" id="missionEndDate" class="form-control" value="{{model.mission.endDate}}">
+                </div>
+
+                <div class="form-group">
                     <label for="missionBody">Body</label>
                     <textarea id="missionBody" class="form-control">{{{model.mission.body}}}</textarea>
                 </div>

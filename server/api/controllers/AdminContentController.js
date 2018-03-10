@@ -163,6 +163,7 @@ module.exports = {
             title: mission.title,
             body: mission.body,
             postDate: mission.postDate,
+            endDate: mission.endDate,
             team: mission.team
           };
         })
@@ -187,6 +188,7 @@ module.exports = {
           title: mission.title,
           body: mission.body,
           postDate: mission.postDate,
+          endDate: mission.endDate,
           team: mission.team
         }
       });
@@ -224,6 +226,12 @@ module.exports = {
         changed = true;
       }
 
+      var endDate = req.param('endDate');
+      if (endDate !== undefined) {
+        mission.endDate = new Date(endDate);
+        changed = true;
+      }
+
       var team = req.param('team');
       if (team !== undefined) {
         if (team !== 'human' && team !== 'zombie' && team !== 'all') {
@@ -251,6 +259,7 @@ module.exports = {
             title: mission.title,
             body: mission.body,
             postDate: mission.postDate,
+            endDate: mission.endDate,
             team: mission.team
           }
         });
@@ -301,6 +310,7 @@ module.exports = {
           title: mission.title,
           body: mission.body,
           postDate: mission.postDate,
+          endDate: mission.endDate,
           team: mission.team
         }
       });
