@@ -104,6 +104,12 @@ Router.map(function() {
 
   // 404
   this.route('not-found', {path: '/*path'});
+
+  this.route('admin', function() {});
+  this.route('admin-badgecodes', {path: '/admin/badgecodes'});
+  this.route('admin-badgecodes-create', {path: '/admin/badgecodes/create'});
+  this.route('admin-badgecodes-edit', {path: '/admin/badgecodes/edit'});
+  this.route('admin-badgecodes-delete', {path: '/admin/badgecodes/delete'});
 });
 
 export default Router;
