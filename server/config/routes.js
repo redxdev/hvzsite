@@ -52,6 +52,7 @@ module.exports.routes = {
   // GameController
   'post /api/v2/game/infect': 'GameController.infect',
   'post /api/v2/game/antivirus': 'GameController.antivirus',
+  'post /api/v2/game/badge': 'GameController.badge',
 
   // AuthController
   'get /auth/l/google': 'AuthController.loginGoogle',
@@ -138,6 +139,14 @@ module.exports.routes = {
   'post /api/v2/admin/antiviruses': 'AdminAntivirusController.create',
   'put /api/v2/admin/antiviruses/:id': 'AdminAntivirusController.update',
   'delete /api/v2/admin/antiviruses/:id': 'AdminAntivirusController.destroy',
+
+  // AdminBadgecodeController
+  'get /api/v2/admin/badgecodes' : 'AdminBadgecodeController.list',
+  'get /api/v2/admin/badgecodes/:id' : 'AdminBadgecodeController.get',
+  'post /api/v2/admin/badgecodes': 'AdminBadgecodeController.create',
+  'delete /api/v2/admin/badgecodes/:id': 'AdminBadgecodeController.destroy',
+  'put /api/v2/admin/badgecodes/:id': 'AdminBadgecodeController.update',
+
 
   // Assets
   '/*': {

@@ -45,7 +45,54 @@ module.exports = {
             return;
           }
 
-          resolve(result);
+          BadgeCode.findOne({idString: result}, function (err, found) {
+            if(err){
+              reject(err);
+            }
+            if (found !== undefined) {
+              reject(new Error("generated existing tag"));
+              return;
+            }
+            resolve(result);            
+          });
+        });
+      });
+    });
+  },
+  badgeTag: function () {
+    return new Promise(function (resolve, reject) {
+      var result = 'B_' + randomstring.generate({length: 8, charset: "abcdefghjkmnpqrstuvwxyz234567890"});
+      User.findOne({zombieId: result}, function (err, found) {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        if (found !== undefined) {
+          reject(new Error("generated existing tag"));
+          return;
+        }
+
+        HumanId.findOne({idString: result}, function (err, found) {
+          if (err) {
+            reject(err);
+          }
+
+          if (found !== undefined) {
+            reject(new Error("generated existing tag"));
+            return;
+          }
+
+          BadgeCode.findOne({idString: result}, function (err, found) {
+            if(err){
+              reject(err);
+            }
+            if (found !== undefined) {
+              reject(new Error("generated existing tag"));
+              return;
+            }
+            resolve(result);            
+          });
         });
       });
     });

@@ -280,5 +280,56 @@ module.exports = {
         });
       }
     });
+  },
+
+  badge: function(req, res){
+    var errors = [];
+   
+    var badgecode = req.param('badgecode');
+
+    if (!badgecode) {
+      errors.push("Missing parameter 'badgecode'");
+    }
+
+    if (errors.length > 0) {
+      return res.badRequest({
+        message: "There was an error with your request",
+        problems: errors
+      });
+    }
+
+    BadgeCode.findOne({
+      idString: badgecode
+    }).exec(function (err, bc) {
+      if (err) {
+        res.negotiate(err);
+      }
+      else {
+        if (bc === undefined) {
+          req.user.failures++;
+          req.user.save();
+
+          return res.badRequest({
+            message: "There was a problem using the badge code.",
+            problems: ['Invalid badge code']
+          });
+        }
+
+        if (!bc.active) {
+          return res.badRequest({
+            message: "There was a problem using the badge code.",
+            problems: ['That badge code has already been used.']
+          });
+        }
+        bc.active = false;
+        bc.user = req.user.id;
+        req.user.addBadge(bc.badgeID);
+        bc.save();
+        req.user.save();
+        res.ok({
+          badge: bc.badgeID
+        });
+      }
+    });
   }
 };

@@ -44,7 +44,8 @@ module.exports.policies = {
 
   GameController: {
     infect: ['apikey', 'isActive', 'preventFailed'],
-    antivirus: ['apikey', 'isActive', 'preventFailed']
+    antivirus: ['apikey', 'isActive', 'preventFailed'],
+    badge: ['apikey', 'isActive', 'preventFailed']
   },
 
   AdminGameController: {
@@ -104,6 +105,14 @@ module.exports.policies = {
   },
 
   AdminAntivirusController: {
+    list: ['apikey', 'isAdmin'],
+    get: ['apikey', 'isAdmin'],
+    create: ['apikey', 'isAdmin'],
+    update: ['apikey', 'isAdmin'],
+    destroy: ['apikey', 'isAdmin']
+  },
+
+  AdminBadgecodeController: {
     list: ['apikey', 'isAdmin'],
     get: ['apikey', 'isAdmin'],
     create: ['apikey', 'isAdmin'],
