@@ -33,9 +33,8 @@ export default Ember.Route.extend(ResetScrollMixin, {
           apikey: this.get('user').getApiKey()
         }
       }).then((result) => {
-        this.get('toast').success('<strong>' + result.zombie.name + '</strong> has joined the realm of the living once more!');
-        Ember.$('#antivirusId').val('');
-        Ember.$('#antivirusButton').show();
+        Ember.$('#badgecode').val('');
+        Ember.$('#badgeButton').show();
         this.refresh();
       }).catch((err) => {
         if (err.errors[0] && err.errors[0].detail && err.errors[0].detail.problems) {
