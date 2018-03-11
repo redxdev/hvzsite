@@ -67,6 +67,7 @@
                     <ul class="dropdown-menu" role="menu">
                       {{#if model.localUser.loggedIn}}
                           <li>{{#link-to 'profile'}}Profile{{/link-to}}</li>
+                          <li>{{#link-to 'badge'}}Claim Badge{{/link-to}}</li>
                           <li><a href="#" {{action 'logout'}}>Logout</a></li>
                       {{else}}
                           <li><a href="#" {{action 'login'}}>Login</a></li>

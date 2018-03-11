@@ -108,8 +108,9 @@ Router.map(function() {
   this.route('admin', function() {});
   this.route('admin-badgecodes', {path: '/admin/badgecodes'});
   this.route('admin-badgecodes-create', {path: '/admin/badgecodes/create'});
-  this.route('admin-badgecodes-edit', {path: '/admin/badgecodes/edit'});
-  this.route('admin-badgecodes-delete', {path: '/admin/badgecodes/delete'});
+  this.route('admin-badgecodes-edit', {path: '/admin/badgecodes/:badgecodeID/edit'});
+  this.route('admin-badgecodes-delete', {path: '/admin/badgecodes/:badgecodeID/delete'});
+  this.route('badge');
 });
 
 export default Router;

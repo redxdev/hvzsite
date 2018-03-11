@@ -1,1 +1,15 @@
-{{outlet}}
+<div class="container">
+    <div class="vertical-space"></div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>Delete Badge Code</h2>
+            <h3>#{{model.badgecode.id}}: {{model.badgecode.idString}}</h3>
+            <p>Are you sure you want to delete this badge code?</p>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" {{action 'cancel'}}>Cancel</button>
+                <button type="button" class="btn btn-danger" {{action 'delete' model.badgecode.id}}>Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
