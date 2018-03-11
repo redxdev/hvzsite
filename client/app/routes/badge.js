@@ -33,6 +33,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
           apikey: this.get('user').getApiKey()
         }
       }).then((result) => {
+        this.get('toast').success('You have earned the <strong>' + result.badge + '</strong> badge!');
         Ember.$('#badgecode').val('');
         Ember.$('#badgeButton').show();
         this.refresh();
