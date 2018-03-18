@@ -10,6 +10,27 @@ module.exports.badges = {
       access: 'superadmin'
     },
 
+    cisforcookie: {
+      name: 'C Is For Cookie',
+      description: 'Found a portion of Muerte Darty\'s cipher',
+      image: 'cisforcookie.png',
+      access: 'admin'
+    },
+
+    seer: {
+      name: 'Seer',
+      description: 'Successfully solved one of Foley\'s riddles',
+      image: 'seer.png',
+      access: 'admin'
+    },
+
+    moneybags: {
+      name: 'Moneybags',
+      description: 'Earned an in-game currency for their heroic deeds',
+      image: 'moneybags.png',
+      access: 'admin'
+    },
+
     hideandseek: {
       name: 'Hide and Seek',
       description: 'Participated in the hide and seek side-mission',
