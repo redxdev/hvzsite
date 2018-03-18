@@ -38,17 +38,17 @@ export default Ember.Route.extend(ResetScrollMixin, {
         Ember.$('#badgeButton').show();
         this.refresh();
       }).catch((err) => {
-        if (err.errors[0] && err.errors[0].detail && err.errors[0].detail.problems) {
+        if (err.message && err.problems) {
           console.log(err);
-          err.errors[0].detail.problems.forEach((message) => {
-            this.get('toast').error(message);
+          err.problems.forEach((problem) => {
+            this.get('toast').error(problem);
           });
         }
         else {
           this.get('errorHandler').handleError(err, 'There was a problem processing the antivirus.');
         }
 
-        Ember.$('#antivirusButton').show();
+        Ember.$('#badgeButton').show();
       });
     }
   }
