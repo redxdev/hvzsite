@@ -10,6 +10,27 @@ module.exports.badges = {
       access: 'superadmin'
     },
 
+    selfie: {
+    	name: 'Selfie Connoisseur',
+    	description: 'Participated in the selfie challenge',
+    	image: 'camera.png',
+    	access: 'admin'
+    },
+
+    goldenselfie: {
+    	name: 'Found the President',
+    	description: 'Found the President durring the selfie challenge!',
+    	image: 'goldcamera.png',
+    	access: 'admin',
+    },
+
+    scavengerhunt: {
+    	name: 'Dora the Explorer',
+    	description: 'Completed the scavenger hunt!',
+    	image: 'spyglass.png',
+    	access: 'admin'
+    },
+
     cisforcookie: {
       name: 'C Is For Cookie',
       description: 'Found a portion of Muerte Darty\'s cipher',
