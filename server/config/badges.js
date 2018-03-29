@@ -10,6 +10,13 @@ module.exports.badges = {
       access: 'superadmin'
     },
 
+    map: {
+      name: 'Who do we call when we don\'t know which way to go?',
+      description: 'Find the map!',
+      image: 'map.png',
+      access: 'admin'
+    },
+
     selfie: {
     	name: 'Selfie Connoisseur',
     	description: 'Participated in the selfie challenge',
