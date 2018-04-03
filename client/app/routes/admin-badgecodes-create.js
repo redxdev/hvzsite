@@ -19,20 +19,22 @@ export default Ember.Route.extend(ResetScrollMixin, {
 				Ember.$('#saveButton').show();
 				return;
 			}
-
-			this.get('ajax').post('/admin/badgecodes', {
-				data: {
-					description: description,
-					badgeID: badgeID,
-					apikey: this.get('user').getApiKey()
-				}
-			}).then((result) => {
-				this.get('toast').success('Created new badge code #' + result.badgecode.id);
-				this.transitionTo('admin-badgecodes');
-			}).catch((err) => {
-				this.get('errorHandler').handleError(err, 'Unable to create badge code.');
-				Ember.$('#saveButton').show();
-			});
+			for(var i = 1; i <= Ember.$('#qty').val(); i++){
+				this.get('ajax').post('/admin/badgecodes', {
+					data: {
+						description: description,
+						badgeID: badgeID,
+						apikey: this.get('user').getApiKey()
+					}
+				}).then((result) => {
+					this.get('toast').success('Created new badge code #' + result.badgecode.id);
+				}).catch((err) => {
+					this.get('errorHandler').handleError(err, 'Unable to create badge code.');
+					Ember.$('#saveButton').show();
+				});
+			}
+			
+			this.transitionTo('admin-badgecodes')
 		}
 	}
 });

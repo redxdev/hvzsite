@@ -17,6 +17,13 @@ module.exports.badges = {
       access: 'admin'
     },
 
+    sock: {
+      name: 'Duelist',
+      description: 'Beat a mod or admin in a duel',
+      image: 'sock.png',
+      access: 'admin'
+    },
+
     map: {
       name: 'Who do we call when we don\'t know which way to go?',
       description: 'Find the map!',

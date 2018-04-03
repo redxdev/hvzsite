@@ -139,7 +139,7 @@ module.exports = {
           return res.negotiate(err);
         }
 
-        sails.log.info("Antivirus #" + av.id + " was modified by " + req.user.email);
+        sails.log.info("Badge Code #" + bc.id + " was modified by " + req.user.email);
 
         return res.ok({
           badgecode: {
