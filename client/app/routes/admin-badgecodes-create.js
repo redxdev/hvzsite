@@ -23,7 +23,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
 				this.get('ajax').post('/admin/badgecodes', {
 					data: {
 						description: description,
-						badgeID: badgeID,
+						badgeID: badgeID.toLowerCase(),
 						apikey: this.get('user').getApiKey()
 					}
 				}).then((result) => {
@@ -33,8 +33,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
 					Ember.$('#saveButton').show();
 				});
 			}
-			
-			this.transitionTo('admin-badgecodes')
+			this.transitionTo('admin-badgecodes');
 		}
 	}
 });

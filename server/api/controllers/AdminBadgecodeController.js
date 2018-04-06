@@ -52,6 +52,10 @@ module.exports = {
 		if (badgeID === undefined)
 			return res.badRequest({message: 'No badgeID specified.'});
 
+		if(sails.config.badges.registry[badgeID] === undefined){
+			return res.badRequest({message: 'Invalid Badge!'});
+		}
+
 		TagGenerator.badgeTag().then(function (tag) {
 			BadgeCode.create({
 				idString: tag,

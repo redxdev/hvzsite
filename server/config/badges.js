@@ -10,6 +10,13 @@ module.exports.badges = {
       access: 'superadmin'
     },
 
+    car: {
+      name: 'Larceny',
+      description: 'You committed Grand Theft Witch',
+      image: 'car.png',
+      access: 'admin'
+    },
+
     bunny: {
       name: 'Oh Look a Bunny!',
       description: 'mmmm Chocolate',
@@ -67,6 +74,13 @@ module.exports.badges = {
     },
 
     moneybags: {
+      name: 'Moneybags',
+      description: 'Earned an in-game currency for their heroic deeds',
+      image: 'moneybags.png',
+      access: 'admin'
+    },
+
+    Moneybags: {
       name: 'Moneybags',
       description: 'Earned an in-game currency for their heroic deeds',
       image: 'moneybags.png',
