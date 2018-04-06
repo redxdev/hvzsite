@@ -38,7 +38,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
       this.get('ajax').put('/admin/badgecodes/' + id, {
         data: {
           description: description,
-          badgeID: badgeID,
+          badgeID: badgeID.toLowerCase(),
           apikey: this.get('user').getApiKey()
         }
       }).then(() => {

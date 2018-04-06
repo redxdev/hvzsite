@@ -24,6 +24,13 @@ module.exports.badges = {
       access: 'admin'
     },
 
+    snowman: {
+      name: 'Frosty',
+      description: 'Found some of the coldest witnesses',
+      image: 'snowman.png',
+      access: 'admin'
+    },
+
     sock: {
       name: 'Duelist',
       description: 'Beat a mod or admin in a duel',
