@@ -110,53 +110,56 @@ module.exports = {
 	},
 
 	update: function (req, res) {
-    var id = req.param('id');
-    BadgeCode.findOne({id: id}).populate('user').exec(function (err, bc) {
-      if (err) {
-        return res.negotiate(err);
-      }
+		var id = req.param('id');
+		if(sails.config.badges.registry[badgeID] === undefined){
+			return res.badRequest({message: 'Invalid Badge!'});
+		}
+		BadgeCode.findOne({id: id}).populate('user').exec(function (err, bc) {
+			if (err) {
+				return res.negotiate(err);
+			}
 
-      if (bc === undefined) {
-        return res.notFound({message: 'Unknown badge code id ' + id});
-      }
+			if (bc === undefined) {
+				return res.notFound({message: 'Unknown badge code id ' + id});
+			}
 
-      var changed = false;
+			var changed = false;
 
-      var description = req.param('description');
-      if (description !== undefined) {
-        bc.description = description;
-        changed = true;
-      }
+			var description = req.param('description');
+			if (description !== undefined) {
+				bc.description = description;
+				changed = true;
+			}
 
-      var badgeID = req.param('badgeID');
-      if (badgeID !== undefined) {
-        bc.badgeID = badgeID;
-        changed = true;
-      }
+			var badgeID = req.param('badgeID');
+			if (badgeID !== undefined) {
+				bc.badgeID = badgeID;
+				changed = true;
+			}
 
-      if (!changed) {
-        return res.badRequest({message: 'You didn\'t change anything!'});
-      }
+			if (!changed) {
+				return res.badRequest({message: 'You didn\'t change anything!'});
+			}
 
-      bc.save(function (err) {
-        if (err) {
-          return res.negotiate(err);
-        }
+			bc.save(function (err) {
+				if (err) {
+					return res.negotiate(err);
+				}
 
-        sails.log.info("Badge Code #" + bc.id + " was modified by " + req.user.email);
+				sails.log.info("Badge Code #" + bc.id + " was modified by " + req.user.email);
 
-        return res.ok({
-          badgecode: {
-            id: bc.id,
-            idString: bc.idString,
-            active: bc.active,
-            description: bc.description,
-            user: bc.user ? bc.user.getPublicData() : null,
-			badgeID: bc.badgeID,	
-          }
-        });
-      });
-    });
-  },
+				return res.ok({
+					badgecode: {
+						id: bc.id,
+						idString: bc.idString,
+						active: bc.active,
+						description: bc.description,
+						user: bc.user ? bc.user.getPublicData() : null,
+						badgeID: bc.badgeID,	
+					}
+				});
+			});
+		});
+	},
 
 }
