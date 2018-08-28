@@ -371,5 +371,30 @@ module.exports = {
         }
       });
     });
+  },
+
+  badges: function(req, res) {
+    badgeList = sails.config.badges.registry;
+    returnList = [];
+    Object.keys(badgeList).forEach(function(key){
+      visibility = badgeList[key]['visibility'];
+      if(visibility !== undefined && visibility !== 'hidden'){
+        tempBadge = {
+          name: '???',
+          description: '???',
+          image: badgeList[key]['image']
+        }
+        if(visibility.indexOf('name') > -1) {
+          tempBadge['name'] = badgeList[key]['name'];
+        }
+        if(visibility.indexOf('description') > -1) {
+          tempBadge['description'] = badgeList[key]['description'];
+        }
+        returnList.push(tempBadge);
+      }
+    });
+    return res.ok({
+      badges: returnList
+    })
   }
 };

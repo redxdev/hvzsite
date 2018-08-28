@@ -7,35 +7,40 @@ module.exports.badges = {
       name: 'Test',
       description: 'Test badge, please ignore.',
       image: 'test.png',
-      access: 'superadmin'
+      access: 'superadmin',
+      visibility: 'hidden'
     },
 
     car: {
       name: 'Larceny',
       description: 'You committed Grand Theft Witch',
       image: 'car.png',
-      access: 'admin'
+      access: 'admin',
+      visibility: 'name description'
     },
 
     bunny: {
       name: 'Oh Look a Bunny!',
       description: 'mmmm Chocolate',
       image: 'bunny.png',
-      access: 'admin'
+      access: 'admin',
+      visibility: 'name'
     },
 
     snowman: {
       name: 'Frosty',
       description: 'Found some of the coldest witnesses',
       image: 'snowman.png',
-      access: 'admin'
+      access: 'admin',
+      visibility: 'description'
     },
 
     sock: {
       name: 'Duelist',
       description: 'Beat a mod or admin in a duel',
       image: 'sock.png',
-      access: 'admin'
+      access: 'admin',
+      visibility: 'image'
     },
 
     map: {

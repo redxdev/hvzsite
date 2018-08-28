@@ -48,6 +48,7 @@ module.exports.routes = {
   'get /api/v2/content/missions': 'ContentController.missions',
   'get /api/v2/content/polls': 'ContentController.polls',
   'post /api/v2/content/polls/:id': 'ContentController.vote',
+  'get /api/v2/content/badges': 'ContentController.badges',
 
   // GameController
   'post /api/v2/game/infect': 'GameController.infect',
