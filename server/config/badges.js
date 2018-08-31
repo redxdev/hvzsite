@@ -11,50 +11,20 @@ module.exports.badges = {
       visibility: 'hidden'
     },
 
-    car: {
-      name: 'Larceny',
-      description: 'You committed Grand Theft Witch',
-      image: 'car.png',
-      access: 'admin',
-      visibility: 'name description'
-    },
-
-    bunny: {
-      name: 'Oh Look a Bunny!',
-      description: 'mmmm Chocolate',
-      image: 'bunny.png',
-      access: 'admin',
-      visibility: 'name'
-    },
-
-    snowman: {
-      name: 'Frosty',
-      description: 'Found some of the coldest witnesses',
-      image: 'snowman.png',
-      access: 'admin',
-      visibility: 'description'
-    },
-
     sock: {
       name: 'Duelist',
       description: 'Beat a mod or admin in a duel',
       image: 'sock.png',
       access: 'admin',
-      visibility: 'image'
-    },
-
-    map: {
-      name: 'Who do we call when we don\'t know which way to go?',
-      description: 'Find the map!',
-      image: 'map.png',
-      access: 'admin'
+      visibility: 'hidden'
     },
 
     selfie: {
     	name: 'Selfie Connoisseur',
     	description: 'Participated in the selfie challenge',
     	image: 'camera.png',
-    	access: 'admin'
+    	access: 'admin',
+      visibility: 'hidden'
     },
 
     goldenselfie: {
@@ -62,48 +32,23 @@ module.exports.badges = {
     	description: 'Found the President durring the selfie challenge!',
     	image: 'goldcamera.png',
     	access: 'admin',
+      visibility: 'hidden'
     },
 
     scavengerhunt: {
     	name: 'Dora the Explorer',
     	description: 'Completed the scavenger hunt!',
     	image: 'spyglass.png',
-    	access: 'admin'
-    },
-
-    cisforcookie: {
-      name: 'C Is For Cookie',
-      description: 'Found a portion of Muerte Darty\'s cipher',
-      image: 'cisforcookie.png',
-      access: 'admin'
-    },
-
-    seer: {
-      name: 'Seer',
-      description: 'Successfully solved one of Foley\'s riddles',
-      image: 'seer.png',
-      access: 'admin'
+    	access: 'admin',
+      visibility: 'hidden'
     },
 
     moneybags: {
       name: 'Moneybags',
       description: 'Earned an in-game currency for their heroic deeds',
       image: 'moneybags.png',
-      access: 'admin'
-    },
-
-    Moneybags: {
-      name: 'Moneybags',
-      description: 'Earned an in-game currency for their heroic deeds',
-      image: 'moneybags.png',
-      access: 'admin'
-    },
-
-    hideandseek: {
-      name: 'Hide and Seek',
-      description: 'Participated in the hide and seek side-mission',
-      image: 'hide.png',
-      access: 'admin'
+      access: 'admin',
+      visibility: 'hidden'
     },
 
     // Automated badges

@@ -33,6 +33,10 @@
               {{#if (or model.localUser.loggedIn model.date.inPast)}}
                   <li>{{#link-to 'missions'}}Missions{{/link-to}}</li>
               {{/if}}
+
+              {{#if model.localUser.loggedIn}}
+                  <li>{{#link-to 'badges'}}Badges{{/link-to}}</li>
+              {{/if}}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>{{#link-to 'rules'}}Rules{{/link-to}}</li>

@@ -1,0 +1,29 @@
+<div class="container">
+	<div class="vertical-space"></div>
+	<div class="row"><div class="col-md-4 col-md-offset-4"><h2>Availble Badges</h2></div></div>
+	<div class="row"><div class="col-md-4 col-md-offset-4"><center>Note: Not all badges are on this page</center></div></div>
+	<div class="vertical-space"></div>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<table class="table table-light">
+				<thead>
+					<tr>
+					<td>Badge</td>
+					<td>Name</td>
+					<td>Description</td>
+					</tr>
+				</thead>
+				<tbody>
+				{{#each model.badges as |badge|}}
+					<tr>
+					<td bgcolor="#666666"><img class="game-badge" src="images/badges/{{badge.image}}"></td>
+					<td bgcolor="#666666">{{badge.name}}</td>
+					<td bgcolor="#666666">{{badge.description}}</td>
+					</tr>
+				{{/each}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{{outlet}}

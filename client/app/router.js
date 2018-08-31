@@ -111,6 +111,7 @@ Router.map(function() {
   this.route('admin-badgecodes-edit', {path: '/admin/badgecodes/:badgecodeID/edit'});
   this.route('admin-badgecodes-delete', {path: '/admin/badgecodes/:badgecodeID/delete'});
   this.route('badge');
+  this.route('badges');
 });
 
 export default Router;
