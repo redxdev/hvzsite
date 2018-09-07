@@ -35,6 +35,14 @@ module.exports.badges = {
       visibility: 'hidden'
     },
 
+    oldfart: {
+    	name: 'Found the old fart',
+    	description: 'Found the ex-President durring the selfie challenge!',
+    	image: 'oldfart.png',
+    	access: 'admin',
+      visibility: 'hidden'
+    },
+
     scavengerhunt: {
     	name: 'Dora the Explorer',
     	description: 'Completed the scavenger hunt!',
