@@ -43,6 +43,22 @@ module.exports.badges = {
       visibility: 'hidden'
     },
 
+    bottle: {
+      name: 'Thirsty',
+      description: 'Drank 2 bottles of water in 5 minutes',
+      image: 'bottle.png',
+      access: 'admin',
+      visibility: 'image'
+    },
+
+    goldenbottle: {
+      name: 'Super Thirsty',
+      description: 'Drank 4 bottles of water in 5 minutes',
+      image: 'goldenbottle.png',
+      access: 'admin',
+      visibility: 'image'
+    },
+
     scavengerhunt: {
     	name: 'Dora the Explorer',
     	description: 'Completed the scavenger hunt!',
