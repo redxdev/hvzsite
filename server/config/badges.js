@@ -3,6 +3,15 @@ module.exports.badges = {
 
   registry: {
     // Manual badges
+
+    vial: {
+      name: 'Scientific Method',
+      description: 'Found a Strange Sample',
+      image: 'vial.png',
+      access: 'admin',
+      visibility: 'name description'
+    },
+
     test: {
       name: 'Test',
       description: 'Test badge, please ignore.',
