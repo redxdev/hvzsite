@@ -11,6 +11,22 @@ module.exports.badges = {
       access: 'admin',
       visibility: 'name description'
     },
+    
+    recycling: {
+      name: 'Democratic Republic Concerned Citizen',
+      description: 'Participated in the Dunwater Bottle Cleanup Project',
+      image: 'recycling.png',
+      access: 'admin',
+      visibility: 'name'
+    },
+
+    running: {
+      name: 'Roadrunning',
+      description: 'Participated in the Dunwater Dash',
+      image: 'running.png',
+      access: 'admin',
+      visibility: 'name'
+    },
 
     test: {
       name: 'Test',
