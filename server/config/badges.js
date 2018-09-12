@@ -28,6 +28,22 @@ module.exports.badges = {
       visibility: 'name'
     },
 
+    bestsinger: {
+      name: 'Operatic Overtones',
+      description: 'Perfectly primed and pitched performance partly proven by professionals',
+      image: 'bestsinger.png',
+      access: 'admin',
+      visibility: 'name description'
+    },
+
+    worstsinger: {
+      name: 'Flopera',
+      description: 'Demarcation determined by denizens of Dunwater as directly designated derived dumpster fire',
+      image: 'worstsinger.png',
+      access: 'admin',
+      visibility: 'name description'
+    },
+
     test: {
       name: 'Test',
       description: 'Test badge, please ignore.',
