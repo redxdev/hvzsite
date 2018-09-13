@@ -63,7 +63,7 @@ module.exports.badges = {
     scribe: {
       name: 'Scribbling Scribe',
       description: 'Putting those night classes to use',
-      image: 'scribe.png',
+      image: 'scribe.gif',
       access: 'admin',
       visibility: 'name'
     },
