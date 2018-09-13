@@ -69,15 +69,21 @@ export default Ember.Route.extend(ResetScrollMixin, {
         Ember.$('#antivirusButton').show();
         this.refresh();
       }).catch((err) => {
-        if (err.errors[0] && err.errors[0].detail && err.errors[0].detail.problems) {
-          console.log(err);
-          err.errors[0].detail.problems.forEach((message) => {
-            this.get('toast').error(message);
-          });
-        }
-        else {
-          this.get('errorHandler').handleError(err, 'There was a problem processing the antivirus.');
-        }
+	try {
+        	if (err.errors[0] && err.errors[0].detail && err.errors[0].detail.problems) {
+          		console.log(err);
+          		err.errors[0].detail.problems.forEach((message) => {
+            			this.get('toast').error(message);
+          		});
+        	}
+        	else {
+          		this.get('errorHandler').handleError(err, 'There was a problem processing the antivirus.');
+        	}
+	} catch (e) {
+		Ember.$('#antivirusId').val('');
+        	Ember.$('#antivirusButton').show();
+		this.get('toast').error('Unknown Error using antivirus');
+	}
 
         Ember.$('#antivirusButton').show();
       });
