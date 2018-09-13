@@ -44,6 +44,30 @@ module.exports.badges = {
       visibility: 'name description'
     },
 
+    engagedcitizen: {
+      name: 'Engaged Citizen',
+      description: 'Got involved with local politics',
+      image: 'voting.png',
+      access: 'admin',
+      visibility: 'name'
+    },
+    
+    debater: {
+      name: 'Master Debater',
+      description: 'A crucial volunteer member of their ambiguous political group',
+      image: 'debate.png',
+      access: 'admin',
+      visibility: 'name'
+    },
+
+    scribe: {
+      name: 'Scribbling Scribe',
+      description: 'Putting those night classes to use',
+      image: 'scribe.png',
+      access: 'admin',
+      visibility: 'name'
+    },
+
     test: {
       name: 'Test',
       description: 'Test badge, please ignore.',

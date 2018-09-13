@@ -71,9 +71,9 @@ export default Ember.Route.extend(ResetScrollMixin, {
       }).catch((err) => {
 	Ember.$('#antivirusId').val('');
         Ember.$('#antivirusButton').show();
-        if (err.errors[0] && err.errors[0].detail && err.errors[0].detail.problems) {
+        if (err.payload && err.payload.problems[0]) {
           console.log(err);
-          err.errors[0].detail.problems.forEach((message) => {
+          err.payload.problems.forEach((message) => {
             this.get('toast').error(message);
           });
         }
