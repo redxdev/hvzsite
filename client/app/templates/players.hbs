@@ -2,20 +2,30 @@
     <div class="vertical-space-sm"></div>
 
     <div class="row">
-        <div class="col-md-5 col-sm-4">
+        <div class="col-md-7 col-sm-4">
             <div class="row">
                 <div class="col-md-1 col-md-offset-2">
                     Sort:
                 </div>
                 <div class="col-md-6">
                     <ul class="nav nav-pills">
-                      {{#if (eq model.sort 'team')}}
+                      {{#if (eq model.sort 'zombies')}}
                           <li class="active">
-                            {{#link-to 'players' (query-params sort='team' page=1)}}Team{{/link-to}}
+                            {{#link-to 'players' (query-params sort='zombie' page=1)}}Zombies{{/link-to}}
                           </li>
                       {{else}}
                           <li>
-                            {{#link-to 'players' (query-params sort='team' page=1)}}Team{{/link-to}}
+                            {{#link-to 'players' (query-params sort='zombie' page=1)}}Zombies{{/link-to}}
+                          </li>
+                      {{/if}}
+
+                      {{#if (eq model.sort 'humans')}}
+                          <li class="active">
+                            {{#link-to 'players' (query-params sort='human' page=1)}}Humans{{/link-to}}
+                          </li>
+                      {{else}}
+                          <li>
+                            {{#link-to 'players' (query-params sort='human' page=1)}}Humans{{/link-to}}
                           </li>
                       {{/if}}
 
@@ -42,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5 col-md-offset-2 col-sm-8">
+        <div class="col-md-5 col-sm-8">
             <form>
                 <div class="input-group">
                     <input id="searchTerm" type="text" class="form-control" placeholder="Search" value="{{searchTerm}}">
