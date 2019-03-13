@@ -22,7 +22,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
   },
 
   model(params) {
-    var sort = params.sort || 'zombie';
+    var sort = params.sort || 'team';
     var searchTerm = params.searchTerm || null;
     var page = params.page || 1;
     var endpoint = sort === 'mods' ? '/status/moderators' : '/status/players';

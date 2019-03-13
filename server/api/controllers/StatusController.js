@@ -37,14 +37,6 @@ module.exports = {
         requireClan = true;
         break;
 
-      case 'human':
-        sort = {humansTagged: -1, team: 1, name: 1};
-        break;
-
-      case 'zombie':
-        sort = {humansTagged: -1, team: -1, name: 1};
-        break;
-
       default:
         return res.badRequest({message: 'Unknown sort method "' + sort + '"'});
     }
@@ -77,6 +69,7 @@ module.exports = {
           {clan: {'contains': search}}
         ]
       });
+
       c.or = [
         {name: {'contains': search}},
         {clan: {'contains': search}}
