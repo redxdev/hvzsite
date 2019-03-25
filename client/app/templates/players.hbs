@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-md-6">
                     <ul class="nav nav-pills">
-                      {{#if (eq model.sort 'zombies')}}
+                      {{#if (eq model.sort 'zombie')}}
                           <li class="active">
                             {{#link-to 'players' (query-params sort='zombie' page=1)}}Zombies{{/link-to}}
                           </li>
@@ -19,7 +19,7 @@
                           </li>
                       {{/if}}
 
-                      {{#if (eq model.sort 'humans')}}
+                      {{#if (eq model.sort 'human')}}
                           <li class="active">
                             {{#link-to 'players' (query-params sort='human' page=1)}}Humans{{/link-to}}
                           </li>
