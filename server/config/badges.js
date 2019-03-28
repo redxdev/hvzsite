@@ -2,6 +2,9 @@ module.exports.badges = {
   enableKillstreaks: true,
 
   registry: {
+  	//Game dependent badges
+
+
     // Manual badges
     test: {
       name: 'Test',
@@ -9,6 +12,14 @@ module.exports.badges = {
       image: 'test.png',
       access: 'superadmin',
       visibility: 'hidden'
+    },
+
+    stalker: {
+    	name: 'Stealthy Snapchatter',
+    	description: 'Stealthily Snaped a Snap of a Supreme Administrator',
+    	image: 'stalker.jpg',
+    	access: 'admin',
+    	visibility: 'image'
     },
 
     sock: {
