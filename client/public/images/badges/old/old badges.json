@@ -1,0 +1,88 @@
+    oldfart: {
+    	name: 'Found the old fart',
+    	description: 'Found the ex-President durring the selfie challenge!',
+    	image: 'oldfart.png',
+    	access: 'admin',
+      visibility: 'hidden'
+    },
+
+    bottle: {
+      name: 'Thirsty',
+      description: 'Drank 2 bottles of water in 5 minutes',
+      image: 'bottle.png',
+      access: 'admin',
+      visibility: 'image'
+    },
+
+    goldenbottle: {
+      name: 'Super Thirsty',
+      description: 'Drank 4 bottles of water in 5 minutes',
+      image: 'goldenbottle.png',
+      access: 'admin',
+      visibility: 'image'
+    },
+
+    
+    vial: {
+      name: 'Scientific Method',
+      description: 'Found a Strange Sample',
+      image: 'vial.png',
+      access: 'admin',
+      visibility: 'name description'
+    },
+    
+    recycling: {
+      name: 'Democratic Republic Concerned Citizen',
+      description: 'Participated in the Dunwater Bottle Cleanup Project',
+      image: 'recycling.png',
+      access: 'admin',
+      visibility: 'name'
+    },
+
+    running: {
+      name: 'Roadrunning',
+      description: 'Participated in the Dunwater Dash',
+      image: 'running.png',
+      access: 'admin',
+      visibility: 'name'
+    },
+
+    bestsinger: {
+      name: 'Operatic Overtones',
+      description: 'Perfectly primed and pitched performance partly proven by professionals',
+      image: 'bestsinger.png',
+      access: 'admin',
+      visibility: 'name description'
+    },
+
+    worstsinger: {
+      name: 'Flopera',
+      description: 'Demarcation determined by denizens of Dunwater as directly designated derived dumpster fire',
+      image: 'worstsinger.png',
+      access: 'admin',
+      visibility: 'name description'
+    },
+
+    engagedcitizen: {
+      name: 'Engaged Citizen',
+      description: 'Got involved with local politics',
+      image: 'voting.png',
+      access: 'admin',
+      visibility: 'name'
+    },
+    
+    debater: {
+      name: 'Master Debater',
+      description: 'A crucial volunteer member of their ambiguous political group',
+      image: 'debate.png',
+      access: 'admin',
+      visibility: 'name'
+    },
+
+    scribe: {
+      name: 'Scribbling Scribe',
+      description: 'Putting those night classes to use',
+      image: 'scribe.gif',
+      access: 'admin',
+      visibility: 'name'
+    },
