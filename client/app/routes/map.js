@@ -28,7 +28,8 @@ export default Ember.Route.extend(ResetScrollMixin, {
           var mapOptions = {
             zoom: config.APP.map.zoom,
             center: getLatLng(config.APP.map.center),
-            mapTypeId: google.maps.MapTypeId.SATELLITE
+            mapTypeId: google.maps.MapTypeId.SATELLITE,
+            key: config.APP.map.key
           };
 
           var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
