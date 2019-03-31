@@ -28,8 +28,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
           var mapOptions = {
             zoom: config.APP.map.zoom,
             center: getLatLng(config.APP.map.center),
-            mapTypeId: google.maps.MapTypeId.SATELLITE,
-            key: config.APP.map.key
+            mapTypeId: google.maps.MapTypeId.SATELLITE
           };
 
           var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -78,7 +77,7 @@ export default Ember.Route.extend(ResetScrollMixin, {
           });
         };
 
-        Ember.$.getScript("//maps.google.com/maps/api/js?libraries=visualization&callback=map_callback");
+        Ember.$.getScript("//maps.google.com/maps/api/js?libraries=visualization&callback=map_callback&key=" + config.APP.map.key);
       });
     }
   }
