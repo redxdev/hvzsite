@@ -38,11 +38,11 @@ module.exports = {
         break;
 
       case 'human':
-        sort = {humansTagged: -1, team: 1, name: 1};
+        sort = {team: 1, humansTagged: -1, name: 1};
         break;
 
       case 'zombie':
-        sort = {humansTagged: -1, team: -1, name: 1};
+        sort = {team: -1, humansTagged: -1, name: 1};
         break;
 
       default:

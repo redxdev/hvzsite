@@ -3,7 +3,21 @@ module.exports.badges = {
 
   registry: {
   	//Game dependent badges
+    forms: {
+      name: 'Pushing Papers',
+      description: 'Submitted to the buracracy and filled out the additional required forms',
+      image: 'scribe.png',
+      access: 'admin',
+      visibility: 'name'
+    },
 
+    fired: {
+      name: 'Trump Card',
+      description: 'You\'re Fired!',
+      image: 'fired.jpg',
+      access: 'admin',
+      visibility: 'name'
+    },
 
     // Manual badges
     test: {
