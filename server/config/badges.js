@@ -19,6 +19,14 @@ module.exports.badges = {
       visibility: 'name'
     },
 
+    shredder: {
+      name: 'Office Inspector',
+      description: 'Tagged the Twitch\'s shredder and lived (or died) to tell the tale',
+      image: 'shredder.png',
+      access: 'admin',
+      visibility: 'name'
+    },
+
     // Manual badges
     test: {
       name: 'Test',
