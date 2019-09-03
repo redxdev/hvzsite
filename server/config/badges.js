@@ -103,7 +103,7 @@ module.exports.badges = {
     	description: 'Stealthily Snaped a Snap of a Supreme Administrator',
     	image: 'stalker.jpg',
     	access: 'admin',
-    	visibility: 'image'
+    	visibility: 'hidden'
     },
 
     sock: {
