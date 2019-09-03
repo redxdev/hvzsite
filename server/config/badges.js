@@ -3,7 +3,7 @@ module.exports.badges = {
 
   registry: {
   	//Game dependent badges
-    scienceCraze: {
+    sciencecraze: {
       name: 'Mad Scientist',
       description: 'For Science! Prone to losing hair.',
       image: 'madScientist.png',
@@ -31,28 +31,28 @@ module.exports.badges = {
       access: 'admin',
       visibility: 'hidden'
     },
-    gravesburgHero: {
+    gravesburghero: {
       name: 'Hero of Gravesburg',
       description: 'You are the hero that Gravesburg needed, maybe not the one they deserved.',
       image: 'gravestone.png',
       access: 'admin',
       visibility: 'hidden'
     },
-    proudRussian: {
+    proudrussian: {
       name: 'Proud Russian',
       description: 'Пролетарии всех стран, соединяйтесь!',
       image: 'redstar.png',
       access: 'admin',
       visibility: 'hidden'
     },
-    socialistScum: {
+    socialistscum: {
       name: 'Socialist Scum',
       description: 'You betrayed the Communists, but you also were never a Capitalist. Sucks',
       image: 'scum.png',
       access: 'admin',
       visibility: 'hidden'
     },
-    sheriffTime: {
+    sherifftime: {
       name: 'Sheriff of the Hour',
       description: 'You put some zombies where they belong, in the ground!',
       image: 'sheriff.png',
@@ -138,7 +138,7 @@ module.exports.badges = {
       visibility: 'hidden'
     },
 
-    bagsOfRubles: {
+    bagsofrubles: {
       name: 'Bags of Rubles',
       description: 'You got some currency!',
       image: 'moneybags.png',
