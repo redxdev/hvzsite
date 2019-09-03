@@ -3,82 +3,28 @@ module.exports.badges = {
 
   registry: {
   	//Game dependent badges
-    scienceCraze: {
-      name: 'Mad Scientist',
-      description: 'For Science! Prone to losing hair.',
-      image: 'madScientist.png',
+    forms: {
+      name: 'Pushing Papers',
+      description: 'Submitted to the buracracy and filled out the additional required forms',
+      image: 'scribe.png',
       access: 'admin',
       visibility: 'name'
     },
-    cisforcookie: {
-      name: 'C is for Cookie',
-      description: '',
-      image: 'cisforcookie.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    seer: {
-      name: 'Seer',
-      description: '',
-      image: 'seer.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    hideandseek: {
-      name: 'Hide and Seek',
-      description: 'Undetectable!',
-      image: 'hide.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    gravesburgHero: {
-      name: 'Hero of Gravesburg',
-      description: 'You are the hero that Gravesburg needed, maybe not the one they deserved.',
-      image: 'gravestone.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    proudRussian: {
-      name: 'Proud Russian',
-      description: 'Пролетарии всех стран, соединяйтесь!',
-      image: 'redstar.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    socialistScum: {
-      name: 'Socialist Scum',
-      description: 'You betrayed the Communists, but you also were never a Capitalist. Sucks',
-      image: 'scum.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    sheriffTime: {
-      name: 'Sheriff of the Hour',
-      description: 'You put some zombies where they belong, in the ground!',
-      image: 'sheriff.png',
+
+    fired: {
+      name: 'Trump Card',
+      description: 'You\'re Fired!',
+      image: 'fired.jpg',
       access: 'admin',
       visibility: 'name'
     },
-    motherland: {
-      name: 'The Motherland',
-      description: 'The Motherland knows of your accomplishments...',
-      image: 'motherland.png',
+
+    shredder: {
+      name: 'Office Inspector',
+      description: 'Tagged the Twitch\'s shredder and lived (or died) to tell the tale',
+      image: 'shredder.png',
       access: 'admin',
-      visibility: 'hidden'
-    },
-    rushin: {
-      name: 'Rushin Russian',
-      description: 'Your dancing skills were impressive!',
-      image: 'rushin.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    kgb: {
-      name: 'KGB',
-      description: 'You are an honorary member of the special forces unit. Congratulations!',
-      image: 'kgb.png',
-      access: 'admin',
-      visibility: 'hidden'
+      visibility: 'name'
     },
 
     // Manual badges
@@ -86,14 +32,6 @@ module.exports.badges = {
       name: 'Test',
       description: 'Test badge, please ignore.',
       image: 'test.png',
-      access: 'superadmin',
-      visibility: 'hidden'
-    },
-
-    pho: {
-      name: 'Send noods',
-      description: 'Overseas enjoying some good noodles',
-      image: 'pho.png',
       access: 'superadmin',
       visibility: 'hidden'
     },
@@ -138,36 +76,36 @@ module.exports.badges = {
       visibility: 'hidden'
     },
 
-    bagsOfRubles: {
-      name: 'Bags of Rubles',
-      description: 'You got some currency!',
+    moneybags: {
+      name: 'Moneybags',
+      description: 'Earned an in-game currency for their heroic deeds',
       image: 'moneybags.png',
       access: 'admin',
-      visibility: 'name description'
+      visibility: 'hidden'
     },
 
     // Automated badges
     infected: {
       name: 'Infected',
-      description: 'Welcome to the Dead Army',
+      description: 'Died in the zombie apocalypse',
       image: 'infected.png',
       access: 'internal'
     },
     antivirus: {
       name: 'Used AV',
-      description: 'Congratulations on joining the Resistance once more!',
+      description: 'Used an antivirus to become human again',
       image: 'antivirus.png',
       access: 'internal'
     },
     oz: {
       name: 'OZ',
-      description: 'UUUUURGGHHHHGHGHGH',
+      description: 'Patient Zero',
       image: 'oz.png',
       access: 'internal'
     },
     earlyRiser: {
       name: 'Early Riser',
-      description: 'Caught a capialist between 6 and 8 AM',
+      description: 'Caught a human between 6 and 8 AM',
       image: 'earlyriser.png',
       access: 'internal'
     },
@@ -178,14 +116,14 @@ module.exports.badges = {
       access: 'internal'
     },
     badStart: {
-      name: 'Fodder',
-      description: 'Your sacrifice will not be forgotten, comrade.',
+      name: 'Red Shirt',
+      description: 'Died on Sunday night',
       image: 'badstart.png',
       access: 'internal'
     },
     soClose: {
       name: 'So Close',
-      description: 'You lasted until Thursday... so close!',
+      description: 'Died from Thursday onward',
       image: 'close.png',
       access: 'internal'
     },
@@ -199,55 +137,55 @@ module.exports.badges = {
     // Killstreaks
     streak2: {
       name: 'Double Kill',
-      description: 'You tagged 2 Captialists within an hour!',
+      description: '2 kills within an hour',
       image: 'streak-2.png',
       access: 'internal'
     },
     streak3: {
       name: 'Triple Kill',
-      description: 'You tagged 3 Captialists within an hour!',
+      description: '3 kills within an hour',
       image: 'streak-3.png',
       access: 'internal'
     },
     streak4: {
       name: 'Overkill',
-      description: 'You tagged 4 Captialists within an hour!',
+      description: '4 kills within an hour',
       image: 'streak-4.png',
       access: 'internal'
     },
     streak5: {
       name: 'Killtacular',
-      description: 'You tagged 5 Captialists within an hour!',
+      description: '5 kills within an hour',
       image: 'streak-5.png',
       access: 'internal'
     },
     streak6: {
       name: 'Killtrocity',
-      description: 'You tagged 6 Captialists within an hour!',
+      description: '6 kills within an hour',
       image: 'streak-6.png',
       access: 'internal'
     },
     streak7: {
       name: 'Killmanjaro',
-      description: 'You tagged 7 Captialists within an hour!',
+      description: '7 kills within an hour',
       image: 'streak-7.png',
       access: 'internal'
     },
     streak8: {
       name: 'Killtastrophy',
-      description: 'You tagged 8 Captialists within an hour!',
+      description: '8 kills within an hour',
       image: 'streak-8.png',
       access: 'internal'
     },
     streak9: {
       name: 'Killpocalypse',
-      description: 'You tagged 9 Captialists within an hour!',
+      description: '9 kills within an hour',
       image: 'streak-9.png',
       access: 'internal'
     },
     streak10: {
-      name: 'Red Rambo',
-      description: 'Honorary Red Rambo. 10 Captialists tagged in an hour',
+      name: 'Killionare',
+      description: '10 kills within an hour',
       image: 'streak-10.png',
       access: 'internal'
     }
