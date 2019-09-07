@@ -80,6 +80,13 @@ module.exports.badges = {
       access: 'admin',
       visibility: 'hidden'
     },
+    morsemaster: {
+      name: 'Morse Master',
+      description: 'You have specialized in reading encrypted messages!',
+      image: 'spyglass2.png',
+      access: 'admin',
+      visibility: 'hidden'
+    },
 
     // Manual badges
     test: {
