@@ -3,89 +3,54 @@ module.exports.badges = {
 
   registry: {
   	//Game dependent badges
-    sciencecraze: {
-      name: 'Mad Scientist',
-      description: 'For Science! Prone to losing hair.',
-      image: 'madScientist.png',
-      access: 'admin',
-      visibility: 'name'
-    },
-    cisforcookie: {
-      name: 'C is for Cookie',
-      description: '',
-      image: 'cisforcookie.png',
+    headhunter: {
+      name: 'Headhunter',
+      description: 'Captured a Midday Headhunter.',
+      image: 'test.png',
       access: 'admin',
       visibility: 'hidden'
     },
-    seer: {
-      name: 'Seer',
-      description: '',
-      image: 'seer.png',
+    footsteps: {
+      name: 'In Amundsen’s Footsteps',
+      description: 'Completed a map and compass orienteering course.',
+      image: 'test.png',
       access: 'admin',
       visibility: 'hidden'
     },
-    hideandseek: {
-      name: 'Hide and Seek',
-      description: 'Undetectable!',
-      image: 'hide.png',
+    hero: {
+      name: 'Continental Hero',
+      description: 'Recognised for Greatness.',
+      image: 'test.png',
       access: 'admin',
       visibility: 'hidden'
     },
-    gravesburghero: {
-      name: 'Hero of Gravesburg',
-      description: 'You are the hero that Gravesburg needed, maybe not the one they deserved.',
-      image: 'gravestone.png',
+    midday: {
+      name: 'Midday mission',
+      description: 'Participated in a midday mission',
+      image: 'test.png',
       access: 'admin',
-      visibility: 'hidden'
+      visibility: 'name description'
     },
-    proudrussian: {
-      name: 'Proud Russian',
-      description: 'Пролетарии всех стран, соединяйтесь!',
-      image: 'redstar.png',
+    side: {
+      name: 'Side Mission',
+      description: '100% completion or bust',
+      image: 'test.png',
       access: 'admin',
-      visibility: 'hidden'
+      visibility: 'name description'
     },
-    socialistscum: {
-      name: 'Socialist Scum',
-      description: 'You betrayed the Communists, but you also were never a Capitalist. Sucks',
-      image: 'scum.png',
+    puzzle: {
+      name: 'Puzzle',
+      description: 'What’s that? Whodunnit?',
+      image: 'test.png',
       access: 'admin',
-      visibility: 'hidden'
+      visibility: 'name description'
     },
-    sherifftime: {
-      name: 'Sheriff of the Hour',
-      description: 'You put some zombies where they belong, in the ground!',
-      image: 'sheriff.png',
+    penguindollars: {
+      name: 'Penguin Dollars',
+      description: 'You got currency!',
+      image: 'test.png',
       access: 'admin',
-      visibility: 'name'
-    },
-    motherland: {
-      name: 'The Motherland',
-      description: 'The Motherland knows of your accomplishments...',
-      image: 'motherland.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    rushin: {
-      name: 'Rushin Russian',
-      description: 'Your dancing skills were impressive!',
-      image: 'rushin.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    kgb: {
-      name: 'KGB',
-      description: 'You are an honorary member of the special forces unit. Congratulations!',
-      image: 'kgb.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-    morsemaster: {
-      name: 'Morse Master',
-      description: 'You have specialized in reading encrypted messages!',
-      image: 'spyglass2.png',
-      access: 'admin',
-      visibility: 'hidden'
+      visibility: 'name description'
     },
 
     // Manual badges
@@ -95,62 +60,6 @@ module.exports.badges = {
       image: 'test.png',
       access: 'superadmin',
       visibility: 'hidden'
-    },
-
-    pho: {
-      name: 'Send noods',
-      description: 'Overseas enjoying some good noodles',
-      image: 'pho.png',
-      access: 'superadmin',
-      visibility: 'hidden'
-    },
-
-    stalker: {
-    	name: 'Stealthy Snapchatter',
-    	description: 'Stealthily Snaped a Snap of a Supreme Administrator',
-    	image: 'stalker.jpg',
-    	access: 'admin',
-    	visibility: 'hidden'
-    },
-
-    sock: {
-      name: 'Duelist',
-      description: 'Beat a mod or admin in a duel',
-      image: 'sock.png',
-      access: 'admin',
-      visibility: 'hidden'
-    },
-
-    selfie: {
-    	name: 'Selfie Connoisseur',
-    	description: 'Participated in the selfie challenge',
-    	image: 'camera.png',
-    	access: 'admin',
-      visibility: 'hidden'
-    },
-
-    goldenselfie: {
-    	name: 'Found the President',
-    	description: 'Found the President durring the selfie challenge!',
-    	image: 'goldcamera.png',
-    	access: 'admin',
-      visibility: 'hidden'
-    },
-
-    scavengerhunt: {
-    	name: 'Dora the Explorer',
-    	description: 'Completed the scavenger hunt!',
-    	image: 'spyglass.png',
-    	access: 'admin',
-      visibility: 'hidden'
-    },
-
-    bagsofrubles: {
-      name: 'Bags of Rubles',
-      description: 'You got some currency!',
-      image: 'moneybags.png',
-      access: 'admin',
-      visibility: 'name description'
     },
 
     // Automated badges
