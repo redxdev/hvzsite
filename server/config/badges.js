@@ -6,49 +6,49 @@ module.exports.badges = {
     headhunter: {
       name: 'Headhunter',
       description: 'Captured a Midday Headhunter.',
-      image: 'test.png',
+      image: 'headhunter.png',
       access: 'admin',
       visibility: 'hidden'
     },
     footsteps: {
       name: 'In Amundsen’s Footsteps',
       description: 'Completed a map and compass orienteering course.',
-      image: 'test.png',
+      image: 'footsteps.png',
       access: 'admin',
       visibility: 'hidden'
     },
     hero: {
       name: 'Continental Hero',
       description: 'Recognised for Greatness.',
-      image: 'test.png',
+      image: 'hero.png',
       access: 'admin',
       visibility: 'hidden'
     },
     midday: {
       name: 'Midday mission',
       description: 'Participated in a midday mission',
-      image: 'test.png',
+      image: 'midday.png',
       access: 'admin',
       visibility: 'name description'
     },
     side: {
       name: 'Side Mission',
       description: '100% completion or bust',
-      image: 'test.png',
+      image: 'side.png',
       access: 'admin',
       visibility: 'name description'
     },
     puzzle: {
       name: 'Puzzle',
       description: 'What’s that? Whodunnit?',
-      image: 'test.png',
+      image: 'puzzle.png',
       access: 'admin',
       visibility: 'name description'
     },
     penguindollars: {
       name: 'Penguin Dollars',
       description: 'You got currency!',
-      image: 'test.png',
+      image: 'penguindollars.png',
       access: 'admin',
       visibility: 'name description'
     },
