@@ -115,55 +115,55 @@ module.exports.badges = {
     // Killstreaks
     streak2: {
       name: 'Double Kill',
-      description: 'You tagged 2 Captialists within an hour!',
+      description: 'You tagged 2 Researchers within an hour!',
       image: 'streak-2.png',
       access: 'internal'
     },
     streak3: {
       name: 'Triple Kill',
-      description: 'You tagged 3 Captialists within an hour!',
+      description: 'You tagged 3 Researchers within an hour!',
       image: 'streak-3.png',
       access: 'internal'
     },
     streak4: {
       name: 'Overkill',
-      description: 'You tagged 4 Captialists within an hour!',
+      description: 'You tagged 4 Researchers within an hour!',
       image: 'streak-4.png',
       access: 'internal'
     },
     streak5: {
       name: 'Killtacular',
-      description: 'You tagged 5 Captialists within an hour!',
+      description: 'You tagged 5 Researchers within an hour!',
       image: 'streak-5.png',
       access: 'internal'
     },
     streak6: {
       name: 'Killtrocity',
-      description: 'You tagged 6 Captialists within an hour!',
+      description: 'You tagged 6 Researchers within an hour!',
       image: 'streak-6.png',
       access: 'internal'
     },
     streak7: {
       name: 'Killmanjaro',
-      description: 'You tagged 7 Captialists within an hour!',
+      description: 'You tagged 7 Researchers within an hour!',
       image: 'streak-7.png',
       access: 'internal'
     },
     streak8: {
       name: 'Killtastrophy',
-      description: 'You tagged 8 Captialists within an hour!',
+      description: 'You tagged 8 Researchers within an hour!',
       image: 'streak-8.png',
       access: 'internal'
     },
     streak9: {
       name: 'Killpocalypse',
-      description: 'You tagged 9 Captialists within an hour!',
+      description: 'You tagged 9 Researchers within an hour!',
       image: 'streak-9.png',
       access: 'internal'
     },
     streak10: {
       name: 'Red Rambo',
-      description: 'Honorary Red Rambo. 10 Captialists tagged in an hour',
+      description: 'Honorary Red Rambo. 10 Researchers tagged in an hour',
       image: 'streak-10.png',
       access: 'internal'
     }
