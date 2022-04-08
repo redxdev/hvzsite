@@ -22,7 +22,7 @@
     "grunt-sails-linker": "^1.0.4",
     "grunt-sync": "0.6.2",
     "include-all": "^4.0.3",
-    "moment": "^2.18.1",
+    "moment": "^2.29.2",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "randomstring": "^1.1.5",
