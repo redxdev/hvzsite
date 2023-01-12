@@ -27,10 +27,10 @@
     "passport-google-oauth": "^1.0.0",
     "randomstring": "^1.1.5",
     "rc": "^1.2.1",
-    "sails": "^0.12.13",
+    "sails": "^1.5.3",
     "sails-disk": "^0.10.10",
     "sails-mysql": "^0.12.2",
-    "skipper-disk": "^0.5.9",
+    "skipper-disk": "^0.5.12",
     "unirest": "^0.5.1",
     "yaqrcode": "^0.2.1"
   },
